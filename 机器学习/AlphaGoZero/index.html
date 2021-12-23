@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="五子棋 AlphaGo ZeroAlphaGo Zero 不同于 AlphaGo Fan 和 AlphaGo Lee。主要体现在如下几个方面：  第一点也是最重要的一点，AlphaGo Zero只使用强化学习训练。AlphaGo Zero从白板开始学习，不使用人类监督数据，在自我对弈中，进行强化学习训练。 第二点：只使用棋盘上黑白棋作为输入特征。不需要人工设计的围棋领域的特征。 第三点：只使用单一">
+  
+  
+  <title>python 编程实现 五子棋 AlphaGo Zero - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="python 编程实现 五子棋 AlphaGo Zero">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-22 18:47" pubdate>
+        December 22, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      16k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      51 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">python 编程实现 五子棋 AlphaGo Zero</h1>
+            
+            <div class="markdown-body">
+              <h1 id="五子棋-AlphaGo-Zero"><a href="#五子棋-AlphaGo-Zero" class="headerlink" title="五子棋 AlphaGo Zero"></a>五子棋 AlphaGo Zero</h1><p><strong>AlphaGo Zero</strong> 不同于 AlphaGo Fan 和 AlphaGo Lee。主要体现在如下几个方面：</p>
+<ul>
+<li>第一点也是最重要的一点，AlphaGo Zero只使用强化学习训练。AlphaGo Zero从白板开始学习，不使用人类监督数据，在自我对弈中，进行强化学习训练。</li>
+<li>第二点：只使用棋盘上黑白棋作为输入特征。不需要人工设计的围棋领域的特征。</li>
+<li>第三点：只使用单一的神经网络。不使用分开的策略网络和值网络。</li>
+<li>第四点：使用简单的树搜索，且树搜索只依赖于上述单一的神经网络，同时进行棋面局势评估和走棋动作选择。抛弃了蒙特卡搜索树中的<strong>Rollouts</strong>(AlphaGo中的Rollout Policy)。</li>
+</ul>
+<p>为了实现上述目标，AlphaGo Zero是用了一种新的强化学习训练算法，将蒙特卡罗树搜索树（MCTS）纳入训练阶段。</p>
+<h2 id="强化学习-Policy-Iteration"><a href="#强化学习-Policy-Iteration" class="headerlink" title="强化学习 Policy Iteration"></a>强化学习 Policy Iteration</h2><p><strong>网络</strong> ： 深度残差神经网络 $f_θ$，参数为 $θ$。每个卷积层由许多残差块组成。</p>
+<ul>
+<li><strong>输入</strong> ： 只使用棋面的黑白方的棋面特征 (棋面状态 $s$)</li>
+<li><strong>输出</strong> ： $(p,v)=f_θ(s)$，输出下一步动作的概率分布 $p$ 和收益 $v$。<ul>
+<li>$p$ 是一个向量，代表下一步动作的概率分布 $p(a|s)$, $v$ 是一个值，代表当前下棋方获胜的概率。</li>
+</ul>
+</li>
+</ul>
+<p><strong>自我对弈提升</strong> ：</p>
+<p>对于每个棋面 $s$, 使用前一轮得到的神经网络 $f_θ$ 来指导 MCTS 。MCTS 会输出每一步走棋的概率分布$π$。 $π$比单纯的神经网络 $f_θ$ 输出 $p$ 概率分布更好，能够选择更有水平的走棋。</p>
+<div class="note note-info">
+            <p>因为神经网络可以看作是 1 次预测，而 MCTS 则是多次的调用神经网络进行预测。    </p>
+          </div>   
+
+<p><strong>AI 左右互搏，不断地使用同一个 MCTS 指导下棋</strong>，最终会分出胜负，将最终的获胜方 $z$ 作为一个样本值，视为当前棋面下的收益。当一盘对局结束后，会收集到很多黑白双方的棋盘状态 $s$ ，神经网络根据每一个棋盘状态 $s$ 进行预测：<br>$$(p,v)=f_θ(s)$$<br>学习的目标就是 $(p,v)$ 尽可能的接近于真实的 $(π,z)$，这个可以通过设计损失函数实现。然后，反向传播更新 $f$ 的参数 $θ$，这个新的 $f_{θ’}$ 将在下一轮自我对弈中继续指导 MCTS，使得其变得更健壮。</p>
+<div class="note note-info">
+            <p>从这个角度来说，MCTS 可以看做是《Policy Iteration 算法》中的 <strong>策略提升操作</strong>（policy improvement operator）。在自我对弈的过程中，不断使用提升过的、基于 MCTS 的策略 $π$ 来进行决策走棋，最终会决出胜负，将最终的获胜方 $z$ 可以看做是《Policy Iteration 算法》中的 <strong>策略评估操作</strong>（policy evaluation operator），即对当前棋面局势的评估。</p><p>这里强化学习算法的关键是在 《Policy Iteration 算法》过程中，不断重复地使用 <strong>policy improvement</strong> 和 <strong>policy evaluation</strong> 挺高MCTS的决策质量。     </p>
+          </div>   
+
+<h3 id="1-自我对弈数据产生过程"><a href="#1-自我对弈数据产生过程" class="headerlink" title="1 自我对弈数据产生过程"></a>1 自我对弈数据产生过程</h3><p>在一场对弈过程中，我们可以得到不同时刻 $t$ 下的棋盘状态 $s_t$ 以及 MCTS 模拟得到的落子概率分布 $π_t$。<br>$$(s_t,π_t)$$<br>这场对弈最终会分出胜负，得到最后的收益 $r_T, T&gt;t$ (回报分数)，$T$ 就是最终时刻。然后将这个收益贴到每一个 $t$ 的 $z_t$ 上，且满足 $z_t=(+r_T)/(-r_T)$（正负号取决于当前对局最终的获胜者），那么我们就得到了多组训练数据：<br>$$(s_t,π_t,z_t)$$</p>
+<div class="note note-info">
+            <ul><li> $s_t$ 作为 $f_θ$ 的输入</li><li> $(π_t,z_t)$ 作为标签  </li></ul>
+          </div> 
+
+<p>通过损失函数使得神经网络 $f$ 的输出 $(p,v)$ 趋近于 $(π_t,z_t)$。$z_t$ 相当于告诉 AI 应该这盘对弈中应该强化那些落子决策，以及弱化那些落子决策。</p>
+<h3 id="2-决策优化过程"><a href="#2-决策优化过程" class="headerlink" title="2 决策优化过程"></a>2 决策优化过程</h3><p>神经网络 $f$ 首先使用随机权重 $θ$ 进行初始化。然后按照上述描述（<strong>自我对弈数据产生过程</strong>）获得了一大堆构造产生的数据$(s_t,π_t,z_t)$ 作为训练数据。接着，$f(θ_i)$ 使用该训练数据进行参数更新，目标是使得新的 $f(θ_{i+1})$ 的输出 $(p,v)=f(θ_{i+1},s)$ 能够拟合 $(π,z)$，也即最小化 $v$ 和 $z$ 之间的误差，最大化 $p$ 和 $π$ 之间的相似性。</p>
+<p>优化损失函授结合了 <strong>MSE</strong> 和 <strong>cross-entropy Loss</strong>（还包括正则化项）</p>
+<p>$$Loss((θ)=(z-v)^2-π^T·log(p)+c||θ||^2$$</p>
+<h2 id="蒙特卡罗树搜索树-MCTS"><a href="#蒙特卡罗树搜索树-MCTS" class="headerlink" title="蒙特卡罗树搜索树 MCTS"></a>蒙特卡罗树搜索树 MCTS</h2><p>蒙特卡洛树搜索（<strong>M</strong>onte <strong>C</strong>arlo <strong>T</strong>ree <strong>S</strong>earch，<strong>MCTS</strong>）是一种启发式搜索算法，由Coulom在2006年首次提出。他在传统的树形搜索算法的基础上采用了 <strong>蒙特卡洛方法</strong> 进行价值评估，从当前状态开始不断进行随机模拟，然后计算出平均回报率作为对当前状态的估计。搜索有选择地进行迭代，根据估计值加深搜索级别的数量。</p>
+<p>MCTS主要包括 4 个步骤。</p>
+<ul>
+<li><strong>选择（Selection）</strong>：从根节点出发，递归地调用子节点选择策略向搜索树的下方延伸，直到访问到一个终止节点或从未访问过的子节点截止。子节点选择策略也被称为树策略（Tree Policy），通常使用表达式（3-1）作为选择依据。</li>
+<li><strong>扩展（Expansion）</strong>：如果当前节点不是终止节点，则根据当前节点的合法动作添加一个或多个子节点。</li>
+<li><strong>模拟（Simulation）</strong>：从扩展出的新节点出发，基于某种策略（默认策略，Default Policy，通常为随机动作）进行模拟、直到游戏（或问题）结束，得到反馈价值。</li>
+<li><strong>更新（Backpropagation）</strong>：将模拟阶段得到的反馈价值，沿着路径自下而上的向上传播，更新沿途每个节点的估值信息。</li>
+</ul>
+<p>通过不断执行上述的四步操作，蒙特卡洛树搜索便可以迭代地构建出一棵局部增长的不对称搜索树。在进行决策时，只需要根据需要从根节点选择最符合条件的节点对应的动作即可。迭代次数越大，根据大数定律、算法对于每个节点的估值便越准确，进而基于该流程得到的动作越趋近于最优动作。</p>
+<hr>
+<h1 id="代码设计细节"><a href="#代码设计细节" class="headerlink" title="代码设计细节"></a>代码设计细节</h1><h2 id="设计-棋盘-amp-游戏"><a href="#设计-棋盘-amp-游戏" class="headerlink" title="设计 棋盘&amp;游戏"></a>设计 棋盘&amp;游戏</h2><p>这里主要是我们如何 <strong>描述</strong> 一个棋盘，以及一场游戏。</p>
+<h3 id="1-描述棋盘"><a href="#1-描述棋盘" class="headerlink" title="1 描述棋盘"></a>1 描述棋盘</h3><h4 id="1-1-主要变量"><a href="#1-1-主要变量" class="headerlink" title="1.1 主要变量"></a>1.1 主要变量</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">Board.py</span><br><br><span class="hljs-string">width：棋盘宽</span><br><span class="hljs-string">height：棋盘高</span><br><span class="hljs-string">states：一场对局各方落子的记录</span>    <br><span class="hljs-string">——————————————————————————————————————————</span><br><span class="hljs-string">棋盘状态《states》存储在dict中</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">棋盘上的落子行为</span> <br><span class="hljs-bullet">-</span> <span class="hljs-attr">value:</span> <span class="hljs-string">玩家</span><br>&#123;<span class="hljs-attr">38:</span> <span class="hljs-number">1</span>, <span class="hljs-attr">23:</span> <span class="hljs-number">2</span>, <span class="hljs-attr">24:</span> <span class="hljs-number">1</span>, <span class="hljs-attr">36:</span> <span class="hljs-number">2</span>, <span class="hljs-string">···</span> &#125;<br><span class="hljs-string">玩家1</span> <span class="hljs-string">落子</span> <span class="hljs-number">38</span> <span class="hljs-string">位置</span><br><span class="hljs-string">玩家2</span> <span class="hljs-string">落子</span> <span class="hljs-number">23</span> <span class="hljs-string">位置</span> <br><span class="hljs-string">玩家1</span> <span class="hljs-string">落子</span> <span class="hljs-number">24</span> <span class="hljs-string">位置</span><br><span class="hljs-string">玩家2</span> <span class="hljs-string">落子</span> <span class="hljs-number">36</span> <span class="hljs-string">位置</span>  <span class="hljs-string">···</span><br><span class="hljs-string">——————————————————————————————————————————</span><br><span class="hljs-string">n_in_row：n子棋</span><br><span class="hljs-string">players：玩家列表</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>] <span class="hljs-comment"># player1 和 player2</span><br><span class="hljs-string">current_player：当前玩家</span><br><span class="hljs-string">availables：棋盘剩余可落子的空位</span><br><span class="hljs-string">last_move：最新的一次落子</span><br></code></pre></td></tr></table></figure>
+<h4 id="1-2-主要函数"><a href="#1-2-主要函数" class="headerlink" title="1.2 主要函数"></a>1.2 主要函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python">Board.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">do_move</span>(<span class="hljs-params">self, move</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    落子</span><br><span class="hljs-string">    move：落子的位置 一个整数取值范围 0 到 H*W-1</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    self.states[move] = self.current_player<br>    self.availables.remove(move)  <span class="hljs-comment"># 减少一个可以落子的位置</span><br><br>    <span class="hljs-comment"># 切换玩家角色</span><br>    self.current_player = (<br>        self.players[<span class="hljs-number">0</span>] <span class="hljs-keyword">if</span> self.current_player == self.players[<span class="hljs-number">1</span>]<br>        <span class="hljs-keyword">else</span> self.players[<span class="hljs-number">1</span>]<br>    )<br>    self.last_move = move <span class="hljs-comment"># 记录上一次落子的位置</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">current_state</span>(<span class="hljs-params">self</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    以当前 玩家player 角度返回当前棋盘</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 使用 4*W*H 存储棋盘的状态</span><br>    square_state = np.zeros((<span class="hljs-number">4</span>, self.width, self.height))<br><br>    <span class="hljs-keyword">if</span> self.states:<br>        moves, players = np.array(<span class="hljs-built_in">list</span>(<span class="hljs-built_in">zip</span>(*self.states.items())))<br>        <span class="hljs-comment"># moves 数组</span><br>        <span class="hljs-comment"># 记录着两个玩家交错的落子位置</span><br><br>        move_curr = moves[players == self.current_player] <span class="hljs-comment"># 当前玩家落子的位置</span><br>        move_oppo = moves[players != self.current_player] <span class="hljs-comment"># 对手玩家落子的位置</span><br><br>        square_state[<span class="hljs-number">0</span>][move_curr // self.width, move_curr % self.height] = <span class="hljs-number">1.0</span> <span class="hljs-comment"># 当前玩家所有落子棋盘</span><br>        square_state[<span class="hljs-number">1</span>][move_oppo // self.width, move_oppo % self.height] = <span class="hljs-number">1.0</span> <span class="hljs-comment"># 对手玩家所有落子棋盘</span><br><br>        <span class="hljs-comment"># 标记最近一次落子位置</span><br>        square_state[<span class="hljs-number">2</span>][self.last_move // self.width, self.last_move % self.height] = <span class="hljs-number">1.0</span><br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(self.states) % <span class="hljs-number">2</span> == <span class="hljs-number">0</span>:<br>        square_state[<span class="hljs-number">3</span>][:, :] = <span class="hljs-number">1.0</span> <br><br>    <span class="hljs-keyword">return</span> square_state[:, ::-<span class="hljs-number">1</span>, :]<br></code></pre></td></tr></table></figure>
+<h3 id="2-描述游戏"><a href="#2-描述游戏" class="headerlink" title="2 描述游戏"></a>2 描述游戏</h3><h4 id="2-1-主要函数"><a href="#2-1-主要函数" class="headerlink" title="2.1 主要函数"></a>2.1 主要函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs python">Game.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">selfPlay</span>(<span class="hljs-params">self, player, Index=<span class="hljs-number">0</span></span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot; </span><br><span class="hljs-string">    构建一个AI自我博弈，重用搜索树，并存储自玩数据：(棋盘状态, 落子概率, 胜者预测) 以供训练</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <br>    self.board.initBoard() <span class="hljs-comment"># 初始化一个棋盘</span><br>    boards, probs, currentPlayer = [], [], [] <span class="hljs-comment"># 用以存储相关对局信息</span><br><br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-comment"># 当前玩家，针对当前棋盘根据MCTS获取下一步的落子行为</span><br>        move, move_probs = player.getAction(self.board, self.flag_is_train)<br>        <br>        <span class="hljs-comment"># 存储下棋的数据</span><br>        boards.append(self.board.current_state())<br>        probs.append(move_probs)<br>        currentPlayer.append(self.board.current_player)<br><br>        <span class="hljs-comment"># 下棋落子</span><br>        self.board.do_move(move)<br><br>        <span class="hljs-comment"># # 展示下棋的过程</span><br>        <span class="hljs-keyword">if</span> self.flag_is_shown:<br>            self.Show(self.board)<br>        <br>        <span class="hljs-comment"># 是否已经结束</span><br>        gameOver, winner = self.board.gameIsOver()<br><br>        <span class="hljs-keyword">if</span> gameOver:<br>            <span class="hljs-comment"># 根据最终游戏的结果，构造用于训练神经网络的《标签》Z</span><br>            winners_z = np.zeros(<span class="hljs-built_in">len</span>(currentPlayer))<br>            <span class="hljs-keyword">if</span> winner != -<span class="hljs-number">1</span>:<br>                winners_z[np.array(currentPlayer) == winner] = <span class="hljs-number">1.0</span><br>                winners_z[np.array(currentPlayer) != winner] = -<span class="hljs-number">1.0</span><br><br>            <span class="hljs-comment"># 重新设置MCTS，初始化了整棵树</span><br>            player.resetMCTS()<br><br>            <span class="hljs-comment"># 在GUI上显示一些相关信息而已</span><br>            <span class="hljs-keyword">if</span> self.flag_is_shown:<br>                <span class="hljs-keyword">if</span> winner != -<span class="hljs-number">1</span>:<br>                    <span class="hljs-keyword">if</span> self.flag_is_train == <span class="hljs-literal">False</span>:<br>                        playerName = <span class="hljs-string">&#x27;you&#x27;</span><br>                        <span class="hljs-keyword">if</span> self.board.current_player != <span class="hljs-number">1</span>:<br>                            playerName = <span class="hljs-string">&#x27;AI&#x27;</span><br>                    <span class="hljs-keyword">else</span>:<br>                        playerName = <span class="hljs-string">&#x27;AI-&#x27;</span>+<span class="hljs-built_in">str</span>(self.board.current_player)<br>                    self.drawText(<span class="hljs-string">&quot;Game end. Winner is :&quot;</span>+<span class="hljs-built_in">str</span>(playerName))<br>                <span class="hljs-keyword">else</span>:<br>                    self.drawText(<span class="hljs-string">&quot;Game end. Tie&quot;</span>)<br><br>            <span class="hljs-comment"># 这个 rect 用来圈（红圈）出最新一次落子的位置</span><br>            self.rect = <span class="hljs-literal">None</span><br><br>            <span class="hljs-comment"># 返回的这些数据都是很有用的 是神经网络的《学习资料》</span><br>            <span class="hljs-keyword">return</span> winner, <span class="hljs-built_in">zip</span>(boards, probs, winners_z)<br></code></pre></td></tr></table></figure>
+
+<h2 id="设计-神经网络"><a href="#设计-神经网络" class="headerlink" title="设计 神经网络"></a>设计 神经网络</h2><p>主要是辅助 MCTS 进行决策，神经网络的学习过程可以积累棋盘知识，便于复用。<strong>TensorFlow</strong></p>
+<h3 id="1-残差网络"><a href="#1-残差网络" class="headerlink" title="1 残差网络"></a>1 残差网络</h3><div align=center>
+<img src="../images/ResNet.png" srcset="/img/loading.gif" lazyload width = "667" height = "363" align=center/>
+</div>
+
+<h4 id="1-1-基本层-模块化"><a href="#1-1-基本层-模块化" class="headerlink" title="1.1 基本层-模块化"></a>1.1 基本层-模块化</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs nix">PolicyNN.py  Class: ResidualCNN<br><br><span class="hljs-comment"># 卷积层模板</span><br>def ConvLayer(self, input_block, filters, kernel_size):<br>    <span class="hljs-attr">output</span> = Conv2D(<br>        <span class="hljs-attr">filters</span> = filters,              <span class="hljs-comment"># 卷积滤波器个数</span><br>        <span class="hljs-attr">kernel_size</span> = kernel_size,      <span class="hljs-comment"># 卷积滤波器的尺寸 (3,3),(5,5)</span><br>        <span class="hljs-attr">data_format=&quot;channels_first&quot;,</span>   <span class="hljs-comment"># 表示输入张量中维度的顺序</span><br>        <span class="hljs-attr">padding</span> = &#x27;same&#x27;,               <span class="hljs-comment"># 边缘填充</span><br>        <span class="hljs-attr">use_bias=False,</span>                 <span class="hljs-comment"># 该层是否使用偏置向量</span><br>        <span class="hljs-attr">activation=&#x27;linear&#x27;,</span>            <span class="hljs-comment"># 线性激活函数</span><br>        <span class="hljs-attr">kernel_regularizer</span> = l2(self.L2) <span class="hljs-comment"># L2正则化项</span><br>    )(input_block)<br>    <span class="hljs-attr">output</span> = BatchNormalization(<span class="hljs-attr">axis=1)(output)</span> <span class="hljs-comment"># 批量标准化层 </span><br>    <span class="hljs-attr">output</span> = LeakyReLU()(output)<br>    return (output)、<br><br><span class="hljs-comment"># 残差卷积层模板</span><br>def ResLayer(self, input_block, filters, kernel_size):<br>    <span class="hljs-attr">output</span> = Conv2D(<br>        <span class="hljs-attr">filters</span> = filters,              <span class="hljs-comment"># 卷积滤波器个数</span><br>        <span class="hljs-attr">kernel_size</span> = kernel_size,      <span class="hljs-comment"># 卷积滤波器的尺寸 (3,3),(5,5)</span><br>        <span class="hljs-attr">data_format=&quot;channels_first&quot;,</span>   <span class="hljs-comment"># 表示输入张量中维度的顺序</span><br>        <span class="hljs-attr">padding</span> = &#x27;same&#x27;,               <span class="hljs-comment"># 边缘填充</span><br>        <span class="hljs-attr">use_bias=False,</span>                 <span class="hljs-comment"># 该层是否使用偏置向量</span><br>        <span class="hljs-attr">activation=&#x27;linear&#x27;,</span>            <span class="hljs-comment"># 线性激活函数</span><br>        <span class="hljs-attr">kernel_regularizer</span> = l2(self.L2) <span class="hljs-comment"># L2正则化项</span><br>    )(input_block)<br>    <span class="hljs-attr">output</span> = BatchNormalization(<span class="hljs-attr">axis=1)(output)</span> <span class="hljs-comment"># 批量标准化层 </span><br>    <span class="hljs-attr">output</span> = LeakyReLU()(output)                <span class="hljs-comment"># 激活函数</span><br><br>    <span class="hljs-attr">output</span> = Conv2D(<br>        <span class="hljs-attr">filters</span> = filters,              <span class="hljs-comment"># 卷积滤波器个数</span><br>        <span class="hljs-attr">kernel_size</span> = kernel_size,      <span class="hljs-comment"># 卷积滤波器的尺寸 (3,3),(5,5)</span><br>        <span class="hljs-attr">data_format=&quot;channels_first&quot;,</span>   <span class="hljs-comment"># 表示输入张量中维度的顺序</span><br>        <span class="hljs-attr">padding</span> = &#x27;same&#x27;,               <span class="hljs-comment"># 边缘填充</span><br>        <span class="hljs-attr">use_bias=False,</span>                 <span class="hljs-comment"># 该层是否使用偏置向量</span><br>        <span class="hljs-attr">activation=&#x27;linear&#x27;,</span>            <span class="hljs-comment"># 线性激活函数</span><br>        <span class="hljs-attr">kernel_regularizer</span> = l2(self.L2) <span class="hljs-comment"># L2正则化项</span><br>    )(output)<br>    <span class="hljs-attr">output</span> = BatchNormalization(<span class="hljs-attr">axis=1)(output)</span> <span class="hljs-comment"># 批量标准化层 </span><br>    <span class="hljs-attr">output</span> = add([input_block, output])         <span class="hljs-comment"># 拼接输入各个张量的和</span><br>    <span class="hljs-attr">output</span> = LeakyReLU()(output)                <span class="hljs-comment"># 激活函数</span><br>    return (output)<br></code></pre></td></tr></table></figure>
+<h4 id="1-2-预测对象"><a href="#1-2-预测对象" class="headerlink" title="1.2 预测对象"></a>1.2 预测对象</h4><p>$ValueHead$ 是神经网络预测的第 $1$ 个值。也就是在棋盘的某一处落子，未来的收益是多少（赢或者输）。  </p>
+<p>$PolicyHead$ 是神经网络预测的第 $2$ 个值。落子概率分布，有些地方概率大表示《NN认为此处更应该落子》。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs routeros">PolicyNN.py  Class: ResidualCNN<br><br>def ValueHead(self, output):<br>    conv = Conv2D(<br>        filters = 1 ,                  <br>        kernel_size = (1,1) , <br>        <span class="hljs-attribute">data_format</span>=<span class="hljs-string">&quot;channels_first&quot;</span> , <br>        padding = <span class="hljs-string">&#x27;same&#x27;</span>, <br>        <span class="hljs-attribute">use_bias</span>=<span class="hljs-literal">False</span>, <br>        <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;linear&#x27;</span>, <br>        kernel_regularizer = l2(self.L2)<br>    )(output)<br>    conv = BatchNormalization(<span class="hljs-attribute">axis</span>=1)(conv)<br>    conv = LeakyReLU()(conv)<br>    flatten = Flatten()(conv)<br><br>    dense = Dense(<br>        32, # 输出空间维度<br>        <span class="hljs-attribute">use_bias</span>=<span class="hljs-literal">False</span>, <br>        <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;linear&#x27;</span>, <br>        <span class="hljs-attribute">kernel_regularizer</span>=l2(self.L2)<br>    )(flatten)<br>    dense = LeakyReLU()(dense)<br>    dense = Dense(<br>        1, <br>        <span class="hljs-attribute">use_bias</span>=<span class="hljs-literal">False</span>, <br>        <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;tanh&#x27;</span>, <br>        <span class="hljs-attribute">kernel_regularizer</span>=l2(self.L2), <br>        name = <span class="hljs-string">&#x27;ValueHead&#x27;</span><br>    )(dense)<br>    return (dense)<br><br>def PolicyHead(self, output):<br>    conv = Conv2D(<br>        filters = 2, <br>        kernel_size = (1,1), <br>        <span class="hljs-attribute">data_format</span>=<span class="hljs-string">&quot;channels_first&quot;</span>, <br>        padding = <span class="hljs-string">&#x27;same&#x27;</span>, <br>        <span class="hljs-attribute">use_bias</span>=<span class="hljs-literal">False</span>, <br>        <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;linear&#x27;</span>, <br>        kernel_regularizer = l2(self.L2)<br>    )(output)<br>    conv = BatchNormalization(<span class="hljs-attribute">axis</span>=1)(conv)<br>    conv = LeakyReLU()(conv)<br>    conv = Flatten()(conv)<br>    dense = Dense(<br>        self.output_dim, <br>        <span class="hljs-attribute">use_bias</span>=<span class="hljs-literal">False</span>, <br>        <span class="hljs-attribute">activation</span>=<span class="hljs-string">&#x27;softmax&#x27;</span>, <br>        <span class="hljs-attribute">kernel_regularizer</span>=l2(self.L2), <br>        name = <span class="hljs-string">&#x27;PolicyHead&#x27;</span><br>    )(conv)<br>    return (dense)<br></code></pre></td></tr></table></figure>
+<h4 id="1-3-损失函数"><a href="#1-3-损失函数" class="headerlink" title="1.3 损失函数"></a>1.3 损失函数</h4><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs gradle">PolicyNN.py  <span class="hljs-keyword">Class</span>: ResidualCNN<br><br>model.<span class="hljs-keyword">compile</span>(<br>    loss=&#123;<br>        <span class="hljs-string">&#x27;ValueHead&#x27;</span>: <span class="hljs-string">&#x27;mean_squared_error&#x27;</span>, <br>        <span class="hljs-string">&#x27;PolicyHead&#x27;</span>: <span class="hljs-string">&#x27;categorical_crossentropy&#x27;</span><br>    &#125;,<br>    optimizer=Adam(),	<br>    loss_weights=&#123;<br>        <span class="hljs-string">&#x27;ValueHead&#x27;</span>: <span class="hljs-number">0.5</span>, <br>        <span class="hljs-string">&#x27;PolicyHead&#x27;</span>: <span class="hljs-number">0.5</span><br>    &#125;)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>$ValueHead$ 应该和真实的输赢收益越接近越好，采用 MSE 损失。    </li>
+<li>$PolicyHead$ 应该和真实的概率分布越接近越好，采用 Cross-Entropy 损失。</li>
+</ul>
+<h3 id="2-决策网络"><a href="#2-决策网络" class="headerlink" title="2 决策网络"></a>2 决策网络</h3><p>决策网络主要的核心还是我们构建的残差网络。由于我们的训练数据集是根据《自我对弈》动态生成的，所以我们还得 <strong>良好</strong> 的存储所收集的数据。</p>
+<p><strong>数据池</strong>。我们始终维护这个数据池的大小（<code>trainDataPoolSize</code>）不变，将新产生的数据加入到数据池中，如果数据池已经满了就会删除掉最久的数据以空出位置。在每次训练神经网络时，我们没有直接使用前一轮自我对弈产生的数据进行训练，而是从数据池中随机地选择（<code>random.sample</code>）一批数据（大小为 <code>trainBatchSize</code>）进行训练。由于大部分抽样数据来自于不同的游戏回合，数据之间的相关性在一定程度上得到了解决。同时，这种方法还可以解决策略的非静止分布问题。使用单轮下棋产生的数据所学到的策略分布之间可能有很大的差异。但如果数据是由多轮比赛产生的，结果就会在一定程度上趋于平稳。</p>
+<p><strong>学习率更新</strong>。根据 <strong>KL散度</strong> 变化情况调整、或根据损失变化调整学习率。</p>
+<h4 id="2-1-主要变量"><a href="#2-1-主要变量" class="headerlink" title="2.1 主要变量"></a>2.1 主要变量</h4><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">trainDataPoolSize</span> = <span class="hljs-number">18000</span>*<span class="hljs-number">2</span> <span class="hljs-comment"># 用以存储训练网络的数据</span><br><span class="hljs-attr">trainBatchSize</span> = <span class="hljs-number">1024</span>*<span class="hljs-number">2</span>     <span class="hljs-comment"># 每次从数据池(trainDataPool)中随机采样出的一批训练数据</span><br><br><span class="hljs-attr">trainDataPool</span> = deque(maxlen=trainDataPoolSize) <span class="hljs-comment"># 训练数据池</span><br><br><span class="hljs-attr">kl_targ</span> = <span class="hljs-number">0.02</span><br><span class="hljs-attr">learningRate</span> = <span class="hljs-number">2</span>e-<span class="hljs-number">3</span> <span class="hljs-comment"># 学习率 </span><br><span class="hljs-attr">LRfctor</span> = <span class="hljs-number">1.0</span>       <span class="hljs-comment"># 适应性地调整学习率</span><br></code></pre></td></tr></table></figure>
+<h4 id="2-2-主要函数"><a href="#2-2-主要函数" class="headerlink" title="2.2 主要函数"></a>2.2 主要函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><code class="hljs python">PolicyNN.py  Class: PolicyValueNet<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">get_DataAugmentation</span>(<span class="hljs-params">self, play_data</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    通过旋转和翻转来增加数据集</span><br><span class="hljs-string">    play_data: [(棋盘状态, 落子概率, 胜者预测), ..., ...]</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 扩展之后的数据集</span><br>    extendData = []<br>    <span class="hljs-keyword">for</span> board, porbs, winner <span class="hljs-keyword">in</span> play_data:<br>        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>]:<br>            <span class="hljs-comment"># 逆时针旋转</span><br>            <span class="hljs-comment"># -------------------------------------------------</span><br>            <span class="hljs-comment"># 旋转每一个棋盘棋子状态</span><br>            equi_board = np.array([np.rot90(b,i) <span class="hljs-keyword">for</span> b <span class="hljs-keyword">in</span> board])<br>            <span class="hljs-comment"># 旋转每一个棋盘上的概率分布</span><br>            equi_porbs = np.rot90(np.flipud(porbs.reshape(self.input_dim[<span class="hljs-number">1</span>], self.input_dim[<span class="hljs-number">2</span>])), i)<br>            extendData.append((equi_board, np.flipud(equi_porbs).flatten(), winner)) <span class="hljs-comment"># 扩展数据</span><br>            <br>            <span class="hljs-comment"># 水平翻转</span><br>            <span class="hljs-comment"># -------------------------------------------------</span><br>            equi_board = np.array([np.fliplr(s) <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> equi_board])<br>            equi_porbs = np.fliplr(equi_porbs)<br>            extendData.append((equi_board, np.flipud(equi_porbs).flatten(), winner)) <span class="hljs-comment"># 扩展数据</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">memory</span>(<span class="hljs-params">self, play_data</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    存储训练数据</span><br><span class="hljs-string">    play_data: [(棋盘状态, 落子概率, 胜者预测), ..., ...]</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 将收集到的自我对弈数据进行《数据增强》</span><br>    play_data = self.get_DataAugmentation(<span class="hljs-built_in">list</span>(play_data)[:])<br>    self.trainDataPool.extend(play_data) <span class="hljs-comment"># 加入训练数据池中</span><br><br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">self, scrollText</span>):</span><br>        <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        更新预测网络的参数</span><br><span class="hljs-string">        &quot;&quot;&quot;</span><br>        <span class="hljs-comment"># 从数据池中随即采样一批数据进行训练</span><br>        trainBatchSize = random.sample(self.trainDataPool, self.trainBatchSize)<br>        <br>        <span class="hljs-comment"># trainBatchSize 三元组</span><br>        <span class="hljs-comment"># 棋盘状态 + 落子概率分布 + 胜者预测</span><br>        batchBoard  = [data[<span class="hljs-number">0</span>] <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> trainBatchSize]<br>        batchProbs  = [data[<span class="hljs-number">1</span>] <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> trainBatchSize]<br>        batchWinner = [data[<span class="hljs-number">2</span>] <span class="hljs-keyword">for</span> data <span class="hljs-keyword">in</span> trainBatchSize]<br><br>        <span class="hljs-comment"># 返回这一批训练数据样本的模型预测值</span><br>        <span class="hljs-comment"># 也就是首先记录下当前模型的预测水平</span><br>        batchProbsOld, batchValueOld = self.model.predict_on_batch(np.array(batchBoard))<br><br>        pbar = tqdm(<span class="hljs-built_in">range</span>(self.epochs),ncols=<span class="hljs-number">35</span>)<br>        <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> pbar:<br>            ···<br>            <span class="hljs-comment"># 根据这批训练数据，对模型进行训练</span><br>            loss = self.train(batchBoard, batchProbs, batchWinner, self.learningRate*self.LRfctor)<br><br>            <span class="hljs-comment"># 返回训练之后模型预测值</span><br>            batchProbsNew, batchValueNew = self.model.predict_on_batch(np.array(batchBoard))<br><br>            <span class="hljs-comment"># 计算Kullback-Leibler散度 恒两个前后两次 概率分布预测值的差异</span><br>            kl = np.mean(np.<span class="hljs-built_in">sum</span>(batchProbsOld * (np.log(batchProbsOld + <span class="hljs-number">1e-10</span>) - np.log(batchProbsNew + <span class="hljs-number">1e-10</span>)),axis=<span class="hljs-number">1</span>))<br>            <span class="hljs-keyword">if</span> kl &gt; self.kl_targ * <span class="hljs-number">4</span>:  <span class="hljs-comment"># 如果KL散度严重发散，则提前停止使用</span><br>                <span class="hljs-keyword">break</span><br><br>        <span class="hljs-comment"># 更新学习率</span><br>        <span class="hljs-keyword">if</span> kl &gt; self.kl_targ * <span class="hljs-number">2</span> <span class="hljs-keyword">and</span> self.LRfctor &gt; <span class="hljs-number">0.1</span>:<br>            self.LRfctor /= <span class="hljs-number">1.5</span><br>        <span class="hljs-keyword">elif</span> kl &lt; self.kl_targ / <span class="hljs-number">2</span> <span class="hljs-keyword">and</span> self.LRfctor &lt; <span class="hljs-number">10</span>:<br>            self.LRfctor *= <span class="hljs-number">1.5</span><br>        <br>        <span class="hljs-keyword">return</span> loss<br></code></pre></td></tr></table></figure>
+
+<h2 id="MCTS"><a href="#MCTS" class="headerlink" title="MCTS"></a>MCTS</h2><h3 id="1-主要步骤"><a href="#1-主要步骤" class="headerlink" title="1 主要步骤"></a>1 主要步骤</h3><h4 id="1-1-选择"><a href="#1-1-选择" class="headerlink" title="1.1 选择"></a>1.1 选择</h4><p>从根节点(root)出发，递归地调用 <strong>子节点选择策略</strong> 向搜索树的下方延伸，直到访问到一个终止节点或从未访问过的子节点截止。子节点选择策略也被称为树策略（Tree Policy），通常使用表达式（如下）作为选择依据。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python">TreeNode.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">select</span>(<span class="hljs-params">self, factor</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    选择：根据《策略》选择落子动作</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 选择所有孩子中《分数》最高</span><br>    <span class="hljs-comment">#  act_node[1] &lt;TreeNode&gt;</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">max</span>(self.children.items(), key=<span class="hljs-keyword">lambda</span> act_node: act_node[<span class="hljs-number">1</span>].getValue(factor))<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getValue</span>(<span class="hljs-params">self, factor</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    计算每个节点的《价值》，用以选择</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    self.U = (factor * self.P *np.sqrt(self.father.N_visits) / (<span class="hljs-number">1</span> + self.N_visits))<br>    <span class="hljs-keyword">return</span> self.Q + self.U<br></code></pre></td></tr></table></figure>
+<p>$$f_{select}(x)=\textbf{max}(Q_i+U_i),i=leaf_{each-one}$$<br>$$Q_{new}=Q_{old}+\frac{Value_{leaf}-Q_{old}}{N_{visit}}$$<br>$$U=a<em>P</em>\frac{[(hisFather’s)N_{visit}]^{1/2}}{N_{visit}+1}$$</p>
+<p>其中 $Q$ 是该节点的估计价值，$Value_{leaf}$ 是神经网络预测的第 $1$ 个值，也就是落子此处未来的收益有多大，$N_{visit}$ 是该节点的访问次数，$P$ 是此节点的落子概率（神经网络预测的第 $2$ 个值），$U$ 是平衡因子，$a$ 就是代码中的 <code>factor</code> 变量，是一个从 $0$ 到正无穷的调节因子。</p>
+<p>$U$ 跟访问次数有关，没有被访问过的节点会被优先考虑，也是增强了探索广度。</p>
+<ul>
+<li>如果 <code>factor</code> 越小，MCTS 搜索中的探索广度就越低，对神经网络预测的先验概率 $P$ 的关注就越少。如果 <code>factor</code> 太大，探索广度就太高了，它太依赖于神经网络预测的先验概率 $P$，它不太重视 MCTS 模拟积累得到的结果。因此，需要一个合理折中的 factor 值。</li>
+</ul>
+<h4 id="1-2-扩展"><a href="#1-2-扩展" class="headerlink" title="1.2 扩展"></a>1.2 扩展</h4><p>如果当前节点是叶子节点（无子），则根据当前节点的所有可能的《动作》添加一个或多个子节点。<br>扩展节点需要提供两个值：<code>action</code>，<code>prob</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">TreeNode.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">expand</span>(<span class="hljs-params">self, action_priors</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    扩展：增加叶子节点的孩子</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># action_priors：(落子动作a，该位置的概率p)</span><br>    <span class="hljs-keyword">for</span> action, prob <span class="hljs-keyword">in</span> action_priors:<br>        <span class="hljs-keyword">if</span> action <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> self.children:<br>            self.children[action] = TreeNode(self, prob)<br></code></pre></td></tr></table></figure>
+<p><code>action</code>，<code>prob</code> 都是通过神经网络根据当前的棋盘预测出来的结果。</p>
+<h4 id="1-3-模拟"><a href="#1-3-模拟" class="headerlink" title="1,3 模拟"></a>1,3 模拟</h4><p>传统的 MCTS 就是通过蒙特卡洛方法随机采样来预测 <code>action</code>，<code>prob</code>。<br>这里我们使用残差网络进行预测。因为神经网络可以积累学习到的知识。</p>
+<h4 id="1-4-更新"><a href="#1-4-更新" class="headerlink" title="1,4 更新"></a>1,4 更新</h4><p>$Value_{leaf}$ 是神经网络预测的价值收益。将叶子节点的 $Value_{leaf}$，沿着路径自下而上的向上传播，更新沿途每个节点的估值信息。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs python">TreeNode.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">update</span>(<span class="hljs-params">self, leaf_value</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    更新：更新节点的数值</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># leaf_value: 从当前选手的身份《评估》叶子节点的价值，也就是走这一步预计带来的收益。</span><br>    self.N_visits += <span class="hljs-number">1</span><br>    self.Q += <span class="hljs-number">1.0</span>*(leaf_value - self.Q) / self.N_visits<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">updateRecursive</span>(<span class="hljs-params">self, leaf_value</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    回溯：递归更新从叶子到根上的所有节点</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># 如果这个节点是有父亲，优先更新该节点的父亲</span><br>    <span class="hljs-keyword">if</span> self.father:<br>        ···<br>        self.father.updateRecursive(-leaf_value)<br>    self.update(leaf_value)<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="2-MCTS类"><a href="#2-MCTS类" class="headerlink" title="2 MCTS类"></a>2 MCTS类</h3><p><code>TreeNode.py</code> 中已经将 MCTS 的基本动作设计完成，然后设计 <code>MCTS.py</code>。<strong>MCTS类主要是为AI做出落子决策。</strong></p>
+<h4 id="2-1-推演"><a href="#2-1-推演" class="headerlink" title="2.1 推演"></a>2.1 推演</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python">MCTS.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">playout</span>(<span class="hljs-params">self, state</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    推演： 从根到叶进行推演，在叶上获取一个值，并通过其父级将其传播回来。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    node = self.root<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        <span class="hljs-comment"># 如果，是叶子节点就跳出</span><br>        <span class="hljs-keyword">if</span> node.isLeaf():<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-comment"># 否则</span><br>        <span class="hljs-comment">#   就选择该节点所有孩子中《分数》最高的。</span><br>        <span class="hljs-comment">#       action：落子动作</span><br>        <span class="hljs-comment">#       node：孩子节点</span><br>        action, node = node.select(self.fator)<br>        state.do_move(action)<br>    <span class="hljs-comment"># ---------------------------------------------------</span><br>    <span class="hljs-comment"># 在原本的MCTS中，《评估》操作采用蒙特卡洛的方法，通过随机下棋</span><br>    <span class="hljs-comment"># 模拟走完一次完整棋局 (称为 rollout), 得到胜负结果。模拟的结果反应在 leaf_value 变量中</span><br>    <span class="hljs-comment"># ---------------------------------------------------</span><br>    <span class="hljs-comment"># 根据当前的《状态(棋盘)》使用神经网络预测：下一步所有的动作以及</span><br>    <span class="hljs-comment"># 对应的概率 + 此步未来的收益</span><br>    action_probs, leaf_value = self.policy_NN(state)<br><br>    <span class="hljs-comment"># 检查一下当前《状态》是不是已经分出胜负</span><br>    gameOver, winner = state.gameIsOver()<br><br>    <span class="hljs-comment"># 如果这盘棋还没结束</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> gameOver:<br>        <span class="hljs-comment"># 扩展当前节点</span><br>        node.expand(action_probs)<br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 平局</span><br>        <span class="hljs-keyword">if</span> winner == -<span class="hljs-number">1</span>:<br>            leaf_value = <span class="hljs-number">0.0</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-comment"># 如果《模拟/预测》的结果，获胜的是当前的玩家，+1分 否则 -1分</span><br>            leaf_value = (<br>                <span class="hljs-number">1.0</span> <span class="hljs-keyword">if</span> winner == state.getCurrentPlayer() <span class="hljs-keyword">else</span> -<span class="hljs-number">1.0</span><br>            )<br>    <br>    <span class="hljs-comment"># 根据神经网络的预测结果 leaf_value</span><br>    <span class="hljs-comment"># 自下而上《更新》叶子</span><br>    node.updateRecursive(-leaf_value)<br></code></pre></td></tr></table></figure>
+<p>推演（<code>playout</code>）就是一整套 MCTS 动作，<strong>选择–&gt;模拟–&gt;扩展–&gt;更新</strong>。</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pf">action_probs, leaf_value = <span class="hljs-literal">self</span>.policy_NN(<span class="hljs-keyword">state</span>) <span class="hljs-comment">#此处体现了神经网络是如何指导蒙特卡罗搜索的。</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-2-落子"><a href="#2-2-落子" class="headerlink" title="2.2 落子"></a>2.2 落子</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs python">MCTS.py<br><br><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getMoveProbs</span>(<span class="hljs-params">self, state, flag_is_train</span>):</span><br>    <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">    获取落子依据：按顺序进行所有推演(playout)，并返回可用操作(落子)及其相应的概率。</span><br><span class="hljs-string">    &quot;&quot;&quot;</span><br>    <span class="hljs-comment"># state：当前游戏棋盘的状态。</span><br>    <span class="hljs-comment"># 在（0，1）中控制探测(exploration)程序</span><br>    exploration = <span class="hljs-number">1.0</span> <span class="hljs-keyword">if</span> flag_is_train <span class="hljs-keyword">else</span> <span class="hljs-number">1e-3</span><br><br>    <span class="hljs-comment"># 根据当前棋盘状态，经过 simulations 次数的模拟</span><br>    <span class="hljs-comment"># 构建出了一个 MCTS 树，根节点是依托于当前棋盘。</span><br>    <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(self.simulations):<br>        state_copy = copy.deepcopy(state)<br>        self.playout(state_copy)<br><br>    <span class="hljs-comment"># 根据 MCTS 根节点，获取下一步落子的决策</span><br>    act_visits = [(act, node.N_visits) <span class="hljs-keyword">for</span> act, node <span class="hljs-keyword">in</span> self.root.children.items()]<br>    acts, visits = <span class="hljs-built_in">zip</span>(*act_visits)<br>    act_probs = softmax(<span class="hljs-number">1.0</span>/exploration * np.log(np.array(visits) + <span class="hljs-number">1e-10</span>))<br><br>    <span class="hljs-comment"># 落子的位置 + 每一个位置的胜率</span><br>    <span class="hljs-keyword">return</span> acts, act_probs<br></code></pre></td></tr></table></figure>
+
+<p>其中 <code>simulations</code> 为推演的次数，根据大数定律推演的次数越多，对未来的估计就会越准确（<strong>大数定律</strong>）。但是尽管当推演次数足够多时，该算法会收敛，但收敛速度不佳。当推演结束之后，就可以获取根节点（root）所有孩子中得分最高的那个地方行动（落子）。</p>
+<h4 id="2-3-继承-amp-更新-root"><a href="#2-3-继承-amp-更新-root" class="headerlink" title="2.3 继承&amp;更新 root"></a>2.3 继承&amp;更新 root</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">updateMCTS</span>(<span class="hljs-params">self, move</span>):</span><br>    <span class="hljs-keyword">if</span> move <span class="hljs-keyword">in</span> self.root.children:<br>        <span class="hljs-comment"># 延续这棵树，更新树根</span><br>        self.root = self.root.children[move]<br>        self.root.father = <span class="hljs-literal">None</span><br>    <span class="hljs-keyword">else</span>:<br>        <span class="hljs-comment"># 只有当整个对局结束，才重置整棵MCTS</span><br>        self.root = TreeNode(<span class="hljs-literal">None</span>, <span class="hljs-number">1.0</span>)<br></code></pre></td></tr></table></figure>
+<ul>
+<li>在AI自我对弈中，只有当对弈结束时，MCTS才会初始化，否则就会一直沿用同一颗树进行落子决策 <strong>《同一个人左右互搏》</strong></li>
+<li>在于AI对战过程中，AI每走一步就根据当前棋盘建立一棵树，树高为2（root + children），选择一处进行落子，并使 MCTS 才会初始化。</li>
+</ul>
+<hr>
+<h3 id="3-AI-player"><a href="#3-AI-player" class="headerlink" title="3 AI player"></a>3 AI player</h3><p>封装一个完整的AI玩家 主要的动作就一个《落子》</p>
+<h4 id="3-1-落子"><a href="#3-1-落子" class="headerlink" title="3.1 落子"></a>3.1 落子</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">def getAction(self, <span class="hljs-keyword">board, </span>flag_is_train):<br>    <span class="hljs-comment"># 获得当前棋盘中可以落子的地方</span><br>    emptySpacesBoard = <span class="hljs-keyword">board.availables</span><br><span class="hljs-keyword"></span><br>    <span class="hljs-comment"># move_probs 的尺寸是整个棋盘的大小</span><br>    <span class="hljs-comment"># 每一个格子上存放着此处落子的概率</span><br>    <span class="hljs-keyword">move_probs </span>= np.zeros(<span class="hljs-keyword">board.width </span>* <span class="hljs-keyword">board.height)</span><br><span class="hljs-keyword"></span><br>    if len(emptySpacesBoard) &gt; <span class="hljs-number">0</span>:<br>        <span class="hljs-comment"># 基于 MCTS 获取下一步的落子行为，以及对应每一个位置胜率</span><br>        acts, probs = self.MCTS.getMoveProbs(<span class="hljs-keyword">board, </span>flag_is_train)<br>        <span class="hljs-keyword">move_probs[list(acts)] </span>= probs<br>        <br>        if flag_is_train:<br>            <span class="hljs-comment"># 添加《Dirichlet Noise》进行探索（自我对弈训练所需）</span><br>            <span class="hljs-keyword">move </span>= np.random.choice( <span class="hljs-comment"># 随机抽取</span><br>                acts, <span class="hljs-comment"># 落子行为</span><br>                p=<span class="hljs-number">0</span>.<span class="hljs-number">75</span>*probs + <span class="hljs-number">0</span>.<span class="hljs-number">25</span>*np.random.<span class="hljs-keyword">dirichlet(0.3*np.ones(len(probs)))</span><br><span class="hljs-keyword"></span>            )<br>            <span class="hljs-comment"># 自下而上更新根节点并重用 MCTS</span><br>            <span class="hljs-comment"># AI 相当于是《同一个人左右互搏》使用同一棵MCTS进行对我对弈</span><br>            self.MCTS.updateMCTS(<span class="hljs-keyword">move)</span><br><span class="hljs-keyword"></span><span class="hljs-symbol"></span><br><span class="hljs-symbol">        else:</span><br>            <span class="hljs-comment"># 非训练</span><br>            <span class="hljs-comment"># ------------------------------------</span><br>            <span class="hljs-comment"># 更新根节点并使用默认的temp=1e-3重用搜索树</span><br>            <span class="hljs-comment"># 这几乎等同于选择prob最高的移动</span><br>            <span class="hljs-keyword">move </span>= np.random.choice(acts, p=probs)<br>            <span class="hljs-comment"># 重置 MCTS</span><br>            self.MCTS.updateMCTS(-<span class="hljs-number">1</span>)<br>        <br>        <span class="hljs-comment"># 依据概率选择下一步落子的位置，以及当前棋盘的所有位置的概率（分布）</span><br>        return <span class="hljs-keyword">move, </span><span class="hljs-keyword">move_probs</span><br><span class="hljs-keyword"></span><span class="hljs-symbol">    else:</span><br>        print(<span class="hljs-string">&quot;WARNING: the board is full&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>值得一提的是，当AI根据当前的棋盘获取了全局落子决策的时候，AI不是简单进行依概率 <code>probs</code> 采样，而是加入了 <strong>《Dirichlet Noise》</strong> 。</p>
+<ul>
+<li>噪声比为 $0.0$ ：没有任何噪声，这可能使得训练期间的广度探索的程度很低，不能完全搜寻巨大的状态空间，导致最终性能不佳。</li>
+<li>噪声比为 $0.8$ ：可能是噪声比例太大，AI无法起到“深入钻研”的效果，精力太过分散。</li>
+</ul>
+<p>所以我们需要选择合适的噪声比例。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%BC%BA%E5%8C%96%E5%AD%A6%E4%B9%A0/">强化学习</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8/PolarDB%E7%BB%93%E5%90%88%E5%8F%AF%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8%EF%BC%9A%E9%AB%98%E6%95%88%E6%94%AF%E6%8C%81%E4%BA%91%E5%8E%9F%E7%94%9F%E5%85%B3%E7%B3%BB%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%A4%8D%E6%9D%82%E6%9F%A5%E8%AF%A2%E6%93%8D%E4%BD%9C/">
+                        <span class="hidden-mobile">PolarDB FAST2020</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

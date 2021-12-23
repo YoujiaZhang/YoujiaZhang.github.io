@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /tags/
+Allow: /categories/
+Allow: /about/
+Allow: /others/
+
+
+Disallow: /js/
+Disallow: /css/
+Disallow: /lib/
+
+Sitemap: https://youjiazhang.github.io/sitemap.xml
+Sitemap: https://youjiazhang.github.io/baidusitemap.xml

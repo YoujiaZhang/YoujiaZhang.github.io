@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="区块链如何运用 Merkle TreeMerkle Tree 被广泛应用于区块链中，但并不是只有区块链使用它进行校验。比如一些 P2P 下载（迅雷），就需要把文件分割成若干小文件，每块都是一个拥有一个 Hash 值，每块从不同的网络节点中下载，最后组成一个完成的文件，但是也需要Hash验证，他可以使用 Merkle Tree 进行验证。Merkle Tree 不一定是二叉树，可以是任意的树结构。在">
+  
+  
+  <title>区块链如何运用 Merkle Tree - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="区块链如何运用 Merkle Tree">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-22 11:35" pubdate>
+        October 22, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">区块链如何运用 Merkle Tree</h1>
+            
+            <div class="markdown-body">
+              <h1 id="区块链如何运用-Merkle-Tree"><a href="#区块链如何运用-Merkle-Tree" class="headerlink" title="区块链如何运用 Merkle Tree"></a>区块链如何运用 Merkle Tree</h1><p><a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/MerkleTree/">Merkle Tree</a> 被广泛应用于区块链中，但并不是只有区块链使用它进行校验。比如一些 P2P 下载（迅雷），就需要把文件分割成若干小文件，每块都是一个拥有一个 Hash 值，每块从不同的网络节点中下载，最后组成一个完成的文件，但是也需要Hash验证，他可以使用 Merkle Tree 进行验证。Merkle Tree 不一定是二叉树，可以是任意的树结构。在以太坊中，Merkle 验证还不够用，增加了 Patricia Tree 验证，合起来成为 “<strong>Merkle Patricia Tree</strong>”。</p>
+<span id="more"></span>
+<h2 id="简单支付认证-SPV"><a href="#简单支付认证-SPV" class="headerlink" title="简单支付认证 SPV"></a>简单支付认证 SPV</h2><p><img src="/blog-image/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%A6%82%E4%BD%95%E8%BF%90%E7%94%A8MerkleTree/blockStruct.png" srcset="/img/loading.gif" lazyload></p>
+<p>区块链中的每一个区块主要是两个部分：区块头 + 区块体。<br>区块体中包含了完整的交易信息，而一个区块体中包含的数据信息可能是成百上千的，所以这会消耗用户大量的存储空间。为了解决这个问题，<strong>中本聪就提出了 SPV(Simple Payment Verification) 的概念</strong>，即只保存每一个区块的区块头。 </p>
+<p><strong>SPV</strong>: 不运行全节点也可以验证支付，用户只需要保存所有的区块头就可以了。虽然用户不能自己验证交易，但如果能够从区块链的某处找到符合的交易，就可以知道这笔交易已被网络确认，也可以确认该笔交易得到网络多少笔确认。</p>
+<div class="note note-info">
+            <p>这里需要注意的是，SPV强调的是<strong>验证支付</strong>，不是验证交易，这两个概念是不同的。</p><ul><li>验证支付：比较简单，只需要判断用于支付的那笔交易是否被验证过，以及得到网络多少次确认（即有多少个区块叠加）。</li><li>验证交易：则复杂的多，需要验证账户余额是否足够支出、是否存在双重支付、交易脚本是否通过等问题，一般这个操作是由全节点的矿工来完成。全节点:包含钱包（支付验证）、矿工、完整区块链数据库、网络路由节点的功能。</li></ul>
+          </div>
+
+<h2 id="如何验证"><a href="#如何验证" class="headerlink" title="如何验证"></a>如何验证</h2><p>在SPV节点上，不保存全部区块链数据，不下载区块全部交易，只保存区块头数据。所以这种节点不能验证全部交易，只能用于验证支付（确认支付是在区块链中，以及确认多少次）。</p>
+<p>那么，从用户 $\rm A$ 在购买商品时通过比特币支付，并声称自己已经转了$\rm 1BTC$给商家，到商家验证支付有效（SPV验证），这个过程是怎样的呢？</p>
+<ul>
+<li>Step 1： SPV节点如果只关心某个支付到自己比特币地址的交易，则可以通过建立布隆过滤器限制只接收含有目标比特币地址的交易。</li>
+<li>Step 2：一旦比特币网络中其他当节点探测到某个交易符合SPV节点设置的<a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">布隆过滤器</a>条件时，其它节点将以 <strong>Merkle block</strong> 消息的形式发送该区块，Merkle block 消息包含区块头和一条连接目标交易与 Merkle root 的 Merkle 路径。</li>
+<li>Step 3：接下来，SPV节点需要验证交易，需要做 $2$ 个检查，分别是：<ul>
+<li>（1）<strong>交易的存在性检查</strong></li>
+<li>（2）<strong>交易是否双花的检查</strong></li>
+</ul>
+</li>
+<li>Step 4：SPV节点通过该Merkle路径找到跟该交易相关的区块，并验证对应区块中是否存在目标交易（该过程也被称为，<strong>Merkle Path Proof</strong>）。SPV节点所收到的 Merkleblock 数据量通常少于1KB，只有一个完整区块（大约1MB）大小的千分之一左右。</li>
+<li>Step 5：现在通过 Merkle Path Proof，SPV 节点确认了交易确实存在于区块链中，但是这个还是无法保证这笔交易的Input（引用的上一笔UTXO）没有被双花（双重支付）。这时候 SPV 节点通过去看这笔交易所在区块之后的区块个数，<strong>Block 个数越多说明该区块被全网更多节点共识</strong>，一般来说，一笔交易所属区块之后的区块个数达到 <strong>6</strong> 个时，就说明这笔交易是被大家核准过（达成共识）的，没有双花，而且被篡改的可能性也很低。</li>
+</ul>
+<div class="note note-info">
+            <p><strong>分析</strong><br><strong>Q</strong>：Step 2 中为什么需要让别的节点告诉 SPV节点呢？<br><strong>A</strong>：因为 SPV 节点没有本地完整区块链数据，因此它需要向网络发起查询请求。</p><p><strong>Q</strong>：Step 5 中提到的 UTXO是什么？<br><strong>A</strong>：UTXO 是 Unspent Transaction Outputs 的缩写。实际可以理解为在一次转账时剩余没有转出的资金，举一个例子：</p><p><img src="/blog-image/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%A6%82%E4%BD%95%E8%BF%90%E7%94%A8MerkleTree/UTXO.jpg" srcset="/img/loading.gif" lazyload></p><ul><li>假设当前用户 $A$ 余额是 $1000$ 元，如果用户 $A$ 给用户 $B$ 转 $100$ 元，这笔转账会被记录成：<ul><li>交易1：用户 $A$ 给用户 $B$ 转账 $100$ 元</li><li>交易2：用户 $A$ 给用户 $A$ 自己转账 $900$ 元 （UTXO）</li></ul></li></ul><p>这里的 交易2 虽然是一笔交易，但从功能上来说他担当了账户余额的作用，表示在完成这笔 100 元转账后A的账户上还剩余 900 元。</p><p>那么问题来了，为啥非要造一个这样的 UTXO 呢？因为在区块链上只能记录交易，没法记录账户余额。如果没有这个 UTXO 的话，要计算余额需要把一个账户的所有交易的入账和出账全部累加一遍，这是个非常消耗时间和计算资源的事情。<strong>而 UTXO 的出现巧妙的避免了在计算余额时要回溯所有交易的痛点问题</strong>。</p>
+          </div>
+
+<h2 id="Merkle-路径"><a href="#Merkle-路径" class="headerlink" title="Merkle 路径"></a>Merkle 路径</h2><p>如果需要证明某个区块上是否存在一笔交易C，那么我们只需要N3和N4的哈希值构成的Merkle路径就可以证明，过程如下：</p>
+<p><img src="/blog-image/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%A6%82%E4%BD%95%E8%BF%90%E7%94%A8MerkleTree/proof.jpg" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>获取交易C的哈希值，$T2 = Hash(C)$</li>
+<li>通过 T2 和 T3 的哈希值，得到父节点的哈希值：$N5=Hash(T2+T3)$</li>
+<li>同上，通过 T4 和 T5 的哈希值，得到根节点的哈希值：$Root=Hash(T4+T5)$</li>
+<li>然后将上一步得到的根哈希值对比区块头中MerkleTree的根哈希值，如果相同，则证明该区块中存在交易C，否则说明不存在</li>
+</ul>
+<p>换句话说，对于一个包含 <strong>4</strong> 个交易的区块，我们只需要 <strong>2个哈希节点</strong> 就可以进行支付验证。</p>
+<p>这里，由于区块中交易数量少，可能不能很明显地体现出 Merkle Tree 结构的优越性。假如，我们来逐渐增加区块中交易的数量：</p>
+<ul>
+<li>$16$ 笔交易，$\rm 4KB$，$log_2(16)=4$，$4*32=128$字节</li>
+<li>$512$ 笔交易，$\rm 128KB$，$log_2(512)=9$，$9*32=288$字节</li>
+<li>$2048$ 笔交易，$\rm 512KB$，$log_2(2048)=11$，$11*32=352$字节</li>
+<li>$65536$ 笔交易，$\rm 16MB$，$log_2(65536)=16$，$16*32=512$字节</li>
+</ul>
+<div class="note note-info">
+            <p>一个 Hash 值大小为 32 字节</p>
+          </div>
+
+<p>我们可以看到，当交易数量成几何速度成长时，Merkle 路径的开销增长就很缓慢。所以，通过 Merkle 路径，SPV 节点只需要很小的开销就可以快速定位一笔交易。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E5%93%88%E5%B8%8C%E8%A1%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Hash 表</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/MerkleTree/">
+                        <span class="hidden-mobile">Merkle Tree</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,696 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="NPM 包管理工具认识 NPMNPM（Node Package Manager，即node包管理器），是 nodejs 的包管理工具。npm 的出现，使得前端开发者可以更好的引用别人的代码，还可以很方便的分享自己的代码。并且可以很轻松的更新自己分享出去的代码。如果学过 java，那一定对maven 并不陌生，npm 和 maven 功能上大体相同，可以毫不夸张的说，npm 就是 nodejs 中的">
+  
+  
+  <title>NPM 包管理工具 - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="NPM 包管理工具">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-26 17:41" pubdate>
+        October 26, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      8.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NPM 包管理工具</h1>
+            
+            <div class="markdown-body">
+              <h1 id="NPM-包管理工具"><a href="#NPM-包管理工具" class="headerlink" title="NPM 包管理工具"></a>NPM 包管理工具</h1><h2 id="认识-NPM"><a href="#认识-NPM" class="headerlink" title="认识 NPM"></a>认识 NPM</h2><p><strong>NPM</strong>（Node Package Manager，即node包管理器），是 nodejs 的包管理工具。npm 的出现，使得前端开发者可以更好的引用别人的代码，还可以很方便的分享自己的代码。并且可以很轻松的更新自己分享出去的代码。如果学过 java，那一定对maven 并不陌生，npm 和 maven 功能上大体相同，可以毫不夸张的说，npm 就是 nodejs 中的 maven。</p>
+<span id="more"></span>
+<p>常见的使用场景有以下几种：</p>
+<ul>
+<li>允许用户从 npm 服务器下载别人编写的第三方包到本地使用。</li>
+<li>允许用户从 npm 服务器下载并安装别人编写的命令行程序到本地使用。</li>
+<li>允许用户将自己编写的包或命令行程序上传到 npm 服务器供别人使用。</li>
+</ul>
+<p>npm 的背后，是基于 couchdb 的一个数据库，详细记录了每个包的信息，包括作者、版本、依赖、授权信息等。它的一个很重要的作用就是：将开发者从繁琐的包管理工作（版本、依赖等）中解放出来，更加专注于功能的开发。</p>
+<h2 id="Package-json"><a href="#Package-json" class="headerlink" title="Package.json"></a>Package.json</h2><h3 id="生成配置文件-npm-init"><a href="#生成配置文件-npm-init" class="headerlink" title="生成配置文件 npm init"></a>生成配置文件 npm init</h3><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vala">npm init<br><br><span class="hljs-meta"># name &gt; 模块（包）名称</span><br><span class="hljs-meta"># version &gt; 模块版本</span><br><span class="hljs-meta"># description &gt; 模块描述</span><br><span class="hljs-meta"># enter point &gt; 入口文件</span><br><span class="hljs-meta"># test command &gt; 测试命令</span><br><span class="hljs-meta"># git repository &gt; git仓库地址</span><br><span class="hljs-meta"># keywords &gt; 关键词</span><br><span class="hljs-meta"># author &gt; 作者</span><br><span class="hljs-meta"># license &gt; 开源声明</span><br></code></pre></td></tr></table></figure>
+<p>npm 最基本的一个命令，就是 <code>npm init</code> ，输入这个命令后，npm 会向用户提问一系列问题，用来初始化生成一个新的 package.json 文件，如果你觉得不用修改默认配置，一路回车就可以了。输入完基本信息后，npm会生成对应的配置文件。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;npmtest&quot;</span>,<br>  <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;1.0.0&quot;</span>,<br>  <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;index.js&quot;</span>,<br>  <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;</span><br>  &#125;,<br>  <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;&quot;</span>,<br>  <span class="hljs-attr">&quot;license&quot;</span>: <span class="hljs-string">&quot;ISC&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="相关属性"><a href="#相关属性" class="headerlink" title="相关属性"></a>相关属性</h3><p>npm 命令运行时会读取当前目录的 package.json 文件和解释这个文件，这个文件基于 <a target="_blank" rel="noopener" href="http://wiki.commonjs.org/wiki/Packages/1.1">Packages/1.1</a> 规范。在这个文件里你可以定义你的应用名称( name )、应用描述( description )、关键字( keywords )、版本号( version )、应用的配置项( config )、主页( homepage )、作者( author )、资源仓库地址( repository )、bug的提交地址( bugs )，授权方式( licenses )、目录( directories )、应用入口文件( main )、命令行文件( bin )、应用依赖模块( dependencies )、开发环境依赖模块( devDependencies )、运行引擎( engines )和脚本( scripts )等。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>    <span class="hljs-attr">&quot;name&quot;</span>: <span class="hljs-string">&quot;test&quot;</span>,<br>    <span class="hljs-attr">&quot;version&quot;</span>: <span class="hljs-string">&quot;0.0.1&quot;</span>,<br>    <span class="hljs-attr">&quot;description&quot;</span>: <span class="hljs-string">&quot;A testing package&quot;</span>,<br>    <span class="hljs-attr">&quot;author&quot;</span>: <span class="hljs-string">&quot;YoujiaZhang&quot;</span>,<br><br>    <span class="hljs-attr">&quot;dependencies&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;express&quot;</span>: <span class="hljs-string">&quot;1.x.x&quot;</span>,<br>        <span class="hljs-attr">&quot;ejs&quot;</span>: <span class="hljs-string">&quot;0.4.2&quot;</span>,<br>        <span class="hljs-attr">&quot;redis&quot;</span>: <span class="hljs-string">&quot;&gt;= 0.6.7&quot;</span><br>    &#125;,<br><br>    <span class="hljs-attr">&quot;devDependencies&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;vows&quot;</span>: <span class="hljs-string">&quot;0.5.x&quot;</span><br>    &#125;,<br><br>    <span class="hljs-attr">&quot;main&quot;</span>: <span class="hljs-string">&quot;index&quot;</span>,<br><br>    <span class="hljs-attr">&quot;bin&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;./bin/test.js&quot;</span><br>    &#125;,<br><br>    <span class="hljs-attr">&quot;scripts&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;start&quot;</span>: <span class="hljs-string">&quot;node -v&quot;</span>,<br>        <span class="hljs-attr">&quot;test&quot;</span>: <span class="hljs-string">&quot;dir&quot;</span>,<br>    &#125;,<br><br>    <span class="hljs-attr">&quot;engines&quot;</span>: &#123;<br>        <span class="hljs-attr">&quot;node&quot;</span>: <span class="hljs-string">&quot;0.4.x&quot;</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li><p>version -包的版本号</p>
+<ul>
+<li><strong>“5.0.3”</strong> 表示安装指定的版本</li>
+<li><strong>“~5.0.3”</strong> 表示安装5.0.X中最新的版本</li>
+<li><strong>“^5.0.3”</strong> 表示安装5.X.X中最新的版本</li>
+</ul>
+</li>
+<li><p>homepage -包的官网URL</p>
+</li>
+<li><p>contributors -包的其他贡献者</p>
+</li>
+<li><p>dependencies -运行时依赖包列表</p>
+<ul>
+<li>如果依赖包没有安装，npm会自动将依赖包安装在 node_module 目录下。</li>
+</ul>
+</li>
+<li><p>devDependencies -开发时依赖包列表</p>
+<ul>
+<li>开发环境依赖包，主要是在开发环境中用到的依赖包，用命令 npm 的命令 install 或 link 加上参数 <code>—dev</code> 安装到当前模块的 node_modules 目录下。</li>
+</ul>
+</li>
+<li><p>repository -包代码存放的地方的类型</p>
+<ul>
+<li>例如：git、svn。</li>
+</ul>
+</li>
+<li><p>main -指定了程序的主入口文件</p>
+<ul>
+<li>当通过 <code>require(&#39;moduleName&#39;)</code> 引用该模块的时候，就会加载这个入口文件。这个字段的默认值是模块根目录下面的 index.js。</li>
+</ul>
+</li>
+<li><p>scripts -可运行的脚本</p>
+<ul>
+<li>“test”: “echo &quot;Error: no test specified&quot; &amp;&amp; exit 1”</li>
+<li>我们在调用 <code>npm run test</code> 的时候就会执行test脚本，即运行对应的命令。</li>
+</ul>
+</li>
+</ol>
+<div class="note note-info">
+            <p><strong>dependencies 和 devDependencies 的对比</strong></p><ul><li>dependencies：当别人引用我们使用到的包的时候，包内的依赖包也会被下载下来。</li><li>devDependencies：在我们开发的时候会用到的一些包，只是在开发环境中需要用到，但是在别人引用我们包的时候，不会用到这些内容，放在 devDependencies 的包，在别人引用的时候不会被 npm 下载。</li></ul>
+          </div>
+<h3 id="根据配置文件的安装-npm-install"><a href="#根据配置文件的安装-npm-install" class="headerlink" title="根据配置文件的安装 npm install"></a>根据配置文件的安装 npm install</h3><p>当 $Alice$ 把她的项目传送给 $Bob$ 时，会给对方自己写的代码。但是并不会将 $Alice$ 自己的扩展包拷贝给对方。那么 $Bob$ 就需要先安装可以运行这份代码的相关依赖包，怎么办呢？<strong>不用担心，因为 package.json 文件已经记录了。</strong> 使用如下命令，就会将配置文件记录的依赖全部安装到位。</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span><br></code></pre></td></tr></table></figure>
+<h2 id="包的使用"><a href="#包的使用" class="headerlink" title="包的使用"></a>包的使用</h2><p>安装了某个模块，就可以在代码中用 require 命令加载这个模块。新的ES6可以使用import导入包</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> backbone = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;backbone&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(backbone.VERSION)<br></code></pre></td></tr></table></figure>
+
+<p>没有 webpack 之前搜寻整个 node_modules 目标来定位每一个包的路径再手动添加到我们 HTML 文件中（相当的麻烦）</p>
+<p>大多数编程语言都会提供从一个文件导入另一个文件代码的机制。然而 JavaScript 最初设计时并没有这个特性，因为 JavaScript 原本是为了在浏览器端运行而设计的，并没有权限获取计算机客户端的文件系统（安全考虑）。所以很长一段时间以来，组织多个文件的 JavaScript 代码就是把每个文件下载下来，变量是全局共享的。</p>
+<p>CommonJS 中很大一部分便是对模块系统的规范<br>使用 require 语句导入包</p>
+<h2 id="npm-基本操作"><a href="#npm-基本操作" class="headerlink" title="npm 基本操作"></a>npm 基本操作</h2><h3 id="npm-set"><a href="#npm-set" class="headerlink" title="npm set"></a>npm set</h3><p>用于设置环境变量<code>npm set &lt;key&gt;=&lt;value&gt;</code></p>
+<h3 id="npm-info"><a href="#npm-info" class="headerlink" title="npm info"></a>npm info</h3><p>可以查看每个模块的具体信息，比如查看 jQuery 的信息。</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs scss">jquery@<span class="hljs-number">3.6</span>.<span class="hljs-number">0</span> | MIT | <span class="hljs-attribute">deps</span>: none | <span class="hljs-attribute">versions</span>: <span class="hljs-number">53</span><br>JavaScript library for DOM operations<br><span class="hljs-attribute">https</span>://jquery.com<br><br><span class="hljs-attribute">keywords</span>: jquery, javascript, browser, library<br><br>dist<br>.<span class="hljs-attribute">tarball</span>: <span class="hljs-attribute">https</span>://registry.npmjs.org/jquery/-/jquery-<span class="hljs-number">3.6</span>.<span class="hljs-number">0</span>.tgz<br>.<span class="hljs-attribute">shasum</span>: c72a09f15c1bdce142f49dbf1170bdf8adac2470<br>.<span class="hljs-attribute">integrity</span>: sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==<br>.<span class="hljs-attribute">unpackedSize</span>: <span class="hljs-number">1.3</span> MB<br><br><span class="hljs-attribute">maintainers</span>:<br>- dmethvin &lt;dave.methvin<span class="hljs-keyword">@gmail</span>.com&gt;<br>- timmywil &lt;<span class="hljs-number">4</span>timmywil<span class="hljs-keyword">@gmail</span>.com&gt;<br>- mgol &lt;m.goleb<span class="hljs-keyword">@gmail</span>.com&gt;<br>- openjsfoundation &lt;npm<span class="hljs-keyword">@openjsf</span>.org&gt;<br><br><span class="hljs-attribute">dist-tags</span>:<br><span class="hljs-attribute">beta</span>: <span class="hljs-number">3.6</span>.<span class="hljs-number">0</span>    <span class="hljs-attribute">latest</span>: <span class="hljs-number">3.6</span>.<span class="hljs-number">0</span>  <br><br>published <span class="hljs-number">7</span> months ago by timmywil &lt;<span class="hljs-number">4</span>timmywil<span class="hljs-keyword">@gmail</span>.com&gt;<br></code></pre></td></tr></table></figure>
+<h3 id="npm-search"><a href="#npm-search" class="headerlink" title="npm search"></a>npm search</h3><p>命令用于搜索 npm 仓库，它后面可以跟字符串，也可以跟正则表达式，例如搜索“jquery”。会展示所有包含 “jquery” 字符串的信息。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">NAME</span>                      | DESCRIPTION          | AUTHOR          | DATE       | VERSION  | KEYWORDS                         <br><span class="hljs-attribute">jquery</span>                    | JavaScript library…  | =dmethvin…      | <span class="hljs-number">2021</span>-<span class="hljs-number">03</span>-<span class="hljs-number">02</span> | <span class="hljs-number">3</span>.<span class="hljs-number">6</span>.<span class="hljs-number">0</span>    | jquery javascript browser library<br><span class="hljs-attribute">cheerio</span>                   | Tiny, fast, and…     | =mattmueller…   | <span class="hljs-number">2021</span>-<span class="hljs-number">06</span>-<span class="hljs-number">08</span> | <span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">0</span>-r… | htmlparser jquery selector scraper parser html<br><span class="hljs-attribute">object</span>.assign             | ES<span class="hljs-number">6</span> spec-compliant…  | =ljharb         | <span class="hljs-number">2020</span>-<span class="hljs-number">10</span>-<span class="hljs-number">31</span> | <span class="hljs-number">4</span>.<span class="hljs-number">1</span>.<span class="hljs-number">2</span>    | Object.assign assign ES<span class="hljs-number">6</span> extend $.extend jQuery _.extend Underscore es-shim API polyfill s<br><span class="hljs-attribute">jquery</span>-ui                 | A curated set of…    | =scott.gonzalez… | <span class="hljs-number">2021</span>-<span class="hljs-number">10</span>-<span class="hljs-number">07</span> | <span class="hljs-number">1</span>.<span class="hljs-number">13</span>.<span class="hljs-number">0</span>   | <br><span class="hljs-attribute">ua</span>-parser-js              | Detect Browser,…     | =faisalman      | <span class="hljs-number">2021</span>-<span class="hljs-number">10</span>-<span class="hljs-number">27</span> | <span class="hljs-number">1</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>    | user-agent parser browser engine os device cpu jquery-plugin ecosystem:jquery<br><span class="hljs-attribute">papaparse</span>                 | Fast and powerful…   | =mholt =pokoli  | <span class="hljs-number">2021</span>-<span class="hljs-number">05</span>-<span class="hljs-number">28</span> | <span class="hljs-number">5</span>.<span class="hljs-number">3</span>.<span class="hljs-number">1</span>    | csv parser parse parsing delimited text data auto-detect comma tab pipe file filereader st<br><span class="hljs-attribute">jquery</span>-migrate            | Migrate older…       | =krinkle…       | <span class="hljs-number">2020</span>-<span class="hljs-number">11</span>-<span class="hljs-number">17</span> | <span class="hljs-number">3</span>.<span class="hljs-number">3</span>.<span class="hljs-number">2</span>    | jquery javascript browser plugin migrate<br><span class="hljs-attribute">crawler</span>                   | Crawler is a web…    | =sylvinus…      | <span class="hljs-number">2020</span>-<span class="hljs-number">11</span>-<span class="hljs-number">23</span> | <span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">0</span>    | dom javascript crawling spider scraper scraping jquery crawler nodejs<br><span class="hljs-attribute">jquery</span>-validation         | Client-side form…    | =jzaefferer…    | <span class="hljs-number">2021</span>-<span class="hljs-number">01</span>-<span class="hljs-number">09</span> | <span class="hljs-number">1</span>.<span class="hljs-number">19</span>.<span class="hljs-number">3</span>   | jquery jquery-plugin forms validation validate<br><span class="hljs-attribute">inputmask</span>                 | Inputmask is a…      | =robinherbots   | <span class="hljs-number">2021</span>-<span class="hljs-number">06</span>-<span class="hljs-number">01</span> | <span class="hljs-number">5</span>.<span class="hljs-number">0</span>.<span class="hljs-number">6</span>    | form input inputmask jquery jquery-plugin mask plugins<br><span class="hljs-attribute">urijs</span>                     | URI.js is a…         | =rodneyrehm     | <span class="hljs-number">2021</span>-<span class="hljs-number">07</span>-<span class="hljs-number">14</span> | <span class="hljs-number">1</span>.<span class="hljs-number">19</span>.<span class="hljs-number">7</span>   | uri url urn uri mutation url mutation uri manipulation url manipulation uri template url t<br><span class="hljs-attribute">bootstrap</span>-select          | The jQuery plugin…   | =caseyjhol      | <span class="hljs-number">2020</span>-<span class="hljs-number">06</span>-<span class="hljs-number">26</span> | <span class="hljs-number">1</span>.<span class="hljs-number">13</span>.<span class="hljs-number">18</span>  | javascript jquery form bootstrap dropdown select replacement<br><span class="hljs-attribute">jquery</span>-timepicker         | Enhances standard…   | =wvega          | <span class="hljs-number">2016</span>-<span class="hljs-number">05</span>-<span class="hljs-number">23</span> | <span class="hljs-number">1</span>.<span class="hljs-number">3</span>.<span class="hljs-number">3</span>    | timepicker time picker calendar dropdown input form<br><span class="hljs-attribute">jquery</span>-externalize        | Externalize is a…    | =dreamseer      | <span class="hljs-number">2021</span>-<span class="hljs-number">05</span>-<span class="hljs-number">12</span> | <span class="hljs-number">4</span>.<span class="hljs-number">0</span>.<span class="hljs-number">2</span>    | links window jquery-plugin ecosystem:jquery<br><span class="hljs-attribute">suggestions</span>-jquery        | DaData.ru…           | =antonz =dunal  | <span class="hljs-number">2021</span>-<span class="hljs-number">08</span>-<span class="hljs-number">02</span> | <span class="hljs-number">21</span>.<span class="hljs-number">8</span>.<span class="hljs-number">0</span>   | <br><span class="hljs-attribute">pwstrength</span>-bootstrap      | jQuery plugin for…   | =ablanco        | <span class="hljs-number">2021</span>-<span class="hljs-number">06</span>-<span class="hljs-number">01</span> | <span class="hljs-number">3</span>.<span class="hljs-number">1</span>.<span class="hljs-number">0</span>    | bootstrap password strength meter jquery-plugin ecosystem:jquery<br><span class="hljs-attribute">bootstrap</span>-maxlength       | A visual feedback…   | =mimo<span class="hljs-number">84</span>         | <span class="hljs-number">2021</span>-<span class="hljs-number">04</span>-<span class="hljs-number">28</span> | <span class="hljs-number">1</span>.<span class="hljs-number">10</span>.<span class="hljs-number">1</span>   | form maxlength html<span class="hljs-number">5</span> input feedback jquery-plugin jquery bootstrap bs<br></code></pre></td></tr></table></figure>
+<h3 id="npm-list"><a href="#npm-list" class="headerlink" title="npm list"></a>npm list</h3><p>会以树形结构列出当前项目安装的所有模块，以及它们依赖的模块。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">npmtest@<span class="hljs-number">1.0</span>.<span class="hljs-number">0</span> <span class="hljs-regexp">/home/</span>XXX<span class="hljs-regexp">/Desktop/</span>npmTest<br>└── jquery@<span class="hljs-number">3.6</span>.<span class="hljs-number">0</span><br></code></pre></td></tr></table></figure>
+<h3 id="npm-update"><a href="#npm-update" class="headerlink" title="npm update"></a>npm update</h3><p>更新已安装模块 <code>npm update &lt;packageName&gt;</code></p>
+<h3 id="npm-install"><a href="#npm-install" class="headerlink" title="npm install"></a>npm install</h3><p>使用 npm 安装包的命令格式为： <code>npm [install/i] [package_name]</code></p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ada"># 本地安装<br>npm install &lt;<span class="hljs-keyword">package</span> <span class="hljs-title">name&gt;</span><br><br># 全局安装<br>npm install -g &lt;<span class="hljs-keyword">package</span> <span class="hljs-title">name&gt;</span><br>npm install -globel &lt;<span class="hljs-keyword">package</span> <span class="hljs-title">name&gt;</span><br></code></pre></td></tr></table></figure>
+<p><code>npm install</code> 也支持直接输入 Github 代码库地址。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm install git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/package/</span>path.git<br>npm install git:<span class="hljs-regexp">//gi</span>thub.com<span class="hljs-regexp">/package/</span>path.git<span class="hljs-comment">#0.1.0</span><br></code></pre></td></tr></table></figure>
+<p>安装之前，<code>npm install</code> 会先检查，node_modules 目录之中是否已经存在指定模块。如果存在，就不再重新安装了，即使远程仓库已经有了一个新版本，也不会重新安装。</p>
+<p>如果你希望，一个模块不管是否安装过， npm 都要强制重新安装，可以使用 <code>-f</code> 或 <code>–force</code> 参数。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm install &lt;packageName&gt; <span class="hljs-comment">--force</span><br></code></pre></td></tr></table></figure>
+<p>虽然最新版本是以前旧版本的更新，但是在某些情况下最新的不一定是最合适的。所以我们希望安装指定的版本而不是默认安装最新的。我们可以在模块名后面加上 <strong>@</strong> 和版本号</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">npm <span class="hljs-keyword">install </span><span class="hljs-keyword">jquery@latest</span><br><span class="hljs-keyword"></span>npm <span class="hljs-keyword">install </span><span class="hljs-keyword">jquery@1.2.2</span><br><span class="hljs-keyword"></span>npm <span class="hljs-keyword">install </span><span class="hljs-keyword">jquery@&quot;&gt;=0.1.0 </span>&lt;<span class="hljs-number">0</span>.<span class="hljs-number">2</span>.<span class="hljs-number">0</span><span class="hljs-string">&quot;</span><br></code></pre></td></tr></table></figure>
+<p>命令可以使用不同参数，指定所安装的模块属于哪一种性质的依赖关系</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima">–<span class="hljs-built_in">save</span>：模块名将被添加到 <span class="hljs-built_in">dependencies</span>，可以简化为参数-S。<br>–<span class="hljs-built_in">save</span>-dev：模块名将被添加到 devDependencies，可以简化为参数-D。<br></code></pre></td></tr></table></figure>
+
+<h4 id="本地安装与全局安装"><a href="#本地安装与全局安装" class="headerlink" title="本地安装与全局安装"></a>本地安装与全局安装</h4><p>npm 在默认情况下会从 <a target="_blank" rel="noopener" href="http://npmjs.org/">http://npmjs.org</a> 搜索或下载包，将包安装到当前目录的 node_modules 子目录下。</p>
+<p>如果你熟悉 Ruby 的 gem 或者 Python 的 pip，你会发现 npm 与它们的行为不同，gem 或 pip 总是以全局模式安装，使包可以供所有的程序使用，而 npm 默认会把包安装到当前目录下。这反映了 npm 不同的设计哲学。如果把包安装到全局，可以提供程序的重复利用程度，避免同样的内容的多分副本，但坏处是难以处理不同的版本依赖。如果把包安装到当前目录，或者说本地，则不会有不同程序依赖不同版本的包的冲突问题，同时还减轻了包作者的 API 兼容性压力，但缺陷则是同一个包可能会被安装许多次。</p>
+<p>我们在使用 supervisor 的时候使用了 <code>npm install -g supervisor</code> 命令，就是以全局模式安装 supervisor 。</p>
+<p>这里注意一点的就是，supervisor 必须安装到全局，如果你不安装到全局，错误命令会提示你安装到全局。如果不想安装到默认的全局，也可以自己修改全局路径到当前路径 <code>npm config set prefix &quot;路径&quot;</code> 安装完以后就可以用 supervisor 来启动服务了。</p>
+<p>supervisor 可以帮助你实现这个功能，它会监视你对代码的驱动，并自动重启 Node.js 。</p>
+<p><strong>一般来说，全局安装只适用于工具模块</strong>，比如 eslint 和 gulp 。关于使用全局模式，多数时候并不是因为许多程序都有可能用到了它，为了减少多重副本而使用全局模式，而是因为<strong>本地模式不会注册 PATH 环境变量</strong>。“本地安装”指的是将一个模块下载到当前项目的 node_modules 子目录，然后只有在项目目录之中，才能调用这个模块。</p>
+<div class="note note-info">
+            <p><strong>本地安装</strong>：</p><ul><li>将安装包放在 ./node_modules 下（运行 npm 命令时所在的目录），如果没有 node_modules 目录，会在当前执行 npm 命令的目录下生成 node_modules 目录。</li><li>可以通过 require() 来引入本地安装的包。</li></ul><p><strong>全局安装</strong>：</p><ul><li>将安装包放在 /usr/local 下或者你 node 的安装目录。</li><li>可以直接在命令行里使用。</li></ul>
+          </div>
+
+<h3 id="npm-run"><a href="#npm-run" class="headerlink" title="npm run"></a>npm run</h3><p>npm 不仅可以用于模块管理，还可以用于执行脚本。package.json 文件中的 scripts 字段，可以用于指定脚本命令，供 npm 直接调用。</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">&quot;scripts&quot;: &#123;<br>    &quot;<span class="hljs-keyword">build</span><span class="hljs-string">&quot;: &quot;</span>npm run <span class="hljs-keyword">build</span>-js &amp;&amp; npm run <span class="hljs-keyword">build</span>-css<span class="hljs-string">&quot;</span><br><span class="hljs-string">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>字符串 “build” 对应的命令为：上面的写法是先运行 <code>npm run build-js</code>，然后再运行 <code>npm run build-css</code>，两个命令中间用 <strong>&amp;&amp;</strong> 连接。如果希望两个命令同时平行执行，它们中间可以用 <strong>&amp;</strong> 连接。</p>
+<p>写在 scripts 属性中的命令，也可以在 node_modules/.bin 目录中直接写成 bash 脚本。下面是一个 bash 脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-meta">#!/bin/bash</span><br><br><span class="hljs-built_in">cd</span> site/main<br>browserify browser/main.js | uglifyjs -mc &gt; static/bundle.js<br></code></pre></td></tr></table></figure>
+<p>假定上面的脚本文件名为 build.sh ，并且权限为可执行，就可以在 scripts 属性中引用该文件。<code>&quot;build-js&quot;: &quot;bin/build.sh&quot;</code></p>
+<div class="note note-info">
+            <p>npm run 如果不加任何参数，直接运行，会列出 package.json 里面所有可以执行的脚本命令。<br>npm 内置了两个命令简写：</p><ul><li><code>npm test</code> 等同于执行 <code>npm run test</code></li><li><code>npm start</code> 等同于执行 <code>npm run start</code></li></ul>
+          </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/%E5%8C%85%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">包管理工具</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/tags/npm/">npm</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Git 学习总结</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">
+                        <span class="hidden-mobile">布隆过滤器</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
