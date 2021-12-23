@@ -256,13 +256,6 @@
   </url>
   
   <url>
-    <loc>https://youjiazhang.github.io/tags/%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2021-12-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://youjiazhang.github.io/tags/leetcode/</loc>
     <lastmod>2021-12-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -271,6 +264,13 @@
   
   <url>
     <loc>https://youjiazhang.github.io/tags/Trie/</loc>
+    <lastmod>2021-12-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://youjiazhang.github.io/tags/%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8/</loc>
     <lastmod>2021-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -363,14 +363,14 @@
   </url>
   
   <url>
-    <loc>https://youjiazhang.github.io/categories/%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8/</loc>
+    <loc>https://youjiazhang.github.io/categories/leetcode/</loc>
     <lastmod>2021-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://youjiazhang.github.io/categories/leetcode/</loc>
+    <loc>https://youjiazhang.github.io/categories/%E8%AE%A1%E7%AE%97%E5%AD%98%E5%82%A8/</loc>
     <lastmod>2021-12-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
