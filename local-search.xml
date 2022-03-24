@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>page</title>
+    <link href="/uncategorized/page/"/>
+    <url>/uncategorized/page/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>python 编程实现 五子棋 AlphaGobang Zero</title>
     <link href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/AlphaGoZero/"/>
     <url>/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/AlphaGoZero/</url>
@@ -385,31 +398,6 @@
     <tags>
       
       <tag>编程规范</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title>HTML基础</title>
-    <link href="/%E5%89%8D%E7%AB%AF/HTML%E5%9F%BA%E7%A1%80/"/>
-    <url>/%E5%89%8D%E7%AB%AF/HTML%E5%9F%BA%E7%A1%80/</url>
-    
-    <content type="html"><![CDATA[<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><p><strong>HTML</strong>（超文本标记语言——<strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage）是构成 Web 世界的点点滴滴。它定义了网页内容的含义和结构。除 HTML 以外的其它技术则通常用来描述一个网页的表现与<strong>展示效果（如 CSS）</strong>，或<strong>功能与行为（如 JavaScript）</strong>。</p><span id="more"></span><h3 id="HTML-是什么"><a href="#HTML-是什么" class="headerlink" title="HTML 是什么"></a>HTML 是什么</h3><p>HTML 不是一门编程语言，而是一种用于定义内容结构的标记语言。HTML 由一系列的元素（elements）组成，这些元素可以用来包围不同部分的内容，使其以某种方式呈现或者工作。 一对 <strong>标签（tags）</strong> 可以为一段文字或者一张图片添加超链接，将文字设置为斜体，改变字号，等等。</p><p>例如，键入下面一行内容：</p><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">学习使我快乐<br></code></pre></td></tr></table></figure><p>可以将这行文字封装成一个 <strong>段落（paragraph）</strong> 元素来使其在单独一行呈现：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>学习使我快乐<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br></code></pre></td></tr></table></figure><h3 id="HTML-元素详解"><a href="#HTML-元素详解" class="headerlink" title="HTML 元素详解"></a>HTML 元素详解</h3><ol><li><strong>开始标签</strong>（Opening tag）：包含元素的名称（本例为 p），被大于号、小于号所包围。表示元素从这里开始或者开始起作用 —— 在本例中即段落由此开始。</li><li><strong>结束标签</strong>（Closing tag）：与开始标签相似，只是其在元素名之前包含了一个斜杠。这表示着元素的结尾 —— 在本例中即段落在此结束。初学者常常会犯忘记包含结束标签的错误，这可能会产生一些奇怪的结果。</li><li><strong>内容</strong>（Content）：元素的内容，本例中就是所输入的文本本身。</li><li><strong>元素</strong>（Element）：开始标签、结束标签与内容相结合，便是一个完整的元素。</li></ol><p>元素也可以有属性（Attribute）：</p><center>例如: &ltp&gt class = "editor-note" 学习使我快乐  &lt/p&gt </p>`</center>属性包含了关于元素的一些额外信息，这些信息本身不应显现在内容中。本例中，class 是属性名称，editor-note 是属性的值 。class 属性可为元素提供一个标识名称，以便进一步为元素指定样式或进行其他操作时使用。]]></content>
-    
-    
-    <categories>
-      
-      <category>前端</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>HTML</tag>
       
     </tags>
     
