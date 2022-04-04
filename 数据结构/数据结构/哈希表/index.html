@@ -1,0 +1,677 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="Hash 表哈希表（Hash table，也叫散列表），是根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算出一个键值的函数，将所需查询的数据映射到表中一个位置来让人访问，这加快了查找速度。这个映射函数称做散列函数（Hash 函数），存放记录的数组称做散列表。">
+  
+  
+  <title>Hash 表 - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Hash 表">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-23 10:29" pubdate>
+        October 23, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      9 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Hash 表</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Hash-表"><a href="#Hash-表" class="headerlink" title="Hash 表"></a>Hash 表</h1><p>哈希表（Hash table，也叫散列表），是根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算出一个键值的函数，将所需查询的数据映射到表中一个位置来让人访问，这加快了查找速度。这个映射函数称做散列函数（Hash 函数），存放记录的数组称做散列表。</p>
+<span id="more"></span>
+<h2 id="1-查找过程"><a href="#1-查找过程" class="headerlink" title="1. 查找过程"></a>1. 查找过程</h2><ul>
+<li>存储时: 通过 Hash 函数计算记录的 Hash 地址, 并按此散列地址存储该记录（先计算地址再储存）</li>
+<li>查找记录时: 通过同样的 Hash 函数计算记录的 Hash 地址, 按此 Hash 地址访问该记录</li>
+</ul>
+<p>散列技术既是一种存储方法, 又是一种查找方法。散列的记录之间不存在什么逻辑关系, 它只与关键字有关。散列技术最适合的求解问题是查找与给定值相等的记录。</p>
+<p>拥有同样关键字但是对应多重记录情况的不适合使用散列。比如利用性别查找一个学生, 相反, 利用学号或者身份证号来散列存储才比较合适。</p>
+<h2 id="2-Hash-函数构造方法"><a href="#2-Hash-函数构造方法" class="headerlink" title="2. Hash 函数构造方法"></a>2. Hash 函数构造方法</h2><p>设计的原则：（1）计算简单（2）Hash 地址均匀分布</p>
+<h3 id="2-1-直接定址法"><a href="#2-1-直接定址法" class="headerlink" title="2.1 直接定址法"></a>2.1 直接定址法</h3><p>取关键字的某个线性函数作为散列地址, 即<br>$$f_{hash}(key)=a*key+b$$</p>
+<h3 id="2-2-除留余数法"><a href="#2-2-除留余数法" class="headerlink" title="2.2 除留余数法"></a>2.2 除留余数法</h3><p>对于散列表长度为 $m$ 的散列函数公式为：<br>$$f_{hash}(key)=key<del>\rm mod</del>p<del>(p\leq m)$$<br>例如：下表采用 $f(key) = key</del>\rm mod~12$</p>
+<table>
+<thead>
+<tr>
+<th align="center">关键字</th>
+<th align="center">12</th>
+<th align="center">25</th>
+<th align="center">38</th>
+<th align="center">15</th>
+<th align="center">16</th>
+<th align="center">29</th>
+<th align="center">78</th>
+<th align="center">67</th>
+<th align="center">56</th>
+<th align="center">21</th>
+<th align="center">22</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">地址</td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">10</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-随机数"><a href="#2-3-随机数" class="headerlink" title="2.3 随机数"></a>2.3 随机数</h3><p>取关键字的随机函数作为它的散列地址：<br>$$f_{hash}(key)=random(key)$$</p>
+<h3 id="2-4-平方取中法"><a href="#2-4-平方取中法" class="headerlink" title="2.4 平方取中法"></a>2.4 平方取中法</h3><p>如果, 关键字是1234, 平方就是 1522756 , 取中间三位为 227, 用作散列地址。适合于不知道关键字分布, 位数也不是很大的方法。</p>
+<h3 id="2-5-折叠法"><a href="#2-5-折叠法" class="headerlink" title="2.5 折叠法"></a>2.5 折叠法</h3><p>将关键字左右分割为相等的几部分, 将这几部分叠加求和, 按照散列表表长, 取最后几位作为地址。例如 9876543210, 987+654+321+0=1962, 以 962 作为地址。为保证分布均匀也可以将一端反转后再相加如 789+654+123+0=1566, 此时散列地址为 566。这种适合关键字较长的情况。</p>
+<h2 id="3-Hash-冲突的处理办法"><a href="#3-Hash-冲突的处理办法" class="headerlink" title="3. Hash 冲突的处理办法"></a>3. Hash 冲突的处理办法</h2><p>Hash 函数设计的再优秀，还是又可能会出现不同的输入计算出相同 Hash 值的情况。Hash 冲突: 对于关键字 $$key_1\neq  key_2$$，却有 $$f_{hash}(key_1) = f_{hash}(key_2)$$。</p>
+<h3 id="3-1-开地址法"><a href="#3-1-开地址法" class="headerlink" title="3.1 开地址法"></a>3.1 开地址法</h3><p>开地址法是指一旦发生了冲突，就去<strong>寻找</strong>下一个空的散列地址，只要散列表足够大，空的散列地址总能找到，公式是:</p>
+<p>$$f_i(key)=(f(key)+d_i)<del>\textrm{mod}</del>m~(d_i=1,2,3,…,m−1)$$</p>
+<p>“寻找”下一个空的地址的方法有很多。</p>
+<h4 id="3-1-1-线性探寻法"><a href="#3-1-1-线性探寻法" class="headerlink" title="3.1.1 线性探寻法"></a>3.1.1 线性探寻法</h4><p>比如我们采用散列函数 $f(key)=key<del>\textrm{mod}</del>12$ 可以发现 $f(25)=1$, 当 $key=37$ 时就出现了冲突，于是依照上面的公式有 $f(37)=(f(37)+1)<del>\textrm{mod}</del>12=2$。</p>
+<p>假如 $key=48$ 也发生了冲突，那么按上述公式应该为 $f(48)=(f(48)+1)<del>\textrm{mod}12=1$，这又和 $25$ 所在位置冲突, 于是 $f(48)=(f(48)+2)</del>\textrm{mod}12=2$，还是冲突, 一直到 $f(48)=(f(48)+3)~\textrm{mod}12=3$，才出现空位。</p>
+<p>像 $48$ 和 $37$ 这种本来不是同义词却要争夺相同地址的情况称为<strong>堆积</strong>。</p>
+<h4 id="3-1-2-二次探寻法"><a href="#3-1-2-二次探寻法" class="headerlink" title="3.1.2 二次探寻法"></a>3.1.2 二次探寻法</h4><p>为了避免关键词都“堆积”在某一区域，可以对上述公式进行优化了，增加平方运算来改进 $d_i$:</p>
+<p>$$f_i(key)=(f(key)+d_i)~ \textrm{mod} <del>m</del>(d_i=1^2,−1^2,2^2,−2^2,…,q^2,−q^2,q≤m/2)$$</p>
+<h4 id="3-1-3-随机探寻法"><a href="#3-1-3-随机探寻法" class="headerlink" title="3.1.3 随机探寻法"></a>3.1.3 随机探寻法</h4><p>还有一种解决办法是，对于位移量 $d_i$ 采用随机函数得到，称为随机探测法：<br>$$f_i(key)=(f(key)+d_i)~ \textrm{mod} <del>m</del>$$</p>
+<h3 id="3-2-再散列函数法"><a href="#3-2-再散列函数法" class="headerlink" title="3.2 再散列函数法"></a>3.2 再散列函数法</h3><p>$$f_i(key)=RH_i(key)~(i=1,2,3,…,k)$$<br>事先准备多个散列函数，这里的 $RH_i$ 就是不同的散列函数，每当发生散列冲突就换一个散列计算函数，当然也相应的增加了计算时间。</p>
+<h3 id="3-3-链地址法"><a href="#3-3-链地址法" class="headerlink" title="3.3 链地址法"></a>3.3 链地址法</h3><p>不需要冲突换址，将所有关键词的同义词记录在一个单链表中，称为，<strong>同义词表</strong>，在哈希表中只存储同义词表的头指针。无论有多少冲突，都这是在当前位置给单链表增加节点。</p>
+<p><img src="/blog-image/Hash%E8%A1%A8/%E9%93%BE%E5%9C%B0%E5%9D%80%E6%B3%95.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>在哈希表每一个单元中设置链表，某个数据项对的关键字还是像通常一样映射到哈希表的单元中，而数据项本身插入到单元的链表中。简单理解如下：</p>
+<ul>
+<li><strong>优点</strong>：为所有冲突提供了地址保障。</li>
+<li><strong>缺点</strong>：带来了查找时需要遍历单链表的性能损耗。</li>
+</ul>
+<h3 id="3-4-公共溢出区法"><a href="#3-4-公共溢出区法" class="headerlink" title="3.4 公共溢出区法"></a>3.4 公共溢出区法</h3><p>为有冲突的关键字提供公共溢出区来存放。</p>
+<p>在查找时对给定值通过散列函数计算散列地址后，先与基本表对应位置进行对比，如果相等则查找成果，如果不相等则到溢出表去进行顺序查找。</p>
+<h2 id="4-性能分析"><a href="#4-性能分析" class="headerlink" title="4. 性能分析"></a>4. 性能分析</h2><p>如果没有冲突, 那么 Hash 表查找的时间复杂度为 $O(1)$, 但是冲突往往无法避免，那么 Hash 查找的平均查找长度取决于：</p>
+<ul>
+<li>散列是否均匀</li>
+<li>处理冲突的方法, 线性探测冲突可能产生堆积, 链地址法不产生任何堆积。因此后者平均性能更好.</li>
+<li><strong>Hash 表的装填因子</strong>, $α=\frac{k}{m}$，其中 $k$ 是表中记录的个数，$m$ 是散列表长度。$α$ 越大越容易产生冲突。通常设置 Hash 表空间比集合大，以空间换时间。</li>
+</ul>
+<h3 id="4-1-查找成功-ASL"><a href="#4-1-查找成功-ASL" class="headerlink" title="4.1 查找成功 ASL"></a>4.1 查找成功 ASL</h3><ul>
+<li>线性探测再散列<br>$$S \approx \frac{1}{2}(1+\frac{1}{1-α})$$</li>
+<li>随机探测再散列<br>$$S \approx -\frac{1}{α}ln(1-α)$$</li>
+<li>链地址法<br>$$S \approx 1+\frac{α}{2}$$</li>
+</ul>
+<h3 id="4-1-查找失败-ASL"><a href="#4-1-查找失败-ASL" class="headerlink" title="4.1 查找失败 ASL"></a>4.1 查找失败 ASL</h3><ul>
+<li>线性探测再散列<br>$$U \approx \frac{1}{2}(1+\frac{1}{(1-α)^2})$$</li>
+<li>随机探测再散列<br>$$U \approx \frac{1}{1-α}$$</li>
+<li>链地址法<br>$$U \approx α+e^α$$</li>
+</ul>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>哈希表的平均查找长度是装填因子 $α$ 的函数，而不是 $k$ 的函数。这说明，用哈希表构造查找表时，可以选择一个适当的装填因子 $α$，使得平均查找长度限定在某个范围内。<strong>这是哈希表所特有的特点</strong>。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/blockChain/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">布隆过滤器</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/blockChain/%E5%A6%82%E4%BD%95%E8%BF%90%E7%94%A8%20Merkle%20Tree/">
+                        <span class="hidden-mobile">区块链如何运用 Merkle Tree</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

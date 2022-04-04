@@ -1,0 +1,654 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="Git 分支合并从一个提交对象上衍生出不同的分支是一件好事情。因为这样可以让团队中更多的人同时参与到项目的开发之中，大大提高了开发效率。关键就在于，如何合体呢？如何将每一个人的工作友好的组合在一起而不产生混乱呢？这就是合并需要考虑的事情了。">
+  
+  
+  <title>Git 分支合并 - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Git 分支合并">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-30 16:00" pubdate>
+        October 30, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.5k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      12 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Git 分支合并</h1>
+            
+            <div class="markdown-body">
+              <h1 id="Git-分支合并"><a href="#Git-分支合并" class="headerlink" title="Git 分支合并"></a>Git 分支合并</h1><p>从一个提交对象上衍生出不同的分支是一件好事情。因为这样可以让团队中更多的人同时参与到项目的开发之中，大大提高了开发效率。关键就在于，如何合体呢？如何将每一个人的工作友好的组合在一起而不产生混乱呢？这就是合并需要考虑的事情了。</p>
+<span id="more"></span>
+<h2 id="如何合并两个文件"><a href="#如何合并两个文件" class="headerlink" title="如何合并两个文件"></a>如何合并两个文件</h2><p>比如老师给了一个代码文件，布置作业：需要让同学们进行改进。同一个小组的 $Alice$ 和 $Bob$ 都拿到了这个原始代码并进行了修改工作。那么他们在给老师提交作业的时候，如何合并两个人的工作呢？</p>
+<h3 id="能直接合并吗？"><a href="#能直接合并吗？" class="headerlink" title="能直接合并吗？"></a>能直接合并吗？</h3><p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E4%BA%8C%E8%80%85%E6%96%87%E4%BB%B6%E5%AF%B9%E6%AF%94.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>很明显这个是不能直接合并的。就上图展示的情况而言，Git 是无法得知第 15 行代码究竟是谁修改的，或许根本就没有人修改过这行代码，再获取这行代码都被他们修改过。</p>
+<h3 id="三向合并"><a href="#三向合并" class="headerlink" title="三向合并"></a>三向合并</h3><p>所以我们就需要一个参考，即<strong>三向合并</strong>。$Ailce$ 和 $Bob$ 肯定有一个共同的参考版本 <strong>Base</strong>，然后他们分别基于这个 Base 做进一步的修改。那么只要结合这个 Base 的内容，Git 就可以很清楚的知道到底是谁修改这个这行代码，从而合并。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E4%B8%89%E8%80%85%E6%96%87%E4%BB%B6%E5%AF%B9%E6%AF%94.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>从上图中我们可以看到，原来是 $Ailce$ 修改这个代码，Git 就会保留 $Ailce$ 的内容 <code>Num = 10;</code>。</p>
+<p>当然也有可能出现这种情况就是三方对应位置上的代码都不一样，这就产生了<strong>冲突</strong>，这种只能人为的进行取舍了。</p>
+<h2 id="Git-合并策略"><a href="#Git-合并策略" class="headerlink" title="Git 合并策略"></a>Git 合并策略</h2><p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>了解完怎么合并两个文件之后，我们来看一个使用 <code>git merge</code> 来做分支合并。如上图所示，将 master 分支合并到 feature 分支上，会新增一个 commit 节点来记录这次合并。</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment"># 第一种方式</span><br>git checkout feature<br>git merge <span class="hljs-keyword">master</span><br><br><span class="hljs-title"># 第二种方式</span><br><span class="hljs-title">git</span> merge <span class="hljs-keyword">master</span> <span class="hljs-title">feature</span><br></code></pre></td></tr></table></figure>
+
+<p>Git 会有很多合并策略，其中常见的是 Fast-forward、Recursive 、Ours、Theirs、Octopus。下面分别介绍不同合并策略的原理以及应用场景。默认 Git 会帮你自动挑选合适的合并策略，如果你需要强制指定，使用 <code>git merge -s &lt;策略名字&gt;</code>。</p>
+<h3 id="Fast-forward"><a href="#Fast-forward" class="headerlink" title="Fast-forward"></a>Fast-forward</h3><p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-2.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>Fast-forward 是最简单的一种合并策略，如上图中将 some feature 分支合并进 master 分支，Git 只需要将 master 分支的指向移动到最后一个 commit 节点上</p>
+<p>Fast-forward 是 Git 在合并两个没有分叉的分支时的默认行为，如果不想要这种表现，想明确记录下每次的合并，可以使用 <code>git merge --no-ff</code>。</p>
+<h3 id="Recursive"><a href="#Recursive" class="headerlink" title="Recursive"></a>Recursive</h3><p>Recursive 是 Git 分支合并策略中最重要也是最常用的策略，是 Git 在合并两个有分叉的分支时的默认行为。其算法可以简单描述为：递归寻找路径最短的唯一共同祖先节点，然后以其为 Base 节点进行递归三向合并。说起来有点绕，下面通过例子来解释。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-4.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>如上图所示，我们想要合并 master 分支和 Feature 分支。这个时候需要找到他们的共同祖先节点（黄色），接着进行三向合并得到新的提交对象。然而，实际中的提交情况看是“错综复杂”的，提交节点之间相互可能会交叉那么就出现下面展示的这种情况。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-5.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>面对这种情况下，Git 就开始寻找两个分支的共同祖先节点。如果这个时候 Git 会说话肯定就要吐槽了，Git：“俩祖先 ？？？，这家子有够乱的”。中国有句话说得好，五百年前是一家，如果当前找到的若干平级的祖先，那么在往上一直寻找祖先的祖先，直到二者出现一个共同的祖先。具体操作就是：</p>
+<ul>
+<li>Step 1. 首先一直溯源找到公共的那个节点</li>
+<li>Step 2. 以这个公共节点为 Base，对下一级的平级祖先节点进行合并</li>
+<li>Step 3. 合并的建立临时快照，形成了一个“虚拟祖先”</li>
+<li>Step 4. 然后以“虚拟祖先”为新的公共节点，跳转到 Step 2</li>
+</ul>
+<p>通过上面这个操作就可以“递归”地把两个分支各自往上的所有节点都进行了合并形成一个“虚拟祖先”，基于此就可以进行平常情况下的合并操作了。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-6.jpg" srcset="/img/loading.gif" lazyload></p>
+<div class="note note-info">
+            <p>值得一提的是，出现多个满足条件的共同祖先的现象被称为 <strong>Criss-Cross 现象</strong>。虽然它并不一定经常发生，但是对于那些存在时间很长，拓扑结构很复杂的分支，还是很有可能会出现的。</p>
+          </div>
+
+<h3 id="Resolve"><a href="#Resolve" class="headerlink" title="Resolve"></a>Resolve</h3><p>和 Recursive 策略类似，Resolve 策略是另一种解决两个分支间合并问题的策略，同样也是采用的“三向合并”算法。关于它的介绍，网络上资料不多。只知道它是在 Recursive 策略出现之前，Git 合并时所采用的默认策略。和 Recursive策略不同的是，<strong>它在处理 Criss-Cross 情况时，会在多个满足条件的共同祖先里选取其中一个作为合并的 Base</strong>）。在某些情况下，如果使用 Recursive 策略作为默认策略进行合并时遇到了问题，也可以尝试选择 Resolve 策略。</p>
+<h3 id="Ours-amp-Theirs"><a href="#Ours-amp-Theirs" class="headerlink" title="Ours &amp; Theirs"></a>Ours &amp; Theirs</h3><p>Ours 和 Theirs 这两种合并策略也是比较简单的，简单来说就是保留双方的历史记录，但完全忽略掉这一方的文件变更。这其实也是一种处理 <strong>冲突</strong> 的方法。我们可以告诉 Git 谁的应该被保留而谁的应该被丢弃。</p>
+<ul>
+<li>ours 保留当前分支的内容</li>
+<li>Theirs 保留不是当前分支的内容</li>
+</ul>
+<p>此外，当你同时尝试了两个方案，分别在分支是 dev1 和 dev2 上，最后经过测试你选用了 dev2 这个方案。但你不想丢弃 dev1 的这样一个尝试，希望把它合入主干方便后期查看，这个时候你就可以在 dev2 分支中执行 <code>git merge -s ours dev1</code>。（保留我们的（ours）丢弃 dev1）</p>
+<h4 id="Recursive-中的参数"><a href="#Recursive-中的参数" class="headerlink" title="Recursive 中的参数"></a>Recursive 中的参数</h4><p>Recursive 策略中有一个可以指定的参数就是 <code>-Xours</code> 和 <code>-Xtheirs</code>。正如前面所说，这其实是在面对 <strong>冲突</strong> 时的一种针对策略，总不能尬在原地啥也不做吧。如果合并很顺利没有发现冲突，那就成功完成合并；如果有冲突了，就会根据指定的参数就行相应的处理：要么舍弃自己，要么舍弃别人。</p>
+<h4 id="危险的-Theirs"><a href="#危险的-Theirs" class="headerlink" title="危险的 Theirs"></a>危险的 Theirs</h4><p>Git 在以前的版本里是有 Theirs 策略的，但后来它被去掉了。其实道理也很简单，因为它太危险了。正如 Ours 策略会毫不犹豫地丢弃被合并分支上的修改，Theirs 策略也会毫不犹豫的丢弃当前分支上的修改。这相当于自己在当前分支上所做的工作全部丢掉了！</p>
+<h3 id="Octopus"><a href="#Octopus" class="headerlink" title="Octopus"></a>Octopus</h3><p>当我们希望一次性合并超过两个分支的时候，使用两两合并的策略其实也不是不可以，就是有点繁杂，需要产生大量的提交节点，别人一看：“哦吼，这么多提交一定是做了很多新的吧”，结果仔细一看发现备注上都是“Merge”，直接笑死。Octopus（章鱼）就是专门解决这个问题的。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-7.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>git rebase 也是一种经常被用来做合并的方法，其与 git merge 的最大区别是，他会更改变更历史对应的 commit 节点。rebase 本质上就是丢弃已有的提交记录，创建新的提交记录，从内容上看是完全一样的，但提交历史却改变了。</p>
+<p><img src="/blog-image/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/%E5%90%88%E5%B9%B6%E7%AD%96%E7%95%A5-8.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>对提交历史的修改是需要谨慎的。如果我们已经把提交推送到远程，而其他人又从远程下载了我们的提交，并在这个基础上工作。这个时候，如果我们又利用 rebase 修改了提交记录，并再次推送到远程，那么其他人就不得不重新合并他们之前的工作了。</p>
+<h4 id="如何看待-rebase-篡改提交历史？"><a href="#如何看待-rebase-篡改提交历史？" class="headerlink" title="如何看待 rebase 篡改提交历史？"></a>如何看待 rebase 篡改提交历史？</h4><p>关于Git的提交历史，有两种观点。</p>
+<ol>
+<li>一种观点认为，它如实的记录了人们的实际操作，所以不应该被“篡改”</li>
+<li>另一种观点认为，多人协作开发的时候，提交历史的作用是把项目如何演化的过程展示给其他人看，所以没必要把全部细节都暴露出来。比如，像一些很细微的修改记录，类似整个提交历史中的某些中间状态，这些提交记录是可以去掉的。</li>
+</ol>
+<p>支持后一种观点就是人们通常使用 rebase 修改提交历史的原因或依据。</p>
+<h4 id="如何正确使用？"><a href="#如何正确使用？" class="headerlink" title="如何正确使用？"></a>如何正确使用？</h4><p>关于什么时候可以使用 rebase 的问题，一般的建议是：</p>
+<p>如果你还没有把提交推送到远程 Git 库，rebase 是没问题的。因为，所有改动，包括对提交历史的改动都只发生在本地，不会对别人造成影响。而且，那样做还有助于在把提交推送到远程之前，让提交历史变得更加清晰。这个在开源项目的开发里是很常见的。比如：</p>
+<p>假设你以 Contributor 的身份在为某个开源项目贡献代码。一般我们会从原项目那里 fork 一份出来形成自己的 Git 库，然后在自己的 Git 库上新开一个分支，在分支上进行开发。要提交修改的时候，先把修改 rebase 到远程的 origin/master上（自己的 Git 库），然后再以 Pull Request 的方式提交到原项目，让这个项目的 Maintainer 来 Review。如果我们使用了 rebase，那么 Maintainer 在合并修改的时候就会很轻松，他不需要做任何复杂的集成，只要简单地做一个 Fast-Forward Merge 就可以了。</p>
+<p>但是，如果你的改动已经被推送到了远程 Git 库，并且其他人已经开始在这个基础上继续他们的工作时，那就最好不要轻易做 rebase 了。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/git/">git</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/leetcode/leetcode/leetcode208/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetcode208-实现 Trie（前缀树）</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/Git/Git/Git%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">Git 学习总结</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

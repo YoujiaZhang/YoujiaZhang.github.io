@@ -1,0 +1,742 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="距离度量方法 五年是个长距离，在这个时代  ———《黑白李》老舍">
+  
+  
+  <title>距离度量方法 - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="距离度量方法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-10-03 20:09" pubdate>
+        October 3, 2020 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.4k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">距离度量方法</h1>
+            
+            <div class="markdown-body">
+              <h1 id="距离度量方法"><a href="#距离度量方法" class="headerlink" title="距离度量方法"></a>距离度量方法</h1><blockquote>
+<p>五年是个长距离，在这个时代  ———《黑白李》老舍</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="个体间距离"><a href="#个体间距离" class="headerlink" title="个体间距离"></a>个体间距离</h2><h3 id="1-针对连续性数据"><a href="#1-针对连续性数据" class="headerlink" title="1. 针对连续性数据"></a>1. 针对连续性数据</h3><ul>
+<li><p><strong>欧氏距离</strong><br>以古希腊数学家 <strong>Euclidean</strong> 命名的距离；也就是我们直观的两点之间直线最短的直线距离。欧氏距离是一个通常采用的距离定义，它是在 $p$ 维空间中两个点之间的真实距离。<br>$$EUCLID(x,y)=\sqrt{\sum_{i=1}^p(x_i-y_i)^2}$$</p>
+</li>
+<li><p><strong>欧式距离平方</strong><br>$$SEUCLID(x,y)=\sum_{i=1}^p(x_i-y_i)^2$$</p>
+</li>
+<li><p><strong>马氏距离</strong><br>马氏距离是对欧式距离的一种修正，将各个维度的分布进行标准化操作。<br>$$D_M(x)=\sqrt{(x-\mu)^T\Sigma^{-1}(x-\mu)}$$<br>其中 $\Sigma$ 是多维随机变量之间的协方差矩阵，$\mu$ 是样本均值。将主成分的偏转抵消掉，让各个维度独立，然后进行标准化，让各个维度同分布。<br>主成分分析：</p>
+<ul>
+<li>主成分 — 特征向量的方向</li>
+<li>各个维度的方差 — 特征值<br>&nbsp;</li>
+</ul>
+</li>
+<li><p><strong>切比雪夫距离</strong><br>国际象棋中，国王可以直行、横行、斜行，所以国王走一步可以移动到相邻 $8$ 个方格中的任意一个。国王从格子 $(x_1,y_1)$ 走到格子 $(x_2,y_2)$ 最少需要多少步？这个距离就叫切比雪夫距离。<br>$$Chebychev(x,y)=\max_{1\le i\le p} \left| x_i-y_i \right|$$<br>以上这个公式等价于:<br>$$Chebychev(x,y)=\lim_{k \to\infty}(\sum_{i=1}^n|x_i-y_i|^k)^\frac{1}{k}$$</p>
+</li>
+<li><p><strong>曼哈顿距离</strong><br>在曼哈顿街区要从一个十字路口开车到另一个十字路口，驾驶距离显然不是两点间的直线距离。这个实际驾驶距离就是“曼哈顿距离”。曼哈顿距离也称为“城市街区距离”(City Block distance)。<br>$$Manhattan(x,y)=\sum_{i=1}^p \left| x_i-y_i \right|$$</p>
+</li>
+<li><p><strong>明科夫斯基距离</strong><br>明氏距离不是一种距离，而是一组距离的定义，是对多个距离度量公式的概括性的表述。<br>以俄罗斯数学家明科夫斯基命名的距离；是欧式距离的推广，$p=2$ 时等价于欧氏距离，和 $\rm p$-范数 等值。<br>两个 $n$ 维变量 $a(x_1,x_2,…,x_n)$ 与 $b(y_1,y_2,…,y_n)$ 间的明科夫斯基距离定义为：<br>$$Minkowski(x,y)=\sqrt[k]{\sum_{i=1}^p {\left| x_i-y_i \right|}^k}$$<br>其中，$k$ 可以任意设置。容易看出，欧氏距离、切比雪夫距离和曼哈顿距离分别是 $k=2$、$k\to\infty$ 和 $k=1$时候的特例。<br>&nbsp;<br>缺点：<br>1.没有考虑各个分量的量纲(scale)之间的差异;<br>2.未考虑各个分量的分布（期望，方差等）可能是不同的情况。<br>&nbsp;</p>
+</li>
+<li><p><strong>自定义距离</strong><br>$$Customized(x,y)=\sqrt[k]{\sum_{i=1}^p {\left| x_i-y_i \right|}^r}$$</p>
+<p>其中，$k$ 和 $r$ 都是可以任意设置的。容易看出，上面给出的所有距离都可以通过赋予 $k$ 和 $r$ 特定的值得到。</p>
+</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>夹角距离</strong><br>几何中，夹角余弦可用来衡量两个向量方向的差异。<br>机器学习中，借用这一概念来衡量样本向量之间的差异。<br>$$Cosine(x,y)=\frac{\sum_{i=1}^p(x_iy_i)^2}{(\sum_{i=1}^px_i^2)(\sum_{i=1}^py_i^2)}$$</p>
+</li>
+<li><p><strong>皮尔逊相关系数</strong><br>皮尔森相关系数（Pearson correlation coefficient）也叫皮尔森积差相关系数（Pearson product-moment correlation coefficient），是用来反应两个变量相似程度的统计量。或者说可以用来计算两个向量的相似度（在<strong>基于向量空间模型的文本分类、用户喜好推荐系统</strong>中都有应用）。</p>
+<p>$$r(x,y)=\frac{\sum_{i=1}^p(x_i-\overline{x}_i)(y_i-\overline{y}<em>i)}{\sqrt{\sum</em>{i=1}^p(x_i-\overline{x}<em>i)^2\sum</em>{i=1}^p(y_i-\overline{y}_i)^2}}$$<br>pearson是一个介于-1和1之间的值，用来描述两组线性的数据一同变化移动的趋势。<br>&nbsp;<br>当两个变量的线性关系增强时，相关系数趋于 $1$ 或 $-1$；当一个变量增大，另一个变量也增大时，表明它们之间是正相关的，相关系数大于 $0$ ；如果一个变量增大，另一个变量却减小，表明它们之间是负相关的，相关系数小于 $0$ ；如果相关系数等于 $0$ ，表明它们之间不存在线性相关关系。当两个变量独立时相关系统为 $0$ ，但反之不成立。比如对于 $y=x^2$ 次方，$\rm X$ 服从 $[-1,1]$ 上的均匀分布，此时 $E(XY)$ 为 $0$，$E(X)$ 也为 $0$，所以 $P(x,y)=0$，但 $x$ 和 $y$ 明显不独立。所以“不相关”和“独立”是两回事。当 $\rm Y$ 和 $\rm X$ 服从联合正态分布时，其相互独立和不相关是等价的。</p>
+<p>如果，$E(X)=E(Y)=0$ ，此时有：<br>$$r(x,y)=\frac{E(XY)}{E(X^2)E(Y^2)}=\frac{X*Y}{|X||Y|}$$<br>即相关系数可以看作是两个随机变量中得到的样本集向量之间夹角的<strong>cosine函数</strong>。<br>进一步当 $\rm X$ 和 $\rm Y$ 向量归一化后，$\rm ||X||=||Y||=1$，相关系数即为<strong>两个向量的乘积</strong>。</p>
+</li>
+</ul>
+<div class="note note-info">
+            <p><strong>PS</strong>:夹角余弦和皮尔逊相关系数其实是描述个体之间相似性的指标，所以，他们的值越大，表明个体之间的距离越小</p>
+          </div>
+
+<h3 id="2-针对二值型数据"><a href="#2-针对二值型数据" class="headerlink" title="2. 针对二值型数据"></a>2. 针对二值型数据</h3><p>如果个体的 $k$ 个变量都是二值变量，则个体之间的距离测度将基于一个如下表所示的 $2\times2$ 的列联表。该表是根据原始数据转换而来的两个体取值的交叉列联表。表中， $a+b+c+d$ 等于变量的总个数，$a$ 为两个体取值都为 $1$ 的变量个数，$b$ 为个体 $x$ 取值为 $0$, 而个体 $y$ 取值为 $1$ 的变量个数，$c$ 为个体 $x$ 取值为 $1$ 而个体 $y$ 取值为 $0$ 的变量个数，$d$ 为两 个体取值都是 $0$ 的变量个数。显然:</p>
+<ul>
+<li>$a+d$ 的比重描述了两个体之间的相似程度;</li>
+<li>$b+c$ 的比重反映了两个体之间的差异程度。    </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">$1$ &nbsp;</th>
+<th align="center">$0$</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">$1$</td>
+<td align="center">$a$</td>
+<td align="center">$b$</td>
+</tr>
+<tr>
+<td align="center">$0$</td>
+<td align="center">$c$</td>
+<td align="center">$d$</td>
+</tr>
+<tr>
+<td align="center">几乎所有的二值变量的距离就是基于以上 $2\times2$ 列联表，例如：</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<ul>
+<li>二值欧氏距离<br>$$EUCLID(x,y)=\sqrt{b+c}$$</li>
+<li>二值欧氏距离平方<br>$$SEUCLID(x,y)=b+c$$</li>
+<li>不对称指数<br>$$SD(x,y)=\frac{b-c}{(a+b+c+d)^2}$$</li>
+<li>不相似性测度<br>$$PD(x,y)=\frac{bc}{(a+b+c+d)^2}$$</li>
+<li>方差<br>$$Var(x,y)=\frac{b+c}{4(a+b+c+d)}$$</li>
+</ul>
+<h3 id="3-针对计数型数据"><a href="#3-针对计数型数据" class="headerlink" title="3. 针对计数型数据"></a>3. 针对计数型数据</h3><p>所谓计数变量，是指个体在某个分类变量上的频数。针对计数变量的距离测度方法主要有卡方距离和Phi方距离。</p>
+<ul>
+<li><p>卡方距离<br>$$\chi^2(x,y)=\sqrt{\sum_{i=1}^p(\frac{x_i-E(x_i)}{E(x_i)})^2+\sum_{i=1}^p(\frac{y_i-E(y_i)}{E(y_i)})^2}$$<br>其中，$x_i$ 是个体 $x$ 的第 $i$ 个变量的取值（在第 $i$ 类上的频数），$E(x_i)$ 是个体 $x$ 在第 $i$ 类上的期望频数，个体 $y$ 同理。<br>&nbsp;</p>
+</li>
+<li><p>$\rm Phi^2$ 距离<br>$$Phi^2(x,y)=\sqrt{\frac{\sum_{i=1}^p(\frac{x_i-E(x_i)}{E(x_i)})^2+\sum_{i=1}^p(\frac{y_i-E(y_i)}{E(y_i)})^2}{n}}$$<br>其中，$n$ 为样本容量，其余符号的意义与卡方距离一样。</p>
+</li>
+</ul>
+<h2 id="类间距离"><a href="#类间距离" class="headerlink" title="类间距离"></a>类间距离</h2><p><strong>SPSS</strong> 中提供了如下几种类间距离测度方法：</p>
+<ul>
+<li>组间平均连接距离（Between-group linkage）：以两类个体两两之间距离的平均数作为类间距离；</li>
+<li>组内平均连接距离（Within-group linkage）：将两类个体合并为一类后，以合并后 类中所有个体之间的平均距离作为类间距离；</li>
+<li>最近邻距离（Nearest neighbor）：以两类中距离最近的两个个体之间的距离作为类间距离；</li>
+<li>最远邻距离（Furthest neighbor）：以两类中距离最远的两个个体之间的距离作为类间距离；</li>
+<li>重心距离（Centroid cluster）：以两类变量均值之间的距离作为类间距离；</li>
+<li>中位数距离（Median cluster）：以两类变量中位数之间的距离作为类间距离；</li>
+<li>离差平方和法(Ward method): 该方法是 $Ward$ 提出来的，所以又称为 $Ward$ 法。具 体做法是先将 $n$ 个样品各自成一类，然后每次减少一类，随着类与类的不断聚合， 类内的离差平方和必然不断增大，选择使离差平方和增加最小的两类合并，直到所 有的样品归为一类为止。</li>
+</ul>
+<h2 id="字符串距离"><a href="#字符串距离" class="headerlink" title="字符串距离"></a>字符串距离</h2><h3 id="1-编辑距离"><a href="#1-编辑距离" class="headerlink" title="1. 编辑距离"></a>1. 编辑距离</h3><p>编辑距离，又称 <strong>Levenshtein距离</strong> （也叫做Edit Distance），是指两个字串之间，由一个转成另一个所需的最少编辑操作次数，如果它们的距离越大，说明它们越是不同。许可的编辑操作包括:（1）将一个字符替换成另一个字符；（2）插入一个字符，（3）删除一个字符。</p>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><ul>
+<li>基因分析（<a target="_blank" rel="noopener" href="https://xueshu.baidu.com/usercenter/paper/show?paperid=1y1h06m0mg6t0610nu170xa0u7176035">基于隐私保护的基因相似度计算方法及基因信息获取方法</a>）</li>
+<li>拼字检查</li>
+<li>语音辨识</li>
+<li>抄袭侦测</li>
+</ul>
+<h4 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h4><p>例如：计算 $”sailn”~~~”failing”$ 之间的编辑距离 $\rm edit(i,j)$,该函数表示：长度为 $i$ 的字符串与长度为 $j$ 字符串之间的距离。动态规划：</p>
+<ol>
+<li>如果 $i=0$ 且 $j=0$，$\rm edit(i,j)=0$</li>
+<li>如果 $i=0$ 且 $j&gt;0$，$\rm edit(i,j)=j$</li>
+<li>如果 $i&gt;0$ 且 $j=0$，$\rm edit(i,j)=i$</li>
+<li>如果 $i&gt;0$ 或 $j&gt;0$，<br>$$\rm edit(i, j) = \min{(\color{Red}{edit(i-1, j)+1}, \color{blue}{edit(i, j-1)+1}, \color{Green}{edit(i-1, j-1)+f(i, j)}<br>\color{black}{)}}$$<br>这里当字符串 $1$ 的第 $i$ 个字符不等于字符串 $2$ 的第 $j$ 个字符时，$f(i, j)=1$；否则，$f(i, j)=0$。<br>&nbsp;</li>
+</ol>
+<p><img src="/blog-image/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>从图上我们可以直观的看到利用动态规划计算编辑距离的过程，首先构造 DP 矩阵，然后执行第一步、第二步和第三步进行矩阵初始化的工作。最后，针对每一个元素使用第四步。</p>
+<h3 id="2-Jaro-距离-amp-Jaro-Winkler相似度"><a href="#2-Jaro-距离-amp-Jaro-Winkler相似度" class="headerlink" title="2. Jaro 距离 &amp; Jaro-Winkler相似度"></a>2. Jaro 距离 &amp; Jaro-Winkler相似度</h3><p>Jaro-Winkler Distance是一个度量两个字符序列之间的编辑距离的字符串度量标准，是由William E. Winkler在 $1990$ 年提出的Jaro Distance度量标准的一种变体。Jaro Distance是两个单词之间由一个转换为另一个所需的单字符转换的最小数量。Jaro-Winkler Distance通过前缀因子 $p$ 使Jaro Distance相同时共同前缀长度 $l$ 越大的相似度越高。Jaro–Winkler Distance越小，两个字符串越相似。<br>如果分数是 $0$，则表示完全不同，分数为 $1$ 则表示完全匹配。</p>
+<p><strong>Jaro 距离</strong></p>
+<p>$$Sim_{jaro}= \begin{cases}0 &amp; \rm if ~m=0 \ \frac{1}{3}(\frac{m}{|S_1|}+\frac{m}{|S_2|}+\frac{m-t}{m}) &amp; \rm otherwise \end{cases} $$</p>
+<p>其中：</p>
+<ul>
+<li>$|S_i|$ 是字符串 $S_i$ 的长度。</li>
+<li>$m$ 是匹配的字符串数量。</li>
+<li>$t$ 是字符转换的次数。</li>
+</ul>
+<p>只有当 $S_1$ 和 $S_2$ 的字符相同，且距离不超过 $Match~Window = ⌊\frac{max(|S_1|,|S_2|)}{2}⌋−1$ 时才认为两个字符是匹配的。将 $S_1$ 与 $S_2$ 匹配的字符进行比较，相同位置但字符不同的字符数除以 $2$ 就是要转换的次数 $t$.</p>
+<div class="note note-info">
+            <p><strong>PS</strong>:相当于是在一个 <strong>窗口$\rm MW$</strong> 中进行搜索找到了相同的字符那就是 <strong>匹配</strong> 的。</p>
+          </div>
+
+
+<p><strong>Jaro-Winkler相似度</strong></p>
+<p>对于给定的两个字符串，相似度 $Sim_{winkler}$ 计算公式如下：<br>$$Sim_{winkler}=Sim_{jaro}+l·p~·(1-Sim_{jaro})$$</p>
+<p>其中：</p>
+<ul>
+<li>$Sim_{jaro}$ 是 $S_1$ 和 $S_2$ 的 Jaro距离。</li>
+<li>$l$ 是字符串公共的前缀长度，最大值为 $4$。</li>
+<li>$p$ 是一个常量因子，对于有公共前缀的分数会向上调整，$p$ 不能超过 $0.25$，否则相似度会超过 $1$，常量 $p$ 的默认值为 $0.1$ 。 </li>
+</ul>
+<p><strong>例如：</strong><br>$$Sim_{winkler S_1 S_2} = \begin{cases}S_1<del>\rm aboard\S_2</del>\rm abroad \end{cases} $$<br>$$Sim_{winkler S_1 S_3} = \begin{cases}S_1<del>\rm aboard\S_3</del>\rm aborad \end{cases} $$</p>
+<p><strong>计算 Jaro 距离：</strong><br>$$Sim_{Jaro S_1 S_2} = \frac{1}{3}(\frac{6}{6}+\frac{6}{6}+\frac{6-1}{6}) = 0.944 $$<br>其中，窗口$\rm MW=⌊\frac{6}{2}⌋−1=3$ ，所以，匹配的字符数为 $m$ 为 $6$，6个“匹配”的字符中，需要转换的字符为 $o，a，r$，所以转换次数 $t$ 为 $3/2=1$。<br>$$Sim_{Jaro S_1 S_3} = \frac{1}{3}(\frac{6}{6}+\frac{6}{6}+\frac{6-1}{6}) = 0.944 $$<br>需要转换的字符为 $a，r$，所以转换次数 $t$ 为 $2/2=1$。</p>
+<p><strong>计算 Jaro-Winkler 相似度</strong></p>
+<p>此时 $S_1$ 与 $S_2$ 和 $S_3$ 的Jaro距离相同，无法判断 $S_1$ 与哪个更相似，此时可以通过Jaro-Winkler 算法对 Jaro距离 进行调整，假设常量因子 $p$ 为 $0.25$。</p>
+<ul>
+<li><p>$S_1$，$S_2$ 匹配字符的共同前缀 $ab$ 的长度 $l$ 为 $2$ 小于 $4$，所以它们的Jaro-Winkler相似度为<br>$$Sim_{winkler S_1 S_2}=0.944+(2∗0.25*(1−0.944))=0.972$$</p>
+</li>
+<li><p>$S_1$，$S_3$ 匹配字符的共同前缀 $abo$ 的长度 $l$ 为 $3$ 小于 $4$，所以它们的Jaro-Winkler相似度为<br>$$Sim_{winkler S_1 S_3}=0.944+(3∗0.25*(1−0.944))=0.986$$</p>
+</li>
+</ul>
+<p>Jaro相似度相同的通Jaro-Winkler 算法调整后可以比较出与哪个更相似。如上 $S_1$ 与 $S_3$ 更相似。</p>
+<h2 id="概率分布距离"><a href="#概率分布距离" class="headerlink" title="概率分布距离"></a>概率分布距离</h2><h3 id="1-KL散度"><a href="#1-KL散度" class="headerlink" title="1. KL散度"></a>1. KL散度</h3><p>Kullback-Leibler Divergence，即KL散度，是一种量化两种概率分布 $P$ 和 $Q$ 之间差异的方式，又叫<strong>相对熵</strong>。在概率学和统计学上，我们经常会使用一种更简单的、近似的分布来替代观察数据或太复杂的分布。KL散度能帮助我们度量使用一个分布来近似另一个分布时所损失的信息。</p>
+<p>相对熵又称互熵，交叉熵等。设 $p(x)$ 和 $q(x)$ 是 $x$ 取值的两个概率概率分布，则 $p$ 对 $q$ 的相对熵为:<br>$$D_{KL}(p||q)=\sum_{i=1}^np(x)\log\frac{p(x)}{q(x)}=-\sum_{i=1}^np(x)\log q(x)+\sum_{i=1}^np(x)\log p(x)=H(p,q)-H(q)$$</p>
+<p>值得注意的是：$D_{KL}(p||q) \geq 0$</p>
+<h2 id="集合距离"><a href="#集合距离" class="headerlink" title="集合距离"></a>集合距离</h2><h3 id="1-Jaccard-index"><a href="#1-Jaccard-index" class="headerlink" title="1. Jaccard index"></a>1. Jaccard index</h3><p>Jaccard index, 又称为Jaccard相似系数（Jaccard similarity coefficient）用于比较有限样本集之间的相似性与差异性。Jaccard系数值越大，样本相似度越高。</p>
+<p>两个集合 $A$ 和 $B$ 交集元素的个数在 $A$、$B$ 并集中所占的比例，称为这两个集合的杰卡德系数，用符号 $J(A,B)$ 表示。杰卡德相似系数是衡量两个集合相似度的一种指标（余弦距离也可以用来衡量两个集合的相似度）。<br>$$J(A,B)=\frac{|A\bigcap B|}{|A\bigcup B|}$$</p>
+<h3 id="2-Tanimoto-Coefficient"><a href="#2-Tanimoto-Coefficient" class="headerlink" title="2. Tanimoto Coefficient"></a>2. Tanimoto Coefficient</h3><p>Tanimoto系数由Jaccard系数扩展而来，又称为广义Jaccard相似系数，计算方式如下：<br>$$E_{Jaccard}(A,B)=\frac{A\cdot B}{||A||^2+||B||^2-A\cdot B}$$</p>
+<p>其中 $A$、$B$ 分别表示为两个向量，集合中每个元素表示为向量中的一个维度，在每个维度上，取值通常是 $[0, 1]$ 之间的值（如果取值是二值向量，那么Tanimoto系数就等同Jaccard距离），$A\cdot B$表示向量乘积，$||A||^2$ 表示向量的模。</p>
+<p>Tanimoto系数容易与余弦相似度混淆在Tanimoto系数计算公式中，如果把分母的 $A\cdot B$ 去掉，并将 $||A||^2+||B||^2$ 替换为 $||A||^2\cdot||B||^2$，就转成了余弦相似度。</p>
+<h3 id="3-Dice-系数"><a href="#3-Dice-系数" class="headerlink" title="3. Dice 系数"></a>3. Dice 系数</h3><p>Dice距离用于度量两个集合的相似性，因为可以把字符串理解为一种集合，因此Dice距离也会用于度量字符串的相似性。此外，Dice系数的一个非常著名的使用即实验性能评测的F1值。Dice系数定义如下：<br>$$Dice(A,B)=\frac{2|A\bigcap B|}{|A|+|B|}$$</p>
+<p>其中分子是 $A$ 与 $B$ 的交集数量的两倍，分母为 $A$ 和 $B$ 的长度之和，所以他的范围也在 $0$ 到 $1$ 之间。从公式看，Dice系数和Jaccard非常的类似。Jaccard是在分子和分母上都减去了$|A\bigcap B|$。<br>$$J(A,B)=\frac{|A\bigcap B|}{|A\bigcup B|}=\frac{|A\bigcap B|}{|A|+|B|-|A\bigcap B|}$$</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">机器学习</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%B7%9D%E7%A6%BB/">距离</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/leetcode/leetcode/leetcode72/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">leetcode72-编辑距离</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

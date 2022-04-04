@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <link rel="icon" href="/img/%E5%B0%8F%E9%BE%99%E7%8C%AB.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Zhang Youjia">
+  <meta name="keywords" content="个人博客,blog,学习,Study">
+  
+    <meta name="description" content="分布式计算视角下的区块链 《Blockchains from a Distributed Computing Perspective》  这篇文章来自一位受人尊敬的分布式系统专家，$Maurice~Herlihy$。它写得通俗易懂，具有说明性。论文举了几个例子（越来越复杂）来具体解释区块链的概念。$Herlihy$ 说，“colored by the perspective that much o">
+  
+  
+  <title>分布式计算视角下的区块链 阅读笔记 - Yj-Zhang&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/mac.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"youjiazhang.github.io","root":"/","version":"1.8.13","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":"siteId=17279802","google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname"}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Yj-Zhang&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                Home
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                Archives
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                Categories
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                Tags
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                <i class="iconfont icon-link-fill"></i>
+                Links
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                About
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/%E8%B5%B7%E9%A3%8E%E4%BA%86.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="分布式计算视角下的区块链 阅读笔记">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-10-14 00:00" pubdate>
+        October 14, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      10k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      33 分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">分布式计算视角下的区块链 阅读笔记</h1>
+            
+            <div class="markdown-body">
+              <h1 id="分布式计算视角下的区块链"><a href="#分布式计算视角下的区块链" class="headerlink" title="分布式计算视角下的区块链"></a>分布式计算视角下的区块链</h1><blockquote>
+<p>《Blockchains from a Distributed Computing Perspective》</p>
+</blockquote>
+<p>这篇文章来自一位受人尊敬的分布式系统专家，$Maurice~Herlihy$。它写得通俗易懂，具有说明性。论文举了几个例子（越来越复杂）来具体解释区块链的概念。$Herlihy$ 说，<br>“colored by the perspective that much of the blockchain world is a disguised, sometimes distorted, mirror-image of the distributed computing world.”</p>
+<span id="more"></span>
+<h2 id="账本"><a href="#账本" class="headerlink" title="账本"></a>账本</h2><p>区块链的核心：<strong>账本（ledger）</strong> (这是意大利文艺复兴时期的一项发明，最初开发用于支持复式记账，现代加密货币的一个遥远的先驱)</p>
+<div class="note note-info">
+            <p>账本只是各方之间发生的交易的不可磨灭的、仅可追加的日志。</p>
+          </div>
+
+<p>账本确定发生了哪些交易：</p>
+<ul>
+<li>$Alice$ 将 $10$ 个硬币转移给 $Bob$</li>
+<li>$Bob$ 将他的汽车的所有权转移给 $Alice$</li>
+</ul>
+<p>账本是 <strong>公开的</strong>，所有各方都可以访问，并且它们必须是 <strong>防篡改的</strong>，一旦记录下来，任何一方都不能添加、删除或修改账本的条目。简而言之，维护账本的算法必须是容错的。</p>
+<h2 id="早期区块链账本"><a href="#早期区块链账本" class="headerlink" title="早期区块链账本"></a>早期区块链账本</h2><h3 id="原始情景"><a href="#原始情景" class="headerlink" title="原始情景"></a>原始情景</h3><p>$Alice$ 经营在线新闻服务，同时多个频道的文章被收集且放置在一个内存表中，在那里它们被索引以供检索（如下图所示）。</p>
+<p><img src="/blog-image/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%8C%BA%E5%9D%97%E9%93%BE-1-1.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>起初，$Alice$ 使用 <strong>锁来同步对表的并发访问</strong>，但时不时地，持有锁的线程会出现页面错误或调度中断，导致文章无法访问太长时间。尽管有解决这种问题的教科书级的方法，但 $Alice$ 对定制的无锁算法 (lock-free algorithms) 不感兴趣，因此她需要一种简单的方法来消除基于锁的漏洞。</p>
+<h3 id="Alice-的新方法"><a href="#Alice-的新方法" class="headerlink" title="Alice 的新方法"></a>Alice 的新方法</h3><p>她决定分两部分设计实现她的数据结构。</p>
+<p><strong>基本结构</strong>：为了在文章到达时记录它们，她创建了一个作为简单链表实现的账本，其中每个列表条目都包含文章和指向它之前条目的链接。</p>
+<p>当一篇文章到达时，它被放置在一个共享池中：</p>
+<ul>
+<li>矿工：专用线程共同遵守一个共识协议，“讨论”之后决定选择将哪篇文章附加到账本中。</li>
+<li>共识协议：可以很简单，每个矿工创建一个列表条目，然后调用比较和交换指令来尝试使该条目成为列表的新头。</li>
+</ul>
+<p><strong>基本操作：</strong></p>
+<ul>
+<li>查询：为了查询最近的文章，一个线程扫描链表账本。</li>
+<li>添加：线程将文章添加到池中，并等待矿工将其附加到账本中。</li>
+</ul>
+<p><img src="/blog-image/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%8C%BA%E5%9D%97%E9%93%BE-1-2.jpg" srcset="/img/loading.gif" lazyload></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>这种结构（<strong>log-based system architecture</strong>）可能看起来很笨重，但它有两个引人注目的优点。</p>
+<ol>
+<li>通用性，它可以实现任何类型的数据结构，无论多么复杂。</li>
+<li>所有并发性和容错性问题都在 <strong>共识协议</strong> 中进行了划分。</li>
+</ol>
+<h3 id="共识"><a href="#共识" class="headerlink" title="共识"></a>共识</h3><p>那么共识协议就很重要，协议本身和执行者对于 $Alice$ 都很重要。所有执行协议的“人”中，可能有 “老实人” ，也可能有 “骗子，内鬼”。共识是一个适用于广泛计算模型的概念。“骗子” 可能会出现以下情况：</p>
+<ul>
+<li>各方可能只是随意停止（所谓的崩溃失败 $crash~failures$）</li>
+<li>他们可能会表现出恶意（所谓的拜占庭失败 $Byzantine~ failures$）</li>
+<li>各方通过共享内存中的对象进行通信，或者他们直接交换消息</li>
+<li>有时会限制不诚实的各方的数量，而有些则不会。</li>
+</ul>
+<p>在协商一致的情况下，每一方都提出一项交易以附加到账本中，并选择这些提议交易中的一项。共识确保：</p>
+<ol>
+<li>协议：所有诚实方都同意选择哪一个交易</li>
+<li>终止：所有诚实方最终都了解所选的交易</li>
+<li>有效性：所选交易实际上是由某一方提出的</li>
+</ol>
+<p>共识协议一直是分布式计算几十年来研究的重点。各类文献包含许多不同计算模型的许多算法和不可能结果。由于账本是长期存在的，因此它们需要能够进行重复共识以将交易流附加到账本中。通常，共识是以离散的轮次组织的，各方在第 $r$ 轮完成后开始第 $r + 1$ 轮。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>当然，这种共享内存的通用构造还不是区块链，因为虽然是并发的，<strong>但不是分布式的</strong>。此外，它不能容忍真正的恶意行为（仅崩溃）。尽管如此，这里已经介绍了区块链底层的关键概念。</p>
+<h2 id="私有区块链账本"><a href="#私有区块链账本" class="headerlink" title="私有区块链账本"></a>私有区块链账本</h2><h3 id="原始情景-1"><a href="#原始情景-1" class="headerlink" title="原始情景"></a>原始情景</h3><p>$Alice$ 还拥有一家冷冻酸奶店，她的生意陷入困境。最近几批冷冻酸奶已经变质，她的供应商 $Bob$ 否认对此负责。当她起诉时，$Bob$ 的律师成功地辩解称，$Bob$ 不仅从未处理过这些货物，而且这些货物在酸奶厂提货时就已经变质了，并且被完好无损地运送到 $Alice$ 的商店。</p>
+<h3 id="Alice-的新方法2-0"><a href="#Alice-的新方法2-0" class="headerlink" title="Alice 的新方法2.0"></a>Alice 的新方法2.0</h3><p>$Alice$ 决定是时候对她的供应链进行区块链化了。她租了一些云存储设备来保存账本，并在每个冷冻酸奶容器中安装了联网的温度传感器。她担心传感器并不总是可靠的（而且 $Bob$ 可能会对一些传感器做手脚），所以她把传感器连接起来进行 <strong>拜占庭容错共识协议</strong>（$Byzantine~ fault-tolerant<del>consensus</del>protocol$） ，该协议使用几轮投票来确保温度读数不会被少数有问题或损坏的传感器所扭曲篡改。每隔一段时间，各传感器就当前温度达成共识。他们在温度记录上盖上时间戳，并添加先前记录的哈希值，这样，当哈希值不匹配时，任何试图篡改早期记录的行为都会被发现。他们给记录“签名”以建立真实性，然后将记录附加到云存储的记录列表中。</p>
+<p>每次冻酸奶桶从 $Carol$ 的工厂转移到 $Bob$ 的卡车上时，$Bob$ 和 $Carol$ 都会签署一份证书，同意保管权的移交。(当桶被送到 $Alice$ 手中时， $Alice$ 和 $Bob$ 也做了同样的事情) 在每一次这样的转移中，带有数字签名的保管权移交证书都盖有时间戳以及先前记录的哈希值，然后当前的记录会被附加到云存储的列表中。</p>
+<ul>
+<li>$Alice$ 很高兴，因为她现在可以确定是谁保管的时候酸奶融化了。</li>
+<li>$Bob$ 很高兴，因为如果这批货在他去 $Carol$ 的工厂取货之前就已经融化了，他就不用负责</li>
+<li>$Carol$ 很高兴，他也得到了类似的保护。</li>
+</ul>
+<div class="note note-info">
+            <p><strong>值得一提的是</strong>：在每个阶段，$Alice$ 的供应链区块链都包括身份和访问控制。温度传感器在他们的选票上签名，因此选民欺诈 (voter fraud) 是不可能的。只有 $Alice$、$Bob$ 和 $Carol$（以及传感器）有权写入云存储，因此如果有人试图篡改账本，则可以追究各方的责任。</p>
+          </div>
+
+<h3 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在之前的共享内存通用构造中，链表作为账本，原子级内存操作作为共识。</li>
+<li>在这里，保存在云存储中的列表作为账本，拜占庭容错投票和个人数字签名的组合作为共识。虽然情况大不相同，但 <strong>“账本+共识”</strong> 的结构是一样的。</li>
+</ul>
+<h2 id="公有区块链账本"><a href="#公有区块链账本" class="headerlink" title="公有区块链账本"></a>公有区块链账本</h2><h3 id="原始情景-2"><a href="#原始情景-2" class="headerlink" title="原始情景"></a>原始情景</h3><p>$Alice$ 出售了她的冷冻酸奶业务，并决定开一家餐厅。由于租金高昂且风险投资家们总是贪得无厌，她决定通过发行吸引人的优惠券 (ICO) 来筹集自己的资金：她出售可在餐厅开业时兑换折扣套餐的数字优惠券。$Alice$ 希望她的 <strong>ICO</strong> 能够像病毒一样传播开来，很快全世界的人都会吵着要购买 $Alice$ 餐厅的优惠券（许多人打算以加价转售）。</p>
+<h3 id="Alice-的新方法3-0"><a href="#Alice-的新方法3-0" class="headerlink" title="Alice 的新方法3.0"></a>Alice 的新方法3.0</h3><p>$Alice$ 很鸡贼，她认为如果她在区块链上将其作为加密优惠券发行，她的优惠券将更具吸引力。$Alice$ 的加密优惠券由三个部分组成：</p>
+<ul>
+<li>私钥：任何知道私钥的人都可以转让（“花费”）优惠券的所有权</li>
+<li>公钥：任何人都可以验证用私钥加密的信息是否来自于优惠券的所有者</li>
+<li>账本条目：它建立了公钥和优惠券之间的联系，并有一个条目说。”任何知道与以下公钥匹配的私钥的人都拥有一张加密优惠券”。</li>
+</ul>
+<p>假设 $Bob$ 拥有一张优惠券，并决定将其中的一半转给 $Carol$，另一半留给自己。</p>
+<ul>
+<li><strong>step 1</strong> $Bob$ 和 $Carol$ 各自生成一对私钥和公钥。</li>
+<li><strong>step 2</strong> $Bob$ 用他当前的公钥、他的新公钥和 $Carol$ 的公钥创建了一个新的账本条目，并说：“我，即第一个公钥匹配的私钥的所有者，特此将相应优惠券的所有权转让给与接下来的两个公钥匹配的私钥的所有者”。</li>
+</ul>
+<p><img src="/blog-image/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%8C%BA%E5%9D%97%E9%93%BE-1-3.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>花费 $Alice$ 的一张加密优惠券就像将一张 $20$ 美元的钞票分成两张 $10$ 美元的钞票：旧优惠券被消费并被两张价值较小的不同优惠券取代。</p>
+<h3 id="维护-amp-管理-区块链"><a href="#维护-amp-管理-区块链" class="headerlink" title="维护&amp;管理 区块链"></a>维护&amp;管理 区块链</h3><p>接下来，$Alice$ 必须决定如何管理她的区块链。$Alice$ 不想自己做，因为她知道潜在客户可能不信任她。她有一个聪明的想法：她将通过向任何自愿成为矿工的人提供额外的优惠券作为费用来众包区块链管理（<strong>类似于我们转账时交的手续费</strong>），即执行共识协议的工作。她建立了一个共享公告板（有时称为<strong>点对点网络</strong>）以允许所有优惠券爱好者共享数据。希望购买或出售优惠券的客户将其交易发布到此公告板。一群志愿矿工找到这些交易，将它们分批成打包成块以提高效率，并共同执行重复性共识协议，将这些块附加到共享账本中，该账本本身在公告板上广播。每个矿工，以及所有关心这件事的人都可以获得这个共享账本。</p>
+<h3 id="如何保证区块链可信"><a href="#如何保证区块链可信" class="headerlink" title="如何保证区块链可信"></a>如何保证区块链可信</h3><p>$Alice$ 仍然担心“骗子”矿工会欺骗她的客户。大多数矿工可能是诚实的，满足于收取费用，勤勤恳恳的工作维护共享账本。但仍然存在一种威胁，即存在少数不诚实的矿工也可能相互勾结以欺骗 $Alice$。为了解决这个潜在的问题，$Alice$ 提出了一个想法。</p>
+<h4 id="一个想法：基于IP地址验证身份"><a href="#一个想法：基于IP地址验证身份" class="headerlink" title="一个想法：基于IP地址验证身份"></a>一个想法：基于IP地址验证身份</h4><p>$Alice$ 的第一个想法是让通过 <strong>IP地址</strong> 识别的矿工（类似于冷冻酸奶例子中使用的拜占庭容错共识算法进行投票）。$Alice$ 很快意识到这是个坏主意。$Alice$ 有一个克星 $Sybil$，她擅长制造假 IP 地址。$Sybil$ 可以很容易地压倒任何投票方案，只需用 <strong>“傀儡”矿工充斥协议</strong>，这些矿工看起来是独立的，但实际上都是在 $Sybil$ 的控制之下。</p>
+<div class="note note-info">
+            <p>前面我们注意到冷冻酸奶供应链区块链（私有区块链）不容易受到这种 <strong>“Sybil攻击”</strong> ，因为各方都有可靠的身份：只有 $Alice$、$Bob$ 和 $Carol$ 被允许参与，即使他们彼此不信任，每个人们知道，如果被发现作弊，他们将被追究责任。相比之下，为 $Alice$ 餐厅的加密优惠券服务的矿工们没有可靠的身份，因为 IP 地址很容易伪造，如果 $Sybil$ 窃取他的优惠券，受害者将无法找寻到真正的幕后黑手。</p>
+          </div>
+
+<h4 id="Alice-反思一下"><a href="#Alice-反思一下" class="headerlink" title="Alice 反思一下"></a>Alice 反思一下</h4><p>在建立街头帮派时，本质上会出现同样的问题：如何确保想加入帮派的人不是便衣警察、报社记者，或者只是一个白手起家的人？一种方法是社会学家所说的 <strong>“投名状（costly signaling）”</strong>：要求候选人做一些代价很高且难以伪造的事情，例如（1）抢劫商店，或（2）获得帮派标志纹身。</p>
+<p>在公有区块链世界中，最常见的“投名状”形式称为 <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E4%BD%9C%E9%87%8F%E8%AD%89%E6%98%8E">工作量证明(PoW)</a>。在 <strong>PoW</strong> 中，通过持有的彩票来决定将哪一笔交易应该被附加到账本中以达成共识。这很机智：因为购买彩票是一种代价很高的事情，需要投入大量的成本。如果她的每个“傀儡”矿工都必须长期购买彩票，那么 $Sybil$ 伪造 $\rm IP$ 身份对她来说是入不敷出的，期望值太低。</p>
+<h4 id="总结-2"><a href="#总结-2" class="headerlink" title="总结"></a>总结</h4><p>具体来说，在 PoW 彩票中，矿工们相互之间竞争解决一个非常困难且没有捷径的谜题，然而解决这个谜题很难，但证明一个人已经解决了这个谜题却很容易。</p>
+<p><img src="/blog-image/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%8C%BA%E5%9D%97%E9%93%BE-1-4.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>把事情简单化一下，第一个解决谜题的矿工赢得了“共识”，并可以选择一个区块添加到账本中。该矿工也收到了他所付出的劳动费用（一张新的优惠券，作为他工作的回报），而其他矿工白忙活了，必须重新开始解决下一个新的谜题。</p>
+<p>实际上，PoW 共识并不是真正的共识。如果两个矿工同时解开谜题，他们可以平行地向区块链追加区块，因此在区块链中没有一个区块先于另一个。当这种情况发生时，<strong>区块链被称为分叉</strong>。后续的矿工应该建立在哪个区块上？通常的答案是建立在链最长的区块上，尽管也有人提出了其他方法。</p>
+<p>因此，区块链上的交易是否是永久的存在一些不确定性，尽管区块一旦在区块链上被替换的概率会随着其后的区块数量呈指数下降。如果 $Bob$ 使用 $Alice$ 的加密优惠券从 $Carol$ 那里购买汽车，$Carol$ 会谨慎地等待 $Bob$ 的交易在区块链中相当靠前，以尽量减少它被分叉取代的机会。</p>
+<p>尽管 PoW 目前是最受欢迎的加密货币的基础，但它并不是唯一的策略。还有很多策略，将加密货币的所有权和不同类型代价高的事件绑定，例如以太坊的 Casper 或 Algorand。Cachin 和 Vukolic 对区块链共识协议进行了全面调查。</p>
+<h2 id="讨论-私有链-amp-公有链"><a href="#讨论-私有链-amp-公有链" class="headerlink" title="讨论-私有链&amp;公有链"></a>讨论-私有链&amp;公有链</h2><p>私有（许可）区块链系统和公有（无许可）区块链系统之间的区别是至关重要的，在前者中，各方拥有可靠的身份信息，只有经过审查或实名认证的各方可以参与；而在后者中，各方无法被可靠地识别，任何人都可以参与。</p>
+<ul>
+<li><strong>私有区块链</strong>：更适合商业应用，特别是在受监管行业，如金融，受了解你的客户和反洗钱法规的约束。私有区块链也往往更擅长治理，例如，通过提供更新分类账协议的有序程序。大多数关于分布式算法的先前工作都集中在参与者具有可靠身份的系统上。</li>
+<li><strong>公有区块链</strong>：对比特币等应用程序很有吸引力，这些应用程序旨在确保没有人可以控制谁可以参与，并且参与者可能不渴望知道他们的身份。尽管 PoW 是 Dwork 和 Naor 发明的一种控制垃圾邮件的方式，但中本聪将 PoW 应用于大规模共识是一项真正的创新，开创了整个区块链领域。</li>
+</ul>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>大多数区块链系统还提供某种形式的脚本语言，以便更轻松地向账本添加功能。·比特币·提供了一种基本的脚本语言，而·以太坊·提供了一种图灵完备的脚本语言。此类程序通常被称为智能合约（或合约）（尽管可以说它们既不智能也不合约）。</p>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><p>以下是一些简单合约功能的示例。<strong>哈希锁H</strong> 会防止资产被转移，直到合约收到了相匹配的秘密 $s$，其中<br>$$h = H(s)$$<br>其中 $H$ 是一个加密哈希函数。类似地，时间锁 $t$ 可防止资产在指定的未来时间 $t$ 之前被转移。</p>
+<p>假设 $Alice$ 想用她的一些优惠券与 $Bob$ 交换一些比特币。$Alice$ 的优惠券存在于一个区块链上，而 $Bob$ 的比特币存在于另一个区块链上，因此他们需要设计一个<strong>原子级跨链交换协议</strong>来完成他们的交易。当然了，双方都不是完全信任对方，防人之心不可无。这是一个简单的协议。让我们大胆地假设 $24$ 小时足以让任何人在任一区块链上发布智能合约，并且让另一方检测到该合约已发布。</p>
+<p><img src="/blog-image/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84%E5%8C%BA%E5%9D%97%E9%93%BE-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/%E5%8C%BA%E5%9D%97%E9%93%BE-1-5.jpg" srcset="/img/loading.gif" lazyload></p>
+<p>如上图所示（顺序：红——橙——黄——绿）</p>
+<ul>
+<li>$Alice$ 创建一个秘密 $s$ 和 $h = H(s)$，并在未来 $48$ 小时内在优惠券区块链上发布一个带有哈希锁和时间锁的合约，将一些优惠券的所有权转让给 $Bob$</li>
+<li>当 $Bob$ 确认 $Alice$ 的合约已经发布在优惠券区块链上时，他在比特币区块链上发布了一个具<strong>有相同哈希锁H</strong> 但具有 $24$ 小时后时间锁的合约，将他的比特币转移给 $Alice$</li>
+<li>当 $Alice$ 确认 $Bob$ 的合约已经发布在比特币区块链上时，她将 $s$ 发送给 $Bob$ 发布的合约中进行验证，并获得了对方提前放置好的比特币，并将 $s$ 透露给 $Bob$</li>
+<li>$Bob$ 向 $Alice$ 的合约发送 $s$ 也进行验证，获取优惠券并完成交换</li>
+</ul>
+<div class="note note-info">
+            <p>设计好的合约如果发布在区块链上，就等同于昭告天下了，P2P网络中所有的人都知道了这个合约的存在</p>
+          </div>
+
+<p>如果 $Alice$ 或 $Bob$ 在第一步或第二步崩溃，则合约超时（到期之后）并将其资产退还给原始所有者。如果其中任何一方在第三步和第四步中崩溃，那么只有崩溃的一方会很惨、血亏。如果任何一方试图欺骗，例如通过发布不正确的合同，那么另一方可以简单地停止并且其资产将被全额退还。$Alice$ 的合同需要一个 $48$ 小时的时间锁，以便当她在 $24$ 小时之前发布她的秘密 $s$ 时，$Bob$ 有足够的时间根据 $s$ 发布合约。</p>
+<p>这个例子说明了智能合约的力量。智能合约还有许多其他用途，包括链下交易。为了提高效率，资产在区块链外来回转移，只用区块链在不频繁的时间间隔内结算余额。</p>
+<h3 id="智能合约-as-对象"><a href="#智能合约-as-对象" class="headerlink" title="智能合约 as 对象"></a>智能合约 as 对象</h3><p>智能合约类似于面向对象编程语言中的对象。合约封装了长期状态、初始化该状态的构造函数以及管理该状态的一个或多个函数（方法）。合约可以调用彼此的功能。</p>
+<p>在以太坊中，所有合约都记录在区块链上，账本包括这些合约的当前状态。当矿工构建一个区块时，如果用智能合约填充该区块并一个一个地执行它们，其中每个合约的最终状态是下一个合约的初始状态。这些合约是按顺序执行的，所以<strong>看起来~不需要担心并发性</strong>。</p>
+<h3 id="智能合约作为监视器"><a href="#智能合约作为监视器" class="headerlink" title="智能合约作为监视器"></a>智能合约作为监视器</h3><p>去中心化自治组织（DAO）是一个投资基金，成立于 $2016$ 年，完全由智能合约管理，没有直接的人工管理。投资者可以投票决定如何投资该基金的资金。当时，有令人窒息的新闻报道解释了 DAO 将如何永远改变投资的形态。</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs axapta">function withdraw(unit amuount)&#123;<br>    <span class="hljs-keyword">client</span> = msg.sender:<br>    <span class="hljs-keyword">if</span> (balance[<span class="hljs-keyword">client</span>] &gt;= amount)&#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">client</span>.call.sendMoney(amount))&#123;<br>            balance[<span class="hljs-keyword">client</span>] -= amount;<br>        &#125;<br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<p>上面显示了一个类似 DAO 的合约片段，说明了一个允许投资者提取资金的功能。</p>
+<ul>
+<li>首先，该函数提取客户的地址（第 2 行）</li>
+<li>然后检查客户是否有足够的资金来支付提款（第 3 行）</li>
+<li>如果是，则通过外部函数调用将资金发送给客户（第 4 行）</li>
+<li>如果转账成功，则减少客户的余额（第 5 行）。</li>
+</ul>
+<div class="note note-danger">
+            <p><strong>!!! 这段代码有致命的缺陷</strong></p>
+          </div>
+
+<p>$2016$ 年 $6$ 月，有人利用该功能从 DAO 窃取了约 <strong>$5000$</strong> 万美元的资金。如前所述，第 3 行中的表达式是对客户端合约中函数的调用。下面显示了客户端的代码。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ada"><span class="hljs-keyword">function</span> <span class="hljs-title">sendMoney</span>(unit amount)&#123;<br>    victiom = msg.sender;<br>    balance += amount;<br>    victim.<span class="hljs-keyword">with</span>draw(amount) //再次调用 withdraw<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>客户的合约立即再次调用 withdraw()（第 4 行）。这个重入调用再次测试客户端是否有足够的资金来支付提款（第 3 行），并且 <strong>因为 withdraw() 仅在嵌套调用完成后才递减余额</strong>，因此测试错误地通过，函数会一直调用，依此类推，仅在调用堆栈溢出时停止。</p>
+<p>这种重入攻击乍一看似乎是一种全新的编程风格带来的奇异危险，但如果我们稍微改变一下观点，我们就会发现一个学习过并发编程课程的本科生都熟悉的陷阱。</p>
+<h4 id="监视器"><a href="#监视器" class="headerlink" title="监视器"></a>监视器</h4><p>监视器是由 $Hoare$ 和 $Brinch Hansen$ 发明的并发编程语言结构。监视器是一个带有内置互斥锁的对象，它在方法调用时自动获取并在方法返回时释放。（此类方法在 Java 中称为同步方法。）监视器还提供了一个 <strong>wait()</strong> 调用，允许线程释放监视器锁、挂起、最终唤醒和重新获取锁。例如，一个线程试图从一个空的缓冲区消费一个项目，可以调用 wait() 来暂停，直到有一个项目要消费。</p>
+<p>推理监视器实现正确性的主要工具是监视器不变量，只要监视器中没有线程执行，该断言就成立。当线程持有监视器锁时，可以违反不变量，但是当线程释放锁时，必须通过从方法返回或通过 wait() 挂起来恢复不变量。</p>
+<p>如果我们通过监视器和监视器不变量的视角来查看智能合约，那么可重入漏洞看起来非常熟悉。外部调用就像暂停，因为即使没有显式锁定，调用也可以让第二个程序计数器与第一个程序计数器同时执行该合约的代码。此处显示的类似 DAO 的合约隐含地假定每个客户在余额表中的条目反映其实际余额​​的不变性。当暂时违反的不变量在通过外部调用放弃（虚拟）监视器锁之前没有恢复时，就会发生错误。</p>
+<p>这就是分布式计算视角为何有价值的原因。当用监视器和监视器不变量来解释时，可重入漏洞是一个熟悉的、经典的并发错误，但是当用智能合约来表达时，它让受人尊敬的专家程序员感到惊讶，导致 DAO 投资者的实质性中断和尴尬，并且基本上需要重启以太坊货币本身。</p>
+<h3 id="智能合约作为读-修改-写操作"><a href="#智能合约作为读-修改-写操作" class="headerlink" title="智能合约作为读-修改-写操作"></a>智能合约作为读-修改-写操作</h3><p>ERC20 代币标准是最近许多首次代币发行 (ICO) 的基础，这是一种在不实际出售所有权的情况下为企业筹集资金的流行方式。ERC20 代币的发行者控制着代币的创建。代币可以交易或出售，就像前面讨论的爱丽丝餐厅的优惠券一样。ERC20 是一个标准，就像 Java 接口一样，而不是特定的实现。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs csharp">contract ERC20Example &#123;<br>    <span class="hljs-comment">// 每个账户的余额</span><br>    mapping(address =&gt; uint256 ) balances ;<br>    <span class="hljs-comment">// 账户所有者批准将一笔款项转入另一个账户</span><br>    mapping(address =&gt; mapping (address =&gt; uint256 )) allowed;<br>    <span class="hljs-comment">// 其他字段省略</span><br>    ...<br>    <span class="hljs-comment">// 允许 spender 多次从您的账户中提款，可多次提款。</span><br>    <span class="hljs-function">function <span class="hljs-title">approve</span>(<span class="hljs-params">address spender, <span class="hljs-built_in">uint</span> amount</span>) <span class="hljs-keyword">public</span> <span class="hljs-title">returns</span> (<span class="hljs-params"><span class="hljs-built_in">bool</span> success </span>)</span> &#123;<br>        allowed[msg.sender][spender] = amount; <span class="hljs-comment">// 更改 allowed</span><br>        Approval(msg.sender, spender, amount); <span class="hljs-comment">// 区块链事件</span><br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    <span class="hljs-function">function <span class="hljs-title">allowance</span>(<span class="hljs-params">address tokenOwner, address spender</span>) <span class="hljs-keyword">public</span> <span class="hljs-title">returns</span> (<span class="hljs-params"> <span class="hljs-built_in">uint</span> remaining</span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> allowed[tokenOwner][spender];<br>    &#125;<br>    <span class="hljs-function">function <span class="hljs-title">transferFrom</span>(<span class="hljs-params">address <span class="hljs-keyword">from</span>, address to , <span class="hljs-built_in">uint</span> tokens</span>) <span class="hljs-keyword">public</span> (<span class="hljs-params"><span class="hljs-built_in">bool</span> success </span>)</span> &#123;<br>        balances[<span class="hljs-keyword">from</span>] = balances[<span class="hljs-keyword">from</span>].sub(tokens );<br>        allowed[<span class="hljs-keyword">from</span>][msg.sender] = allowed[<span class="hljs-keyword">from</span>][msg.sender].sub(tokens );<br>        balances[to] = balances[to ]. <span class="hljs-keyword">add</span>(tokens );<br>        Transfer (<span class="hljs-keyword">from</span>, to , tokens );<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>    &#125;<br>    ... <span class="hljs-comment">// 其他功能省略</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>ERC20 代币合约跟踪每个账户拥有多少代币（第 3 行的余额映射）</li>
+<li>以及每个账户允许转移到其他账户的代币数量（第 5 行 allowed 的映射）</li>
+<li>approve()函数（第 9-13 行）调整一次可以将多少代币转移到另一个帐户的限制。</li>
+<li>它更新 allowed 表（第 10 行）</li>
+<li>并生成区块链事件以使这些更改更容易跟踪（第 11 行）</li>
+<li>allowance () 函数查询这个 allowance（第 14-16 行）</li>
+<li>transferFrom 函数（第 17-23 行）将代币从一个帐户转移到另一个帐户，并将配额减少相应的金额。此函数假定接收方有足够的余量来进行转移。</li>
+</ul>
+<p>以下是此规范如何导致不良行为。$Alice$ 调用 permit() 来授权 $Bob$ 将多达 $1000$ 个代币从她的帐户转移到他的帐户。$Alice$ 改变了主意，并发出一笔交易，将 $Bob$ 的津贴减少到仅仅 $100$ 个代币。$Bob$ 了解到这一变化，在 $Alice$ 的交易进入区块链之前，$Bob$ 向友好的矿工发出 transferFrom() 调用，要求 $1000$ 个代币，矿工确保 $Bob$ 的交易在下一个区块中先于 $Alice$ 的交易。这样，$Bob$ 成功地收回了他的 $1000$ 个代币的旧配额，将他的授权设置为 $0$，然后，为了不理会 $Alice$，他收回了 $100$ 个令牌的新配额。最后，$Alice$ 试图将 $Bob$ 的配额从 $1000$ 减少到 $10$，这使得 $Bob$ 可以提取 $1100$ 个代币，这不是她的本意。</p>
+<p>在实践中，ERC20 代币实现通常采用临时解决方法来避免此漏洞，最常见的是重新定义 allow() 的含义，以便它将允许值从正值重置为零，并在以后的调用中，从零到新的正值，但如果要求将允许值从一个正值重置为另一个正值，则会失败。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">class</span> Counter&#123;<br>    private <span class="hljs-type">int</span> counter;<br>    <span class="hljs-built_in">public</span> <span class="hljs-type">void</span> <span class="hljs-type">dec</span>()&#123;<br>        <span class="hljs-type">int</span> <span class="hljs-keyword">temp</span> = counter<br>        <span class="hljs-keyword">temp</span> = <span class="hljs-keyword">temp</span> - <span class="hljs-number">1</span>;<br>        counter = <span class="hljs-keyword">temp</span>;<br>    &#125;<br>    ···<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>问题在于，无论旧配额是否发生变化，approv() 都会盲目地用新配额覆盖旧配额。这种做法类似于尝试实现上面代码段所示的原子递减。这里，递减方法将共享计数器状态读入局部变量（第 4 行），增加局部变量（第 5 行），并将结果存回处于共享状态（第 6 行）。如果可以被并发线程调用，不难看出这个方法是不正确的，因为共享状态可以在第 4 行读取和第 6 行写入之间发生变化。编程，这个并发缺陷是显而易见的，但是当用表面上不需要并发模型的智能合约来表达时，</p>
+<h3 id="讨论分析"><a href="#讨论分析" class="headerlink" title="讨论分析"></a>讨论分析</h3><p>我们已经看到，智能合约不需要并发模型，因为执行是单线程的，这是一种危险的幻觉。$Sergey$ 和 $Hobor$ 对智能合约中的陷阱和常见错误进行了出色的调查，这些陷阱和错误是熟悉的并发陷阱和错误的伪装版本。$Atzei$ 等人。对以太坊智能合约设计中的漏洞进行全面调查。</p>
+<h2 id="总结-3"><a href="#总结-3" class="headerlink" title="总结"></a>总结</h2><p>激进的创新往往更容易从成熟的研究社区之外出现，而不是从内部出现。早在 $2008$ 年，中本聪的原始比特币论文会被一个主要的分布式会议接受吗？当然，我们永远不会知道，但该论文缺乏正式模型、缺乏严格的证明以及缺乏性能数据将是一个障碍。</p>
+<p>今天，区块链研究是计算机科学中更有活力的领域之一，有可能彻底改变我们社会处理信任的方式。观察到许多区块链结构对分身（或至少是先驱）的认识不足，这并不是对任一研究社区的批评，而是呼吁双方更加关注对方。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%8C%BA%E5%9D%97%E9%93%BE/">区块链</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/%E5%8C%BA%E5%9D%97%E9%93%BE/blockChain/MerkleTree/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Merkle Tree</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/leetcode/leetcode/leetcode72/">
+                        <span class="hidden-mobile">leetcode72-编辑距离</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments" lazyload>
+                
+                  
+                
+                
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'YoujiaZhang/commit-Utterances');
+      s.setAttribute('issue-term', 'pathname');
+      
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>hexo</span></a> <i class="iconfont icon-plan"></i> <a href="https://YoujiaZhang.github.io" target="_blank" rel="nofollow noopener"><span>Yj-Zhang</span></a> <i class="iconfont icon-love"></i> <a target="_blank" rel="nofollow noopener"><span>D.H.</span></a> <div style="font-size: 0.85rem"> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        loader: {
+          load: ['ui/lazy']
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" ></script>
+
+  
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js" ></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({"theme":"default"});
+    }
+  </script>
+
+
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?siteId=17279802";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
