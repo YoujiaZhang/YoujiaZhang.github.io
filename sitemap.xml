@@ -2,15 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://youjiazhang.github.io/NeMF/index.html</loc>
-    
-    <lastmod>2023-04-04</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://youjiazhang.github.io/Machine-Learning/ML/mnist/</loc>
     
     <lastmod>2023-04-04</lastmod>
