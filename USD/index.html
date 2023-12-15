@@ -88,75 +88,89 @@
     </div>
   </section>
   <br>
+    
+
+    <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>Denoising with unconditional noise</h3>
+            <hr style="margin-top:0px">
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="videos/unconditional noise.mp4" type="video/mp4">
+            </video>
+            <br>
+            <h6 style="color:#8899a5">
+                The unconditional noise predicted by Zero-1-to-3 model tends to be biased. The right subfigure shows the averaged difference between the predicted noise and the added noise. 
+                We take the unconditional noise predicted by Zero-1-to-3 to remove noise from the noisy input and recover the original image. We can see that even though a very low level of noise has been added, the denoised result deviates from the original image largely. In contrast, if we use the unconditional noise predicted by Stable Diffusion for denoising, only subtle details change while the main structure and identity of ‘Mario’ are preserved.</h6>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
 
   <!-- overview video -->
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h3>Main Idea</h3>
+            <h3>Unbiased Score Distillation</h3>
+            <hr style="margin-top:0px">
+            <img class="img-fluid" width="70%" src="images/main idea(1).jpg" alt="Overall pipeline of our approach">
+            <h6 style="color:#8899a5">We propose to remove the added noise Zero-1-to-3 term by setting λ=0, and use the unconditional noise predicted by Stable Diffusion to replace that of Zero-1-to-3.</h6>
             
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="videos/main idea.mp4" type="video/mp4">
-            </video>
-            
-<!--             <h3>Denoising with unconditional noise</h3>
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="videos/unconditional noise.mp4" type="video/mp4">
-            </video> -->
-            
-<!--             <h6 style="color:#8899a5">The unconditional noise predicted by Zero-1-to-3 model tends to be biased. The right subfigure shows the averaged difference between the predicted noise and the added noise.
-            </h6> -->
-
         </div>
       </div>
     </div>
   </section>
   <br>
-    
     
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h3>Denoising with unconditional noise</h3>
-
-            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
-                <source src="videos/unconditional noise.mp4" type="video/mp4">
-            </video>
-            <h6 style="color:#8899a5">The unconditional noise predicted by Zero-1-to-3 model tends to be biased. The right subfigure shows the averaged difference between the predicted noise and the added noise.
-            </h6>
-        </div>
-      </div>
-    </div>
-  </section>
-  <br>
-
-<!--   <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-            <h3>Interactive free-viewpoint video demo on the ZJU-MoCap and ST-NeRF datasets</h3>
+            <h3>Comparison with SDS</h3>
             <hr style="margin-top:0px">
+            <video width="70%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="videos/main idea(2).mp4" type="video/mp4">
+            </video>
             
         </div>
       </div>
     </div>
   </section>
   <br>
-
     
   <section>
     <div class="container">
       <div class="row">
         <div class="col-12 text-center">
-            <h3>More results on dynamic scenes</h3>
+            <h3>Two-stage Specified Diffusion</h3>
             <hr style="margin-top:0px">
+            <img class="img-fluid" width="70%" src="images/dreambooth.jpg" alt="Overall pipeline of our approach">
+            
         </div>
       </div>
     </div>
   </section>
-  <br> -->
+  <br>
+    
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+            <h3>More results</h3>
+            <hr style="margin-top:0px">
+            
+            <video width="100%" playsinline="" autoplay="autoplay" loop="loop" preload="" muted="">
+                <source src="videos/more.mp4" type="video/mp4">
+            </video>
+            
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
 
   <!-- citing -->
   <div class="container">
@@ -170,7 +184,6 @@
   author={Zhang, Youjia and Yu, Junqing and Song, Zikai and Yang, Wei},
   journal={arXiv preprint arXiv:2312.06198},
   year={2023}
-}
 }</code></pre>
           <hr>
       </div>
