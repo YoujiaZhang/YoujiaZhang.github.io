@@ -84,8 +84,12 @@ Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong
 </div>
 </div>
 
+<span class='anchor' id='-honors-and-awards'></span>
+
 # Honors and Awards
 - *2023*: China National Scholarship (Top 1%)
+
+<span class='anchor' id='-educations'></span>
 
 # Educations
 - *2017.09 - 2021.06*, Undergraduate, Central South University.
