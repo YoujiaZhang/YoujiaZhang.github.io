@@ -22,6 +22,8 @@ I am a PhD Student at the [School of Cyber Science and Engineering, Huazhong Uni
 # Services
 - Conference Reviewer: CVPR, ICCV, NeurIPS, ICLR, ICML, ICME
 
+<span class='anchor' id='-publications'></span>
+
 # Publications 
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/Ref-GS.png' alt="sym" width="100%"></div></div>
