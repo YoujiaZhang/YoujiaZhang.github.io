@@ -17,7 +17,7 @@ redirect_from:
 
 <span class='anchor' id='about-me'></span>
 
-I am a PhD Student at the [School of Cyber Science and Engineering, Huazhong University of Science and Technology](https://cse.hust.edu.cn/), in the [HUST Media Lab](http://media.hust.edu.cn). My research focuses on the intersection of Computer Vision, Graphics, and Machine Learning.
+I am a PhD Student at the [School of Computer Science and Technology, Huazhong University of Science and Technology](http://www.cs.hust.edu.cn/), in the [HUST Media Lab](http://media.hust.edu.cn), advised by Prof. [Wei Yang](https://weiyang-hust.github.io/). My research focuses on the intersection of Computer Vision, Graphics, and Neural Rendering.
 
 # Services
 - Conference Reviewer: CVPR, ICCV, NeurIPS, ICLR, ICML, ICME
@@ -25,6 +25,7 @@ I am a PhD Student at the [School of Cyber Science and Engineering, Huazhong Uni
 <span class='anchor' id='-publications'></span>
 
 # Publications 
+\* Equal contribution.
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/Ref-GS.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
