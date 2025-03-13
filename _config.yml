@@ -7,7 +7,7 @@
 
 # Site Settings
 title                    : "Youjia Zhang"
-description              : "PhD student at HUST"
+description              : "PhD student at Huazhong University of Science and Technology"
 repository               : "YoujiaZhang.github.io"
 google_scholar_stats_use_cdn : true
 
@@ -23,7 +23,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 author:
   name             : "Youjia Zhang"
   avatar           : "images/avatar.jpg"
-  bio              : "Huazhong University of Science and Technology"
+  bio              : # "Huazhong University of Science and Technology"
   location         : "Wuhan, China"
   employer         :
   pubmed           : 
