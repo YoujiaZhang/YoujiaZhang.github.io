@@ -90,7 +90,6 @@ Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong
 
 # Honors and Awards
 - *2023*: China National Scholarship (Top 1%).
-- *2023*: Outstanding Students of Huazhong University of Science and Technology.
 - *2021*: Outstanding Graduates of Central South University.
 
 <span class='anchor' id='-educations'></span>
