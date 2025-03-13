@@ -33,6 +33,8 @@ I am a PhD Student at the [School of Computer Science and Technology, Huazhong U
 
 **Youjia Zhang**, Anpei Chen, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang
 
+[**Project**](https://ref-gs.github.io/) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+- We propose Ref-GS, a method for directional light factorization in 2D Gaussian splatting, enabling photorealistic rendering and accurate geometry recovery. By applying directional encoding and spherical mip-grids, it reduces ambiguity and enhances roughness-aware shading. Our approach minimizes overhead and improves performance across open-world scenes.
 </div>
 </div>
 
@@ -43,6 +45,8 @@ I am a PhD Student at the [School of Computer Science and Technology, Huazhong U
 
 YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junqing Yu, Wei Yang
 
+[**Code**](https://github.com/babahui/FPC) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+- We propose a Feature Pruning and Consolidation (FPC) framework to circumvent explicit human structure parse, which consists of a sparse encoder, a global and local feature ranking module, and a feature consolidation decoder.
 </div>
 </div>
 
@@ -53,6 +57,8 @@ YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junq
 
 YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenxing Gao, Junqing Yu, Wei Yang
 
+[**Code**](https://github.com/babahui/Progressive-Text-to-Image) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+- We propose to harness the capabilities of a Large Language Model (LLM) to decompose text descriptions into coherent directives adhering to stringent formats and progressively generate the target image.
 </div>
 </div>
 
@@ -63,6 +69,7 @@ YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenx
 
 Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
+- We propose the Adaptable Motion Diffusion (AMD) model, which leverages a Large Language Model (LLM) to parse the input text into a sequence of concise and interpretable anatomical scripts that correspond to the target motion.
 </div>
 </div>
 
@@ -73,6 +80,8 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
 **Youjia Zhang**, Teng Xu, Junqing Yu, Yuteng Ye, Yanqing Jing, Junle Wang, Jingyi Yu, Wei Yang
 
+[**Project**](https://youjiazhang.github.io/NeMF/) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:u-x6o8ySG0sC'></span></strong>
+- We propose to conduct inverse volume rendering by representing a scene using microflake volume, which assumes the space is filled with infinite small flakes and light reflects or scattersat each spatial location according to microflake distributions.
 </div>
 </div>
 
