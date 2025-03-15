@@ -91,6 +91,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 [Highly accurate and large-scale collision cross sections prediction with graph neural networks](https://www.nature.com/articles/s42004-023-00939-w)
 
 Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu, Zhimin Zhang
+
 [**Code**](https://github.com/YoujiaZhang/SigmaCCS) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:u-x6o8ySG0sC'></span></strong>
 - We present SigmaCCS, a graph neural network-based method for CCS prediction from 3D conformers. It achieves high accuracy and chemical interpretability, enabling large-scale in-silico CCS estimation.
 </div>
