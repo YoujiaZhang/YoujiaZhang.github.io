@@ -40,11 +40,17 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div> <video width="100%" height="100%" muted="" autoplay="" loop=""> <source src="images/USD.mp4" type="video/mp4"> </video> </div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">IJCAI 2025</div> <video width="100%" height="100%" muted="" autoplay="" loop=""> <source src="images/USD.mp4" type="video/mp4"> </video> </div></div>
 <div class='paper-box-text' markdown="1">
-</div>
-</div>
 
+[Optimized View and Geometry Distillation from Multi-view Diffuser](https://youjiazhang.github.io/USD/)
+
+**Youjia Zhang**, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang
+
+[**Project**](https://youjiazhang.github.io/USD/) | [**Code**](https://github.com/YoujiaZhang/USD)
+- We propose USD, a method for consistent single-to-multi-view image synthesis and geometry recovery using image-conditioned diffusion and radiance fields. By treating the radiance field optimized during geometry extraction as a rigid multi-view consistency prior and introducing Unbiased Score Distillation (USD)—which leverages unconditioned noise from a 2D diffusion model to correct traditional optimization bias—we greatly enhance radiance field fidelity. Our two-step specialization of the 2D diffuser then performs object-specific denoising to generate high-quality multi-view images, from which we directly recover accurate geometry and texture. The result matches state-of-the-art performance on extensive datasets while preserving full freedom of camera positioning.
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">AAAI 2024</div><img src='images/reid.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
