@@ -35,10 +35,11 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 **Youjia Zhang**, Anpei Chen, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang
 
-[**Project**](https://ref-gs.github.io/) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+[**Project**](https://ref-gs.github.io/) | [**Code**](https://github.com/YoujiaZhang/Ref-GS)
 - We propose Ref-GS, a method for directional light factorization in 2D Gaussian splatting, enabling photorealistic rendering and accurate geometry recovery. By applying directional encoding and spherical mip-grids, it reduces ambiguity and enhances roughness-aware shading. Our approach minimizes overhead and improves performance across open-world scenes.
 </div>
 </div>
+
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">AAAI 2024</div><img src='images/reid.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
@@ -47,7 +48,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junqing Yu, Wei Yang
 
-[**Code**](https://github.com/babahui/FPC) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+[**Code**](https://github.com/babahui/FPC)
 - We propose a Feature Pruning and Consolidation (FPC) framework to circumvent explicit human structure parse, which consists of a sparse encoder, a global and local feature ranking module, and a feature consolidation decoder.
 </div>
 </div>
@@ -59,7 +60,7 @@ YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junq
 
 YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenxing Gao, Junqing Yu, Wei Yang
 
-[**Code**](https://github.com/babahui/Progressive-Text-to-Image) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:9yKSN-GCB0IC'></span></strong>
+[**Code**](https://github.com/babahui/Progressive-Text-to-Image)
 - We propose to harness the capabilities of a Large Language Model (LLM) to decompose text descriptions into coherent directives adhering to stringent formats and progressively generate the target image.
 </div>
 </div>
@@ -82,7 +83,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
 **Youjia Zhang**, Teng Xu, Junqing Yu, Yuteng Ye, Yanqing Jing, Junle Wang, Jingyi Yu, Wei Yang
 
-[**Project**](https://youjiazhang.github.io/NeMF/) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:u-x6o8ySG0sC'></span></strong>
+[**Project**](https://youjiazhang.github.io/NeMF/) | [**Code**](https://github.com/YoujiaZhang/NeMF)
 - We propose to conduct inverse volume rendering by representing a scene using microflake volume, which assumes the space is filled with infinite small flakes and light reflects or scattersat each spatial location according to microflake distributions.
 </div>
 </div>
@@ -94,7 +95,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
 Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu, Zhimin Zhang
 
-[**Code**](https://github.com/YoujiaZhang/SigmaCCS) <strong><span class='show_paper_citations' data='mB7VifEAAAAJ:u-x6o8ySG0sC'></span></strong>
+[**Code**](https://github.com/YoujiaZhang/SigmaCCS) | [**Code**](https://github.com/YoujiaZhang/SigmaCCS)
 - We present SigmaCCS, a graph neural network-based method for CCS prediction from 3D conformers. It achieves high accuracy and chemical interpretability, enabling large-scale in-silico CCS estimation.
 </div>
 </div>
