@@ -40,7 +40,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">IJCAI 2025</div> <video width="100%" height="100%" playsinline="" autoplay="autoplay" loop="loop"> <source src="images/USD.mp4" type="video/mp4"> </video> </div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">IJCAI 2025</div> <video width="100%" height="100%" playsinline autoplay loop muted> <source src="images/USD.mp4" type="video/mp4"> </video> </div></div>
 <div class='paper-box-text' markdown="1">
 
 [Optimized View and Geometry Distillation from Multi-view Diffuser](https://youjiazhang.github.io/USD/)
