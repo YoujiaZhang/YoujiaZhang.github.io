@@ -40,6 +40,11 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 </div>
 </div>
 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div> <video width="100%" height="100%" muted="" autoplay="" loop=""> <source src="images/USD.mp4" type="video/mp4"> </video> </div></div>
+<div class='paper-box-text' markdown="1">
+</div>
+</div>
+
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">AAAI 2024</div><img src='images/reid.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
@@ -95,7 +100,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
 Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu, Zhimin Zhang
 
-[**Code**](https://github.com/YoujiaZhang/SigmaCCS) | [**Code**](https://github.com/YoujiaZhang/SigmaCCS)
+[**Code**](https://github.com/YoujiaZhang/SigmaCCS)
 - We present SigmaCCS, a graph neural network-based method for CCS prediction from 3D conformers. It achieves high accuracy and chemical interpretability, enabling large-scale in-silico CCS estimation.
 </div>
 </div>
