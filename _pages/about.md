@@ -33,7 +33,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 [Ref-GS: Directional Factorization for 2D Gaussian Splatting](https://ref-gs.github.io/)
 
-**Youjia Zhang**, Anpei Chen†, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang†
+**Youjia Zhang**, Anpei Chen †, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang †
 
 [**Project**](https://ref-gs.github.io/) | [**Code**](https://github.com/YoujiaZhang/Ref-GS)
 - We propose Ref-GS, a method for directional light factorization in 2D Gaussian splatting, enabling photorealistic rendering and accurate geometry recovery. By applying directional encoding and spherical mip-grids, it reduces ambiguity and enhances roughness-aware shading. Our approach minimizes overhead and improves performance across open-world scenes.
@@ -45,7 +45,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 [Optimized View and Geometry Distillation from Multi-view Diffuser](https://youjiazhang.github.io/USD/)
 
-**Youjia Zhang**, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang†
+**Youjia Zhang**, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang †
 
 [**Project**](https://youjiazhang.github.io/USD/) | [**Code**](https://github.com/YoujiaZhang/USD)
 - We propose USD, a method for consistent single-to-multi-view image synthesis and geometry recovery using image-conditioned diffusion and radiance fields. By treating the radiance field optimized during geometry extraction as a rigid multi-view consistency prior and introducing Unbiased Score Distillation (USD)—which leverages unconditioned noise from a 2D diffusion model to correct traditional optimization bias—we greatly enhance radiance field fidelity. Our two-step specialization of the 2D diffuser then performs object-specific denoising to generate high-quality multi-view images, from which we directly recover accurate geometry and texture. The result matches state-of-the-art performance on extensive datasets while preserving full freedom of camera positioning.
@@ -57,7 +57,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 [Dynamic feature pruning and consolidation for occluded person re-identification](https://ojs.aaai.org/index.php/AAAI/article/view/28491)
 
-YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junqing Yu, Wei Yang†
+YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junqing Yu, Wei Yang †
 
 [**Paper**](https://arxiv.org/pdf/2211.14742) | [**Code**](https://github.com/babahui/FPC)
 - We propose a Feature Pruning and Consolidation (FPC) framework to circumvent explicit human structure parse, which consists of a sparse encoder, a global and local feature ranking module, and a feature consolidation decoder.
@@ -69,7 +69,7 @@ YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junq
 
 [Progressive Text-to-Image Diffusion with Soft Latent Direction](https://arxiv.org/abs/2309.09466)
 
-YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenxing Gao, Junqing Yu, Wei Yang†
+YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenxing Gao, Junqing Yu, Wei Yang †
 
 [**Paper**](https://arxiv.org/pdf/2309.09466) | [**Code**](https://github.com/babahui/Progressive-Text-to-Image)
 - We propose to harness the capabilities of a Large Language Model (LLM) to decompose text descriptions into coherent directives adhering to stringent formats and progressively generate the target image.
@@ -81,7 +81,7 @@ YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenx
 
 [AMD: anatomical motion diffusion with interpretable motion decomposition and fusion](https://arxiv.org/abs/2312.12763)
 
-Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang†
+Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang †
 
 [**Paper**](https://arxiv.org/pdf/2312.12763)
 - We propose the Adaptable Motion Diffusion (AMD) model, which leverages a Large Language Model (LLM) to parse the input text into a sequence of concise and interpretable anatomical scripts that correspond to the target motion.
@@ -93,7 +93,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang†
 
 [NeMF: Inverse volume rendering with neural microflake field](https://openaccess.thecvf.com/content/ICCV2023/papers/Zhang_NeMF_Inverse_Volume_Rendering_with_Neural_Microflake_Field_ICCV_2023_paper.pdf)
 
-**Youjia Zhang**, Teng Xu, Junqing Yu, Yuteng Ye, Yanqing Jing, Junle Wang, Jingyi Yu, Wei Yang†
+**Youjia Zhang**, Teng Xu, Junqing Yu, Yuteng Ye, Yanqing Jing, Junle Wang, Jingyi Yu, Wei Yang †
 
 [**Project**](https://youjiazhang.github.io/NeMF/) | [**Code**](https://github.com/YoujiaZhang/NeMF)
 - We propose to conduct inverse volume rendering by representing a scene using microflake volume, which assumes the space is filled with infinite small flakes and light reflects or scattersat each spatial location according to microflake distributions.
@@ -105,7 +105,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang†
 
 [Highly accurate and large-scale collision cross sections prediction with graph neural networks](https://www.nature.com/articles/s42004-023-00939-w)
 
-Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu†, Zhimin Zhang†
+Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu †, Zhimin Zhang †
 
 [**Code**](https://github.com/YoujiaZhang/SigmaCCS)
 - We present SigmaCCS, a graph neural network-based method for CCS prediction from 3D conformers. It achieves high accuracy and chemical interpretability, enabling large-scale in-silico CCS estimation.
