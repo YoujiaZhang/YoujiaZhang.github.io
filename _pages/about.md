@@ -100,7 +100,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang †
 </div>
 </div>
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Communications Chemistry 2023</div><img src='images/SigmaCCS.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">Communications Chemistry (JCR Q1)</div><img src='images/SigmaCCS.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [Highly accurate and large-scale collision cross sections prediction with graph neural networks](https://www.nature.com/articles/s42004-023-00939-w)
