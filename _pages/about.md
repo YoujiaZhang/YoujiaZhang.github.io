@@ -59,7 +59,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junqing Yu, Wei Yang
 
-[**Code**](https://github.com/babahui/FPC)
+[**Paper**](https://arxiv.org/pdf/2211.14742) | [**Code**](https://github.com/babahui/FPC)
 - We propose a Feature Pruning and Consolidation (FPC) framework to circumvent explicit human structure parse, which consists of a sparse encoder, a global and local feature ranking module, and a feature consolidation decoder.
 </div>
 </div>
@@ -71,7 +71,7 @@ YuTeng Ye, Jiale Cai, Chenxing Gao, **Youjia Zhang**, Junle Wang, Qiang Hu, Junq
 
 YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenxing Gao, Junqing Yu, Wei Yang
 
-[**Code**](https://github.com/babahui/Progressive-Text-to-Image)
+[**Paper**](https://arxiv.org/pdf/2309.09466) | [**Code**](https://github.com/babahui/Progressive-Text-to-Image)
 - We propose to harness the capabilities of a Large Language Model (LLM) to decompose text descriptions into coherent directives adhering to stringent formats and progressively generate the target image.
 </div>
 </div>
@@ -83,6 +83,7 @@ YuTeng Ye, Jiale Cai, Hang Zhou, Guanwen Li, **Youjia Zhang**, Zikai Song, Chenx
 
 Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang
 
+[**Paper**](https://arxiv.org/pdf/2312.12763)
 - We propose the Adaptable Motion Diffusion (AMD) model, which leverages a Large Language Model (LLM) to parse the input text into a sequence of concise and interpretable anatomical scripts that correspond to the target motion.
 </div>
 </div>
