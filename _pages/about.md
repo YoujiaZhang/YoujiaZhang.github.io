@@ -52,6 +52,20 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 </div>
 </div>
 
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICME 2025</div><img src='images/CA-Diff.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[CA-Diff: Collaborative Anatomy Diffusion for Brain Tissue Segmentation](https://youjiazhang.github.io/)
+
+Qilong Xing, Zikai Song*, Yuteng Ye, Yuke Chen, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †
+
+[**Paper**](https://youjiazhang.github.io/) | [**Code**](https://youjiazhang.github.io/)
+- We propose Collaborative Anatomy Diffusion (CA-Diff), a framework integrating spatial anatomical features to enhance segmentation accuracy of the diffusion model.
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">AAAI 2024</div><img src='images/reid.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
