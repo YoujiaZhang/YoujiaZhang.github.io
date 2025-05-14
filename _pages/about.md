@@ -34,8 +34,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 [Ref-GS: Directional Factorization for 2D Gaussian Splatting](https://ref-gs.github.io/)
 
 **Youjia Zhang**, Anpei Chen †, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang †  
-<em>Computer Vision and Pattern Recognition (CVPR), 2025</em>  
-<em>Chinese Congress on Image and Graphics (CCIG), 2025 (Spotlight)</em>  
+<em>Computer Vision and Pattern Recognition (CVPR), 2025</em>
 
 [**Project**](https://ref-gs.github.io/) | [**Code**](https://github.com/YoujiaZhang/Ref-GS) | [**Slides**](images/CCIG2025-Spotlight-Ref-GS-youjiazhang@hust.edu.cn.pdf)
 - We propose Ref-GS, a method for directional light factorization in 2D Gaussian splatting, enabling photorealistic rendering and accurate geometry recovery. By applying directional encoding and spherical mip-grids, it reduces ambiguity and enhances roughness-aware shading. Our approach minimizes overhead and improves performance across open-world scenes.
