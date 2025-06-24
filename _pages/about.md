@@ -55,6 +55,21 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 </div>
 
 
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">MICCAI 2025</div><img src='images/MICCAI2025.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[MCA-RG: Enhance LLM with Medical Concept Alignment for Radiology Report Generation](https://youjiazhang.github.io/)
+
+Qilong Xing, Zikai Song*, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †  
+<em>Medical Image Computing and Computer Assisted Intervention (MICCAI), 2025</em>
+
+[**Paper**](https://youjiazhang.github.io/) | [**Code**](https://youjiazhang.github.io/)
+- We propose MCA-RG, a knowledge-driven framework for radiology report generation that aligns visual features with curated pathology and anatomy concept banks. By incorporating anatomy-based contrastive learning, pathology-guided matching, and a feature gating mechanism, MCA-RG enhances diagnostic accuracy and clinical relevance. Experiments on MIMIC-CXR and CheXpert Plus demonstrate state-of-the-art performance in medical report generation.
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICME 2025</div><img src='images/CA-Diff.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
