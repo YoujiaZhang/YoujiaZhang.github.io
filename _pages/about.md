@@ -61,7 +61,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 [MCA-RG: Enhance LLM with Medical Concept Alignment for Radiology Report Generation](https://youjiazhang.github.io/)
 
-Qilong Xing, Zikai Song*, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †  
+Qilong Xing, Zikai Song, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †  
 <em>Medical Image Computing and Computer Assisted Intervention (MICCAI), 2025</em>
 
 [**Paper**](https://youjiazhang.github.io/) | [**Code**](https://youjiazhang.github.io/)
@@ -75,7 +75,7 @@ Qilong Xing, Zikai Song*, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †
 
 [CA-Diff: Collaborative Anatomy Diffusion for Brain Tissue Segmentation](https://youjiazhang.github.io/)
 
-Qilong Xing, Zikai Song*, Yuteng Ye, Yuke Chen, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †  
+Qilong Xing, Zikai Song †, Yuteng Ye, Yuke Chen, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †  
 <em>International Conference on Multimedia & Expo (ICME), 2025</em>
 
 [**Paper**](https://youjiazhang.github.io/) | [**Code**](https://youjiazhang.github.io/)
