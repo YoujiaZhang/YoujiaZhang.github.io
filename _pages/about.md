@@ -29,6 +29,19 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 # Publications 
 \* Equal contribution. † denotes corresponding author.
 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='images/Motion3-to-4.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[Motion 3-to-4: 3D Motion Reconstruction for 4D Synthesis](https://motion3-to-4.github.io/)
+
+Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †   
+
+[**Project**](https://motion3-to-4.github.io/) | [**Code**](https://github.com/Inception3D/Motion324) | [**Paper**](https://arxiv.org/abs/2601.14253)
+- Synthesising 4D dynamic objects from single monocular video.
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2025</div><img src='images/Ref-GS.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
