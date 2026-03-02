@@ -52,7 +52,7 @@ Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †
 <em>Computer Vision and Pattern Recognition (CVPR), 2025</em>
 
 [**Project**](https://ref-gs.github.io/) | [**Code**](https://github.com/YoujiaZhang/Ref-GS) | [**Slides**](images/CCIG2025-Spotlight-Ref-GS-youjiazhang@hust.edu.cn.pdf) | [**Poster**](images/Ref-GS-poster.pdf)
-- We propose Ref-GS, a method for directional light factorization in 2D Gaussian splatting, enabling photorealistic rendering and accurate geometry recovery. By applying directional encoding and spherical mip-grids, it reduces ambiguity and enhances roughness-aware shading. Our approach minimizes overhead and improves performance across open-world scenes.
+- Ref-GS builds upon the deferred rendering of Gaussian splatting and applies directional encoding to the deferred-rendered surface, effectively reducing the ambiguity between orientation and viewing angle. We introduce a spherical Mip-grid to capture varying levels of surface roughness, enabling roughness-aware Gaussian shading.
 </div>
 </div>
 
@@ -65,7 +65,7 @@ Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †
 <em>International Joint Conference on Artificial Intelligence (IJCAI), 2025</em>
 
 [**Project**](https://youjiazhang.github.io/USD/) | [**Code**](https://github.com/YoujiaZhang/USD)
-- We propose USD, a method for consistent single-to-multi-view image synthesis and geometry recovery using image-conditioned diffusion and radiance fields. By treating the radiance field optimized during geometry extraction as a rigid multi-view consistency prior and introducing Unbiased Score Distillation (USD)—which leverages unconditioned noise from a 2D diffusion model to correct traditional optimization bias—we greatly enhance radiance field fidelity. Our two-step specialization of the 2D diffuser then performs object-specific denoising to generate high-quality multi-view images, from which we directly recover accurate geometry and texture. The result matches state-of-the-art performance on extensive datasets while preserving full freedom of camera positioning.
+- We propose the USD, which achieves consistent single-to-multi-view synthesis and geometry recovery by using a radiance-field consistency prior and Unbiased Score Distillation—injecting unconditioned 2D diffusion noise to debias optimization—followed by a two-step, object-aware denoising process that yields high-quality views for accurate geometry and texture.
 </div>
 </div>
 
