@@ -1,10 +1,3 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your entire site, values
-# which you are expected to set up once and rarely need to edit after that.
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# `jekyll serve`. If you change this file, please restart the server process.
-
 # Site Settings
 title                    : "Youjia Zhang"
 description              : "PhD student at Huazhong University of Science and Technology(HUST). Focusing on 3D"
@@ -21,7 +14,7 @@ baidu_site_verification  :  # get baidu_site_verification from https://ziyuan.ba
 
 # Site Author
 author:
-  name             : "Youjia Zhang (张由甲)"
+  name             : "Youjia Zhang"
   avatar           : "images/avatar.jpg"
   bio              : "Huazhong University of Science and Technology"
   location         : "Wuhan, China"
