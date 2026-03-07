@@ -106,7 +106,7 @@ Qilong Xing, Zikai Song, **Youjia Zhang**, Na Feng, Junqing Yu, Wei Yang †
 <em>Medical Image Computing and Computer Assisted Intervention (MICCAI), 2025</em>
 
 [**Paper**](https://youjiazhang.github.io/) | [**Code**](https://youjiazhang.github.io/)
-- We propose MCA-RG, a knowledge-driven framework for radiology report generation that aligns visual features with curated pathology and anatomy concept banks. By incorporating anatomy-based contrastive learning, pathology-guided matching, and a feature gating mechanism, MCA-RG enhances diagnostic accuracy and clinical relevance. Experiments on MIMIC-CXR and CheXpert Plus demonstrate state-of-the-art performance in medical report generation.
+- We propose MCA-RG, a knowledge-driven framework for radiology report generation that aligns visual features with curated pathology and anatomy concept banks, employs contrastive and matching losses, and leverages feature gating to guide accurate, clinically relevant report synthesis.
 </div>
 </div>
 
