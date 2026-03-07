@@ -29,6 +29,20 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 # Publications 
 \* Equal contribution. † denotes corresponding author.
 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[LATO: 3D Mesh Flow Matching with Structured TOpology Preserving LAtents](https://youjiazhang.github.io/)
+
+Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †      
+
+Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
+
+- We propose LATO, a topology-aware latent representation for explicit mesh synthesis that encodes meshes as vertex displacement fields within a sparse voxel VAE and predicts edge connectivity from voxel latents, enabling efficient two-stage flow-matching generation of structured meshes.
+</div>
+</div>
+
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2026</div><img src='images/Motion3-to-4.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
@@ -38,7 +52,7 @@ Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †
 <em>Computer Vision and Pattern Recognition (CVPR), 2026</em>
 
 [**Project**](https://motion3-to-4.github.io/) | [**Code**](https://github.com/Inception3D/Motion324) | [**Paper**](https://arxiv.org/abs/2601.14253)
-- Synthesising 4D dynamic objects from single monocular video.
+- We present Motion 3-to-4, a feed-forward framework for monocular 4D object synthesis that decomposes dynamic geometry into canonical shape generation and motion reconstruction, learning compact motion latents to predict temporally coherent vertex trajectories.
 </div>
 </div>
 
