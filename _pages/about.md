@@ -51,7 +51,7 @@ Yuteng Ye, Zheng Zhang, Qinchuan Zhang, Di Wang, **Youjia Zhang**, Wenxiao Zhang
 [**Project**](https://babahui.github.io/jigsaw3D.github.io) | [**Code**](https://github.com/babahui/JIGSAW3D) | [**Paper**](https://arxiv.org/pdf/2510.10497)
 - We propose Jigsaw3D, a framework for 3D style transfer consisting of a jigsaw operation to isolate style statistics, a multi-view diffusion model with reference-to-view cross-attention, and a style-baking step to produce view-consistent textures.
 </div>
-</div
+</div>
 
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">CVPR 2026</div><img src='images/Motion3-to-4.png' alt="sym" width="100%"></div></div>
