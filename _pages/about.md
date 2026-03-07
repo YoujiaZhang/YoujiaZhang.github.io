@@ -27,7 +27,8 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 <span class='anchor' id='-publications'></span>
 
 # Publications 
-\* Equal contribution. † denotes corresponding author.
+**Equal contribution**$^\star$
+**Corresponding author**$^\dagger$
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
