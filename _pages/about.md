@@ -37,6 +37,7 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 
 Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
 
+[**Paper**](https://arxiv.org/pdf/2603.06357)
 - We propose LATO, a topology-aware latent representation for explicit mesh synthesis that encodes meshes as vertex displacement fields within a sparse voxel VAE and predicts edge connectivity from voxel latents, enabling efficient two-stage flow-matching generation of structured meshes.
 </div>
 </div>
