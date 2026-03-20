@@ -62,7 +62,7 @@ Yuteng Ye, Zheng Zhang, Qinchuan Zhang, Di Wang, **Youjia Zhang**, Wenxiao Zhang
 [Motion 3-to-4: 3D Motion Reconstruction for 4D Synthesis](https://motion3-to-4.github.io/)
 
 Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †      
-<em>Computer Vision and Pattern Recognition (CVPR), 2026</em>
+<span style="color:blue"><em>Computer Vision and Pattern Recognition (CVPR), 2026</em></span>
 
 [**Project**](https://motion3-to-4.github.io/) | [**Code**](https://github.com/Inception3D/Motion324) | [**Paper**](https://arxiv.org/abs/2601.14253)
 - We present Motion 3-to-4, a feed-forward framework for monocular 4D object synthesis that decomposes dynamic geometry into canonical shape generation and motion reconstruction, learning compact motion latents to predict temporally coherent vertex trajectories.
