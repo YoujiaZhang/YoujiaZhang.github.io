@@ -194,6 +194,7 @@ Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong
 <span class='anchor' id='-honors-and-awards'></span>
 
 # Honors and Awards
+- *2026*: [Meshy AI Fellowship 2026](https://www.meshy.ai/blog/fellowship-2026) Outstanding Prize Recipient.
 - *2023*: China National Scholarship (Top 1%).
 - *2021*: Outstanding Graduates of Central South University.
 
