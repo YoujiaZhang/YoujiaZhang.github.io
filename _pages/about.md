@@ -50,7 +50,7 @@ Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Y
  
 Yuteng Ye, Zheng Zhang, Qinchuan Zhang, Di Wang, **Youjia Zhang**, Wenxiao Zhang, Wei Yang, Yuan Liu †    
 
-[**Project**](https://babahui.github.io/jigsaw3D.github.io) | [**Code**](https://github.com/babahui/JIGSAW3D) | [**Paper**](https://arxiv.org/pdf/2510.10497)
+[**Project**](https://babahui.github.io/jigsaw3D.github.io) | [**Paper**](https://arxiv.org/pdf/2510.10497) | [**Code**](https://github.com/babahui/JIGSAW3D)
 - We propose Jigsaw3D, a framework for 3D style transfer consisting of a jigsaw operation to isolate style statistics, a multi-view diffusion model with reference-to-view cross-attention, and a style-baking step to produce view-consistent textures.
 </div>
 </div>
@@ -64,7 +64,7 @@ Yuteng Ye, Zheng Zhang, Qinchuan Zhang, Di Wang, **Youjia Zhang**, Wenxiao Zhang
 Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †      
 <span style="color:blue"><em>Computer Vision and Pattern Recognition (CVPR), 2026</em></span>
 
-[**Project**](https://motion3-to-4.github.io/) | [**Code**](https://github.com/Inception3D/Motion324) | [**Paper**](https://arxiv.org/abs/2601.14253)
+[**Project**](https://motion3-to-4.github.io/) | [**Paper**](https://arxiv.org/abs/2601.14253) | [**Code**](https://github.com/Inception3D/Motion324)
 - We present Motion 3-to-4, a feed-forward framework for monocular 4D object synthesis that decomposes dynamic geometry into canonical shape generation and motion reconstruction, learning compact motion latents to predict temporally coherent vertex trajectories.
 </div>
 </div>
@@ -78,7 +78,7 @@ Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †
 **Youjia Zhang**, Anpei Chen †, Yumin Wan, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang †  
 <span style="color:blue"><em>Computer Vision and Pattern Recognition (CVPR), 2025</em></span>
 
-[**Project**](https://ref-gs.github.io/) | [**Code**](https://github.com/YoujiaZhang/Ref-GS) | [**Slides**](images/CCIG2025-Spotlight-Ref-GS-youjiazhang@hust.edu.cn.pdf) | [**Poster**](images/Ref-GS-poster.pdf)
+[**Project**](https://ref-gs.github.io/) | [**Paper**](https://arxiv.org/abs/2412.00905) | [**Code**](https://github.com/YoujiaZhang/Ref-GS) | [**Slides**](images/CCIG2025-Spotlight-Ref-GS-youjiazhang@hust.edu.cn.pdf) | [**Poster**](images/Ref-GS-poster.pdf)
 - Ref-GS builds upon the deferred rendering of Gaussian splatting and applies directional encoding to the deferred-rendered surface, effectively reducing the ambiguity between orientation and viewing angle. We introduce a spherical Mip-grid to capture varying levels of surface roughness, enabling roughness-aware Gaussian shading.
 </div>
 </div>
@@ -91,11 +91,10 @@ Hongyuan Chen, Xingyu Chen, **Youjia Zhang**, Zexiang Xu, Anpei Chen †
 **Youjia Zhang**, Zikai Song, Junqing Yu, Yawei Luo, Wei Yang †  
 <span style="color:blue"><em>International Joint Conference on Artificial Intelligence (IJCAI), 2025</em></span>
 
-[**Project**](https://youjiazhang.github.io/USD/) | [**Code**](https://github.com/YoujiaZhang/USD)
+[**Project**](https://youjiazhang.github.io/USD/) | [**Paper**](https://arxiv.org/abs/2312.06198) | [**Code**](https://github.com/YoujiaZhang/USD)
 - We propose the USD, which achieves consistent single-to-multi-view synthesis and geometry recovery by using a radiance-field consistency prior and Unbiased Score Distillation—injecting unconditioned 2D diffusion noise to debias optimization—followed by a two-step, object-aware denoising process that yields high-quality views for accurate geometry and texture.
 </div>
 </div>
-
 
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">MICCAI 2025</div><img src='images/MICCAI2025.png' alt="sym" width="100%"></div></div>
@@ -173,7 +172,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang †
 **Youjia Zhang**, Teng Xu, Junqing Yu, Yuteng Ye, Yanqing Jing, Junle Wang, Jingyi Yu, Wei Yang †  
 <span style="color:blue"><em>International Conference on Computer Vision (ICCV), 2023</em></span>
 
-[**Project**](https://youjiazhang.github.io/NeMF/) | [**Code**](https://github.com/YoujiaZhang/NeMF)
+[**Project**](https://youjiazhang.github.io/NeMF/) | [**Paper**](https://arxiv.org/abs/2304.00782) | [**Code**](https://github.com/YoujiaZhang/NeMF)
 - We propose to conduct inverse volume rendering by representing a scene using microflake volume, which assumes the space is filled with infinite small flakes and light reflects or scattersat each spatial location according to microflake distributions.
 </div>
 </div>
@@ -186,7 +185,7 @@ Beibei Jing, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang †
 Renfeng Guo\*, **Youjia Zhang\***, Yuxuan Liao\*, Qiong Yang, Ting Xie, Xiaqiong Fan, Zhonglong Lin, Yi Chen, Hongmei Lu †, Zhimin Zhang †  
 <span style="color:blue"><em>Nature Communications Chemistry (JCR-Q1), 2023</em></span>
 
-[**Code**](https://github.com/YoujiaZhang/SigmaCCS)
+[**Paper**](https://www.nature.com/articles/s42004-023-00939-w) | [**Code**](https://github.com/YoujiaZhang/SigmaCCS)
 - We present SigmaCCS, a graph neural network-based method for CCS prediction from 3D conformers. It achieves high accuracy and chemical interpretability, enabling large-scale in-silico CCS estimation.
 </div>
 </div>
