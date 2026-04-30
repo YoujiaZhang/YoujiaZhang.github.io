@@ -30,12 +30,13 @@ I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), W
 **Equal contribution**$^\star$
 **Corresponding author**$^\dagger$
 
-<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICML 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
 [LATO: 3D Mesh Flow Matching with Structured TOpology Preserving LAtents](https://youjiazhang.github.io/)
 
 Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
+<span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
 
 [**Paper**](https://arxiv.org/pdf/2603.06357)
 - We propose LATO, a topology-aware latent representation for explicit mesh synthesis that encodes meshes as vertex displacement fields within a sparse voxel VAE and predicts edge connectivity from voxel latents, enabling efficient two-stage flow-matching generation of structured meshes.
