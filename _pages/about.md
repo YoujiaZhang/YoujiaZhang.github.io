@@ -21,8 +21,8 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), Westlake University, under the supervision of Prof. [Anpei Chen](https://apchenstu.github.io/).
 
 # Experience
-- *2026.04 - Present*, <img src='images/meshy_logo.png' style="width: 4em;"> Research Scientist Intern, Meshy AI.
-- *2025.09 - 2026.04*, <img src='images/inception3d_logo.png' style="width: 4em;"> Visiting Student at [Anpei Chen](https://apchenstu.github.io/)'s Group, Westlake University.
+- *2026.05 - Present*, <img src='images/meshy_logo.png' style="width: 3em;"> Research Scientist Intern, Meshy AI.
+- *2025.09 - 2026.04*, <img src='images/inception3d_logo.png' style="width: 3em;"> Visiting Student at [Anpei Chen](https://apchenstu.github.io/)'s Group, Westlake University.
 
 # Services
 - Conference Reviewer: CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, ICME, AISTATS, ICASSP.
