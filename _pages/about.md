@@ -43,7 +43,7 @@ Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Y
 <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
 
 [**Paper**](https://arxiv.org/pdf/2603.06357)
-- We propose LATO, a topology-aware latent representation for explicit mesh synthesis that encodes meshes as vertex displacement fields within a sparse voxel VAE and predicts edge connectivity from voxel latents, enabling efficient two-stage flow-matching generation of structured meshes.
+- We introduce LATO, a topology-preserving latent representation for scalable flow-matching-based generation of explicit 3D meshes. LATO encodes a mesh as a surface-anchored Vertex Displacement Field and reconstructs vertices through progressive voxel subdivision and pruning. For generation, LATO uses a two-stage flow matching process that first synthesizes structural voxels and then refines voxel-wise topology features.
 </div>
 </div>
 
