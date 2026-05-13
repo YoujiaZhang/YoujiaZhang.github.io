@@ -42,7 +42,7 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
 <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
 
-[**Paper**](https://arxiv.org/pdf/2603.06357)
+[**Project**](https://tianhaozhao668.github.io/LATO/) | [**Paper**](https://arxiv.org/pdf/2603.06357)
 - We introduce LATO, a topology-preserving latent representation for scalable flow-matching-based generation of explicit 3D meshes. LATO encodes a mesh as a surface-anchored Vertex Displacement Field and reconstructs vertices through progressive voxel subdivision and pruning. For generation, LATO uses a two-stage flow matching process that first synthesizes structural voxels and then refines voxel-wise topology features.
 </div>
 </div>
