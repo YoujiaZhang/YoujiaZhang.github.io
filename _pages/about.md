@@ -37,7 +37,7 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICML 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
-[LATO: 3D Mesh Flow Matching with Structured TOpology Preserving LAtents](https://youjiazhang.github.io/)
+[LATO: 3D Mesh Flow Matching with Structured TOpology Preserving LAtents](https://tianhaozhao668.github.io/LATO/)
 
 Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
 <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
@@ -47,6 +47,17 @@ Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Y
 </div>
 </div>
 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICML 2026</div><img src='images/prism.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[PRISM: Synergizing Vision Foundation Models via Self-organized Expert Specialization](https://youjiazhang.github.io/)
+
+Ying Tang, Dong Li, **Youjia Zhang**, Zikai Song, Junqing Yu, Wei Yang †    
+<span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
+
+- We introduce PRISM, a dual-stream Mixture-of-Experts framework synergizing VFMs via a two-stage paradigm: expertise deconstruction for interference-free expert specialization, and dynamic recomposition for task-specific routing.
+</div>
+</div>
 
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2025</div><img src='images/Jigsaw3D.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
