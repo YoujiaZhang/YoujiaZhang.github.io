@@ -21,8 +21,8 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 <!-- I am now a visiting student at [Inception3D Lab](http://www.inception3d.fun/), Westlake University, under the supervision of Prof. [Anpei Chen](https://apchenstu.github.io/). -->
 
 # Experience
-- *2026.05 - Present*, <img src='images/meshy_logo.png' style="width: 3em;"> Research Scientist Intern, Meshy AI.
-- *2025.09 - 2026.04*, <img src='images/inception3d_logo.png' style="width: 3em;"> Visiting Student at [Anpei Chen](https://apchenstu.github.io/)'s Group, Westlake University.
+- *2026.05 - Present*, <img src='images/meshy_logo.png' style="width: 2em;"> Research Scientist Intern, Meshy AI.
+- *2025.09 - 2026.04*, <img src='images/inception3d_logo.png' style="width: 2.5em;"> Visiting Student at [Anpei Chen](https://apchenstu.github.io/)'s Group, Westlake University.
 
 # Services
 - Conference Reviewer: CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, ICME, AISTATS, ICASSP.
@@ -42,7 +42,7 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 Tianhao Zhao\*, **Youjia Zhang\***, Hang Long, Jinshen Zhang, Wenbing Li, Yang Yang, Gongbo Zhang, Jozef Hladký, Matthias Nießner, Wei Yang †    
 <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span>
 
-[**Project**](https://tianhaozhao668.github.io/LATO/) | [**Paper**](https://arxiv.org/pdf/2603.06357)
+[**Project**](https://tianhaozhao668.github.io/LATO/) | [**Paper**](https://arxiv.org/pdf/2603.06357) | [**Code**](https://github.com/TianhaoZhao668/LATO)
 - We introduce LATO, a topology-preserving latent representation for scalable flow-matching-based generation of explicit 3D meshes. LATO encodes a mesh as a surface-anchored Vertex Displacement Field and reconstructs vertices through progressive voxel subdivision and pruning. For generation, LATO uses a two-stage flow matching process that first synthesizes structural voxels and then refines voxel-wise topology features.
 </div>
 </div>
