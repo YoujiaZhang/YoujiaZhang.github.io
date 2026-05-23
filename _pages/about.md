@@ -25,7 +25,7 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 - *2025.09 - 2026.04*, <img src='images/inception3d_logo.png' style="width: 2.5em;"> Visiting Student at [Anpei Chen](https://apchenstu.github.io/)'s Group, Westlake University.
 
 # Services
-- Conference Reviewer: CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, ICME, AISTATS, ICASSP.
+- Conference Reviewer: CVPR, ECCV, ICCV, NeurIPS, ICLR, ICML, SIGGRAPH Asia, ICME, AISTATS, ICASSP.
 - Journal Reviewer: TPAMI
 
 <span class='anchor' id='-publications'></span>
