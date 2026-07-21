@@ -39,11 +39,23 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 
 [LATO.2: Factorized 3D Mesh Generation with Vertex and Topology Flow](https://github.com/LoHhhha/LATO.2)
 
-Hang Long\*, Tianhao Zhao\*, Junkai Lin, Youjia Zhang, Huipeng Guo, Rendong Liang, Jiale Xu, Jozef Hladký, Matthias Nießner, Yuanming Hu, Wei Yang †
+Hang Long\*, Tianhao Zhao\*, Junkai Lin, **Youjia Zhang**, Huipeng Guo, Rendong Liang, Jiale Xu, Jozef Hladký, Matthias Nießner, Yuanming Hu, Wei Yang †
 <!-- <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span> -->
 
 [**Paper**](https://arxiv.org/abs/2607.10623) | [**Code**](https://github.com/LoHhhha/LATO.2)
 - We present LATO.2, a factorized flow-based framework for 3D mesh generation that disentangles continuous geometry and discrete topology. By modeling vertices and connectivity through separate but coordinated generation processes, LATO.2 enables high-fidelity mesh synthesis, scalable part-wise generation, and topology-aware editing.
+</div>
+</div>
+
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">ACMMM 2026</div><img src='images/MoVT.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[MoVT: Video-Augmented Motion Tokenizer for Text-to-Motion Generation](https://youjiazhang.github.io/)
+
+Beibei Jing, Tianle Guo, **Youjia Zhang**, Zikai Song, Yawei Luo, Junqing Yu, Tao Guan, Wei Yang †
+<!-- <span style="color:blue"><em>ACM International Conference on Multimedia (ACMMM), 2026</em></span> -->
+
+- We propose MoVT, a cross-modal motion tokenization framework that addresses the limited diversity of 3D motion data by exploiting large-scale human videos. MoVT learns enriched motion representations through 2D–3D token alignment and enables a more powerful masked transformer for text-conditioned 3D human motion generation.
 </div>
 </div>
 
