@@ -53,7 +53,7 @@ Hang Long\*, Tianhao Zhao\*, Junkai Lin, **Youjia Zhang**, Huipeng Guo, Rendong 
 [MoVT: Video-Augmented Motion Tokenizer for Text-to-Motion Generation](https://youjiazhang.github.io/)
 
 Beibei Jing, Tianle Guo, **Youjia Zhang**, Zikai Song, Yawei Luo, Junqing Yu, Tao Guan, Wei Yang †
-<!-- <span style="color:blue"><em>ACM International Conference on Multimedia (ACMMM), 2026</em></span> -->
+<span style="color:blue"><em>ACM International Conference on Multimedia (ACMMM), 2026</em></span>
 
 - We propose MoVT, a cross-modal motion tokenization framework that addresses the limited diversity of 3D motion data by exploiting large-scale human videos. MoVT learns enriched motion representations through 2D–3D token alignment and enables a more powerful masked transformer for text-conditioned 3D human motion generation.
 </div>
