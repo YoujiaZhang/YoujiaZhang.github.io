@@ -34,6 +34,19 @@ My name is Youjia Zhang (张由甲), a PhD Student at the [School of Computer Sc
 **Equal contribution**$^\star$
 **Corresponding author**$^\dagger$
 
+<div class='paper-box'><div class='paper-box-image'><div><div class="badge">arXiv 2026</div><img src='images/LATO2.png' alt="sym" width="100%"></div></div>
+<div class='paper-box-text' markdown="1">
+
+[LATO.2: Factorized 3D Mesh Generation with Vertex and Topology Flow](https://github.com/LoHhhha/LATO.2)
+
+Hang Long\*, Tianhao Zhao\*, Junkai Lin, Youjia Zhang, Huipeng Guo, Rendong Liang, Jiale Xu, Jozef Hladký, Matthias Nießner, Yuanming Hu, Wei Yang †
+<!-- <span style="color:blue"><em>International Conference on Machine Learning (ICML), 2026</em></span> -->
+
+[**Paper**](https://arxiv.org/abs/2607.10623) | [**Code**](https://github.com/LoHhhha/LATO.2)
+- We present LATO.2, a factorized flow-based framework for 3D mesh generation that disentangles continuous geometry and discrete topology. By modeling vertices and connectivity through separate but coordinated generation processes, LATO.2 enables high-fidelity mesh synthesis, scalable part-wise generation, and topology-aware editing.
+</div>
+</div>
+
 <div class='paper-box'><div class='paper-box-image'><div><div class="badge">ICML 2026</div><img src='images/LATO.png' alt="sym" width="100%"></div></div>
 <div class='paper-box-text' markdown="1">
 
